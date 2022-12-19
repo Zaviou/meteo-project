@@ -1,123 +1,126 @@
 #!/bin/bash
 #  \   `   |  ~   []  {}
 
-echo "Bienvenue dans CY-Météo !"
+echo "Welcome to CY-Météo !"
 
-trichoisi=0
-lieuchoisi=0
-fichier=0
-nomfichier=0
+# Initialisation of variables. Here, we use various integers to keep track of the user's choices and check for errors. 
+sort=0
+place=0
+file=0
+filename=0
 date1=0
 date2=0
-vent=0
-pression=0
-modepression=0
-humidite=0
+wind=0
+pressure=0
+pressuremode=0
+moisture=0
 temperature=0
-modetemperature=0
-altitude=0
+temperaturemode=0
+height=0
 
+# This loop runs until all the options and their arguments have been read. Inside, we specify what happens for each given option.
+# The string below is the list of the accepted options. They are followed by ':' if they need arguments.
 while getopts ":f:t:p:whmFGSAOQd:-:" option
 do
 	case $option in
-		-)
-			case "$OPTARG" in
-				avl)
-					if [ $trichoisi -ne 0 ]
-					then
-						echo "Erreur : Vous avez choisi deux options de tri."
+		-)                         # The hyphen is a special case, we used it here to handle long options like --help.
+			case "$OPTARG" in  #The first - says it is an option, the second - is the option itself, the rest is the argument of the - option.
+				avl)       # Hence the use of cases inside the case of -. 
+					if [ $sort -ne 0 ] # We use this test for each sorting option to know if the user already selected one.
+					then               # When a sorting option is selected, the value of the sort variable changes to a non-zero.
+						echo "Error : two different sorting modes were selected."
  						exit 1 
 					fi
-					trichoisi=1
-					echo "Tri AVL."
+					sort=1
+					echo "AVL sorting mode."
 					;;
 				abr)
-					if [ $trichoisi -ne 0 ]
+					if [ $sort -ne 0 ]
 					then
-						echo "Erreur : Vous avez choisi deux options de tri."
+						echo "Error : two different sorting modes were selected."
  						exit 1 
 					fi
-					trichoisi=2
-					echo "Tri ABR."
+					sort=2
+					echo "ABR sorting mode."
 					;;
 				tab)
-					if [ $trichoisi -ne 0 ]
+					if [ $sort -ne 0 ]
 					then
-						echo "Erreur : Vous avez choisi deux options de tri."
+						echo "Error : two different sorting modes were selected."
  						exit 1 
 					fi
-					trichoisi=3
-					echo "Tri tableau."
+					sort=3
+					echo "Array sorting mode."
 					;;
 				help)
-					echo "Ceci devrait vous aider."
+					echo "Help message."
 					exit 0
 					;;
-				*)
-					echo "Erreur : option non reconnue."
+				*)  # If the argument for the -- option is anything other than what is possible, an error occurs.
+					echo "Error : unknown option."
 					exit 1
 					;;
 			esac
 			;;	
-		f)
-			nomfichier=$OPTARG
-			fichier=1
+		f)  # The -f option handles the data file access. The user specifies the path to the file in its argument.
+			filename=$OPTARG
+			file=1
 			;;
-		t)
+		t)  # The temperature option. Again, we use cases because it needs a mode that is specified by the user in its argument.
 			temperature=1
 			case "$OPTARG" in
 				1)
-					modetemperature=1
+					temperaturemode=1
 					;;
 				2)
-					modetemperature=2
+					temperaturemode=2
 					;;
 				3)
-					modetemperature=3
+					temperaturemode=3
 					;;
-				*)
-					echo "Erreur : le mode pour la température n'a pas été spécifié ou est erroné."
+				*)  # The specified mode can only be 1,2 or 3. Anything else will cause an error.
+					echo "Error : temperature mode wasn't specified or is incorrect."
 					exit 1
 					;;
 			esac
 			;;
-		p)
-			pression=1
+		p) # The pressure option. Same structure as the -t option.
+			pressure=1
 			case "$OPTARG" in
 				1)
-					modepression=1
+					pressure mode=1
 					;;
 				2)
-					modepression=2
+					pressuremode=2
 					;;
 				3)
-					modepression=3
+					pressuremode=3
 					;;
 				*)
-					echo "Erreur : le mode pour la pression n'a pas été spécifié ou est erroné."
+					echo "Error : pressure mode wasn't specified or is incorrect."
 					exit 1
 					;;
 			esac
 			;;
-		w)
-			vent=1
+		w) # The wind option.
+			wind=1
 			;;
-		h)
-			altitude=1
+		h) # The height option.
+			height=1
 			;;
-		m)
-			humidite=1
+		m) # The moisture option.
+			moisture=1
 			;;
-		d)
-			lg=${#OPTARG}
-			if [ $lg -ne 20 ]
+		d)                            # The time option.Two dates are to be given by the user in this format : YYYY-MM-DDYYYY-MM-DD.
+			lenght=${#OPTARG}     # It is a time interval, the first date needs to come before the second.
+			if [ $lenght -ne 20 ] # If the format is incorrect or if the first date comes after the second, an error occurs.
 			then
-				echo "Erreur : format des dates incorrect pour l'option d (longueur)."
+				echo "Error : format of given dates is incorrect for the -d option (lenght)."
  				exit 1 
 			fi
 			if [ ${OPTARG:4:1} != "-" ] || [ ${OPTARG:7:1} != "-" ] || [ ${OPTARG:14:1} != "-" ] || [ ${OPTARG:17:1} != "-" ]
 			then
-				echo "Erreur : format des dates incorrect pour l'option d (tirets)."
+				echo "Error : format of given dates is incorrect for the -d option (hyphens)."
  				exit 1
 			fi
 
@@ -126,21 +129,21 @@ do
 
 			if [ ${date1:0:4} -gt ${date2:0:4} ]
 			then
-				echo "Erreur : la première date est après la seconde."
+				echo "Error : the first date comes after the second."
 				exit 1
 			else 
 				if [ ${date1:0:4} -eq ${date2:0:4} ]
 				then
 					if [ ${date1:5:2} -gt ${date2:5:2} ]
 					then
-						echo "Erreur : la première date est après la seconde."
+						echo "Error : the first date comes after the second."
 						exit 1
 					else
 						if [ ${date1:5:2} -eq ${date2:5:2} ]
 						then
 							if [ ${date1:8:2} -gt ${date2:8:2} ]
 							then
-								echo "Erreur : la première date est après la seconde."
+								echo "Error : the first date comes after the second."
 								exit 1
 							fi
 						fi
@@ -148,80 +151,79 @@ do
 				fi
 			fi
 			;;
-		F)
-			if [ $lieuchoisi -ne 0 ]
+		F) # The options for places. As with sorting modes, the user cannot select two.
+			if [ $place -ne 0 ]
 			then
-				echo "Erreur : Vous avez choisi deux lieux différents."
+				echo "Error : two different places were selected."
  				exit 1 
 			fi
-			lieuchoisi=1
-			echo "Vous avez choisi le lieu F."
+			place=1
+			echo "You chose France."
 			;;		
 		G)
-			if [ $lieuchoisi -ne 0 ]
+			if [ $place -ne 0 ]
 			then
-				echo "Erreur : Vous avez choisi deux lieux différents."
+				echo "Error : two different places were selected."
  				exit 1 
 			fi
-			lieuchoisi=2
-			echo "Vous avez choisi le lieu G."
+			place=2
+			echo "You chose french Guiana."
 			;;
 		S)
-			if [ $lieuchoisi -ne 0 ]
+			if [ $place -ne 0 ]
 			then
-				echo "Erreur : Vous avez choisi deux lieux différents."
+				echo "Error : two different places were selected."
  				exit 1 
 			fi
-			lieuchoisi=3
-			echo "Vous avez choisi le lieu S."
+			place=3
+			echo "You chose Saint-Pierre et Miquelon."
 			;;
 		A)
-			if [ $lieuchoisi -ne 0 ]
+			if [ $place -ne 0 ]
 			then
-				echo "Erreur : Vous avez choisi deux lieux différents."
+				echo "Error : two different places were selected."
  				exit 1 
 			fi
-			lieuchoisi=4
-			echo "Vous avez choisi le lieu A."
+			place=4
+			echo "You chose the West Indies."
 			;;
 		O)
-			if [ $lieuchoisi -ne 0 ]
+			if [ $place -ne 0 ]
 			then
-				echo "Erreur : Vous avez choisi deux lieux différents."
+				echo "Error : two different places were selected."
  				exit 1 
 			fi
-			lieuchoisi=5
-			echo "Vous avez choisi le lieu O."
+			place=5
+			echo "You chose the Indian Ocean."
 			;;
 		Q)
-			if [ $lieuchoisi -ne 0 ]
+			if [ $place -ne 0 ]
 			then
-				echo "Erreur : Vous avez choisi deux lieux différents."
+				echo "Error : two different places were selected."
  				exit 1 
 			fi
-			lieuchoisi=6
-			echo "Vous avez choisi le lieu Q."
+			place=6
+			echo "You chose Antarctica."
 			;;
-		?)
-			echo "Erreur : option non reconnue ou requiert un argument. ($OPTARG)"
+		?) # This case is special for everything that is not in the list of accepted options. Accepted options without needed arguments also count.
+			echo "Error : unknown option or need for argument. ($OPTARG)"
 			exit 1
 			;;
 	esac
 done
 
-if [ $fichier -eq 0 ]
+if [ $file -eq 0 ] # The user needs to use the -f option. If he doesn't, an error occurs.
 then
-	echo "Erreur : vous n'avez pas renseigné l'option obligatoire -f."
+	echo "Error : -f option is mandatory."
 	exit 1
 fi
 
-if [ $trichoisi -eq 0 ]
+if [ $sort -eq 0 ] # Same for a sorting mode.
 then
-	echo "Erreur : vous n'avez pas spécifié d'option de tri."
+	echo "Error : a sort option is mandatory."
 	exit 1
 fi
 
-
-
-echo "Traitement terminé."
+# If no error occured, then the program comes to its end with a 0 exit.
+echo "The program executed successfully."
 exit 0
