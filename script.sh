@@ -5,9 +5,12 @@ echo "Welcome to CY-Météo !"
 
 # Initialisation of variables. Here, we use various integers to keep track of the user's choices and check for errors. 
 sort=0
+descendingsort=0
 place=0
 file=0
 filename=0
+output=0
+outputname=0
 date1=0
 date2=0
 wind=0
@@ -20,7 +23,7 @@ height=0
 
 # This loop runs until all the options and their arguments have been read. Inside, we specify what happens for each given option.
 # The string below is the list of the accepted options. They are followed by ':' if they need arguments.
-while getopts ":f:t:p:whmFGSAOQd:-:" option
+while getopts ":f:t:p:whmFGSAOQd:-:o:r" option
 do
 	case $option in
 		-)                         # The hyphen is a special case, we used it here to handle long options like --help.
@@ -62,9 +65,16 @@ do
 					;;
 			esac
 			;;	
-		f)  # The -f option handles the data file access. The user specifies the path to the file in its argument.
+		f)  # The -f option handles access to the data file. The user specifies the path to the file in its argument.
 			filename=$OPTARG
 			file=1
+			;;
+		o)  # The -o option handles the output files' path.
+			outputname=$OPTARG
+			output=1
+			;;
+		r)  # If a descending sort is selected with -r, the associated variable goes from 0 to 1.
+			descendingsort=1
 			;;
 		t)  # The temperature option. Again, we use cases because it needs a mode that is specified by the user in its argument.
 			temperature=1
@@ -88,7 +98,7 @@ do
 			pressure=1
 			case "$OPTARG" in
 				1)
-					pressure mode=1
+					pressuremode=1
 					;;
 				2)
 					pressuremode=2
@@ -218,10 +228,21 @@ then
 	exit 1
 fi
 
-if [ $sort -eq 0 ] # Same for a sorting mode.
+if [ $output -eq 0 ] # The user needs to use the -o option. If he doesn't, an error occurs.
 then
-	echo "Error : a sort option is mandatory."
+	echo "Error : -o option is mandatory."
 	exit 1
+fi
+
+if [ $sort -eq 0 ] # If the user does not chose a type of sort, AVL is selectionned by default.  
+then
+	sort=1
+fi
+
+if [ $temperature -eq 0 ] && [ $pressure -eq 0 ] && [ $wind -eq 0 ] && [ $height -eq 0 ] && [ $moisture -eq 0 ]
+then
+	echo "Error : one option is at least needed between -t -p -w -h -m."
+ 	exit 1
 fi
 
 # If no error occured, then the program comes to its end with a 0 exit.
