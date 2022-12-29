@@ -9,8 +9,6 @@ descendingsort=0
 place=0
 file=0
 filename=0
-output=0
-outputname=0
 date1=0
 date2=0
 wind=0
@@ -68,10 +66,6 @@ do
 		f)  # The -f option handles access to the data file. The user specifies the path to the file in its argument.
 			filename=$OPTARG
 			file=1
-			;;
-		o)  # The -o option handles the output files' path.
-			outputname=$OPTARG
-			output=1
 			;;
 		r)  # If a descending sort is selected with -r, the associated variable goes from 0 to 1.
 			descendingsort=1
@@ -225,12 +219,6 @@ done
 if [ $file -eq 0 ] # The user needs to use the -f option. If he doesn't, an error occurs.
 then
 	echo "Error : -f option is mandatory."
-	exit 1
-fi
-
-if [ $output -eq 0 ] # The user needs to use the -o option. If he doesn't, an error occurs.
-then
-	echo "Error : -o option is mandatory."
 	exit 1
 fi
 
