@@ -1,0 +1,17 @@
+Infos localisations :
+
+France métropolitaine + Corse : On prend toutes les stations qui sont en Europe ; numéros de 00001 à 40349
+Saint-Pierre et Miquelon      : 1 station ; St-Pierre (71805)
+Antarctique                   : 1 station ; Dumont d'Urville (89642)
+Guyane française              : On prend toutes les stations en Amérique du Sud ; numéros de 80001 à 88998
+Océan Indien                  : 3 stations ; Saint-Martin de Viviès (61996) ; Terres Australes Antarctiques françaises (61998) ; Base Alfred Faure (61997)
+                                Question : est-ce qu'on inclut Madagascar dedans ? Si oui, il y aura des stations à rajouter.
+Antilles                      : 5 stations ; St-Barthélémy (78894) ; La désirade (78890) ; Le Raizet (78897) ; Lamentin (78925) ; Trinité-Caravel (78922)
+
+Question : Est-ce qu'on fait en sorte que le script shell filtre en amont avec les bons lieux et dates, ou que ce soit le C qui fasse le tri ?
+
+
+Comment traiter un fichier au fur et à mesure de la lecture en C ? 
+(Ils le demandent dans l'énoncé.)
+
+Lire et pouvoir traiter un fichier ligne par ligne : https://stackoverflow.com/questions/3501338/c-read-file-line-by-line
