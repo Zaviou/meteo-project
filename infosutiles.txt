@@ -1,4 +1,9 @@
+
+
+
 Infos localisations :
+(voir le site donné à la fin de l'énoncé ; sur la carte, on peut cliquer plusieurs fois sur les stations et finir par voir leur ID ; pour les intervalles de numéros de certaines régions, je les ai pris dans un PDF de références donné sur le site.) 
+
 
 France métropolitaine + Corse : On prend toutes les stations qui sont en Europe ; numéros de 00001 à 40349
 Saint-Pierre et Miquelon      : 1 station ; St-Pierre (71805)
@@ -8,7 +13,17 @@ Océan Indien                  : 3 stations ; Saint-Martin de Viviès (61996) ; 
                                 Question : est-ce qu'on inclut Madagascar dedans ? Si oui, il y aura des stations à rajouter.
 Antilles                      : 5 stations ; St-Barthélémy (78894) ; La désirade (78890) ; Le Raizet (78897) ; Lamentin (78925) ; Trinité-Caravel (78922)
 
+
+
 Question : Est-ce qu'on fait en sorte que le script shell filtre en amont avec les bons lieux et dates, ou que ce soit le C qui fasse le tri ?
+
+           Après réflexion, je suis parti dans la direction de faire que ce soit le script shell qui filtre ça. Ca a l'air plus en accord avec l'énoncé. Dites-            moi si vous voulez faire autrement.
+
+
+Question : Normalement, l'énoncé dit qu'il y a seulement 4 arguments pour l'appel du C : le -f, le -o, le -r et le mode de tri. Mon problème est que je ne vois            pas trop comment faire pour que le C produise tout le temps les bons fichiers si on ne lui dit pas précisément par exemple qu'on est en température              mode 3 ou pression mode 2, car les colonnes à trier et la manière de les triers ne sont pas tout le temps identiques. J'aimerais donc savoir si je              peux faire prendre d'autres arguments (la grosse liste argv au début de mon fichier .c) au C pour pouvoir lui indiquer tout cela, bien que l'énoncé              ne mentionne que 4 arguments.  
+
+           Je suis pour l'instant parti dans la direction de donner d'autres arguments au C, je pense que je vais être bloqué longtemps si je ne le fais pas.
+
 
 
 Comment traiter un fichier au fur et à mesure de la lecture en C ? 
