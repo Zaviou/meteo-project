@@ -1,10 +1,12 @@
 
+1) ZONES GEOGRAPHIQUES ET NUMEROS DE STATIONS (ID OMM)
 
+(voir le site donné à la fin de l'énoncé ; sur la carte, on peut cliquer plusieurs fois sur les stations et finir par voir leur ID ; pour les intervalles de numéros de certaines régions, je les ai pris dans un PDF de références donné sur le site.
+Site en question :
+https://public.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm/map/?sort=date&location=2,-15.59255,29.08223&basemap=jawg.light
+Le PDF est dans "pièces jointes" dans l'onglet "informations". La page utile précise est aux environs de la 460, au début de la section D. )
 
-Infos localisations :
-(voir le site donné à la fin de l'énoncé ; sur la carte, on peut cliquer plusieurs fois sur les stations et finir par voir leur ID ; pour les intervalles de numéros de certaines régions, je les ai pris dans un PDF de références donné sur le site.) 
-
-
+(
 France métropolitaine + Corse : On prend toutes les stations qui sont en Europe ; numéros de 00001 à 40349
 Saint-Pierre et Miquelon      : 1 station ; St-Pierre (71805)
 Antarctique                   : 1 station ; Dumont d'Urville (89642)
@@ -12,13 +14,58 @@ Guyane française              : On prend toutes les stations en Amérique du Su
 Océan Indien                  : 3 stations ; Saint-Martin de Viviès (61996) ; Terres Australes Antarctiques françaises (61998) ; Base Alfred Faure (61997)
                                 Question : est-ce qu'on inclut Madagascar dedans ? Si oui, il y aura des stations à rajouter.
 Antilles                      : 5 stations ; St-Barthélémy (78894) ; La désirade (78890) ; Le Raizet (78897) ; Lamentin (78925) ; Trinité-Caravel (78922)
+)
+
+MISE A JOUR :
+
+6 stations à Madagascar ; Europa (61972) ; Juan de Nova (61970) ; Pamandzi (67005) ; Glorieuses (61968) ; Tromelin (61976) ; Gillot-Aéroport (61980)
+
+Avec toutes ces stations dans l'océan Indien, ça ne sera pas très pratique de faire une condition == pour chaque ID de station, et même pour les Antilles avec juste 5 ce serait chiant. Je ferais donc le filtrage des lieux de cette façon si c'était à moi de le faire :
+
+France métropolitaine + Corse : On prend toutes les stations qui sont en Europe ; numéros de 00001 à 40349
+Saint-Pierre et Miquelon      : 1 station ; St-Pierre (71805)
+Antarctique                   : 1 station ; Dumont d'Urville (89642)
+Guyane française              : On prend toutes les stations en Amérique du Sud ; numéros de 80001 à 88998
+Océan Indien                  : On prend toutes les stations qui ont leur numéro de 61000 à 67006
+Antilles                      : On prend toutes les stations qui ont leur numéro de 78000 à 79000
 
 
+2) FICHIER METEO
+
+Le fichier meteo_filtered_data_v1 est un fichier CSV. Le séparateur est ;
+Il y a plusieurs colonnes (champs) qui correspondent chacune à une information précise pour une mesure météorologique d'une station. Chaque ligne est ainsi une mesure prise par une station. Une station peut avoir plusieurs mesures, c'est même souvent le cas.
+
+Les champs sont les suivants :
+
+Champ 1 : ID OMM station                              - Nombre à 5 chiffres. (str) (1)
+Champ 2 : Date                                        - Format de la forme 2010-01-05T10:00:00+01:00 (str)
+Champ 3 : Pression au niveau mer                      - en Pa (int)
+Champ 4 : Direction du vent moyenne sur 10 mn         - en degrés (int) (2)
+Champ 5 : Vitesse du vent moyenne sur 10 mn           - en m/s (float)
+Champ 6 : Humidité                                    - en % (int)
+Champ 7 : Pression station                            - en Pa (float)
+Champ 8 : Variation de pression en 24 heures          - en Pa (float)
+Champ 9 : Précipitations dans les 24 dernières heures - en mm (float)
+Champ 10 : Coordonnees                                - sous la forme de deux (float) séparés par une , 
+Champ 11 : Température                                - en °C (float)
+Champ 12 : Température minimale sur 24 heures         - en °C (float)
+Champ 13 : Température maximale sur 24 heures         - en °C (float)
+Champ 14 : Altitude                                   - en m (int)
+Champ 15 : Code commune quand il y en a un            - Formats divers (str)
+
+De ce que j'ai vu, les champs 3,8,9,10,15 ne sont pas du tout utiles pour ce que demande l'énoncé.
+
+(1) : C'est mieux de considérer et de coder en considérant que l'ID est une chaîne de caractères car parfois, il commence par un 0, et donc si on stocke par exemple 07111 en ID en nombre entier, le programme va sortir un 7111 quand on le lui demandera.
+(2) : Pour le vent, il est modélisé par une orientation et une vitesse. On peut penser ça comme un vecteur sur un plan (O,x,y), une flèche avec un sens (orientation) et une norme (vitesse). Je note ça car j'ai été confus par l'énoncé qui parlait de moyennes sur les axes x et y, j'ai cru que je devais chercher une vitesse de vent pour x et une pour y.
+
+3) QUESTIONS DIVERSES
 
 Question : 
 Est-ce qu'on fait en sorte que le script shell filtre en amont avec les bons lieux et dates, ou que ce soit le C qui fasse le tri ?
 
 Après réflexion, je suis parti dans la direction de faire que ce soit le script shell qui filtre ça. Ca a l'air plus en accord avec l'énoncé. Dites-moi si vous voulez faire autrement.
+
+RESOLU : Le shell filtre.
 
 
 Question : 
@@ -26,9 +73,13 @@ Normalement, l'énoncé dit qu'il y a seulement 4 arguments pour l'appel du C : 
 
 Je suis pour l'instant parti dans la direction de donner d'autres arguments au C, je pense que je vais être bloqué longtemps si je ne le fais pas.
 
+RESOLU : éventuellement faire faire par le shell une ligne en plus en début de fichier pour indiquer au C tous les paramètre qu'on veut. On respectera ainsi l'énoncé en ne mettant que les 4 options lors de l'appel du C.
 
 
+Question :
 Comment traiter un fichier au fur et à mesure de la lecture en C ? 
 (Ils le demandent dans l'énoncé.)
 
 Lire et pouvoir traiter un fichier ligne par ligne : https://stackoverflow.com/questions/3501338/c-read-file-line-by-line
+
+MISE A JOUR : J'ai trouvé (il semble) un moyen un peu plus simple que ceux que les gens mettent sur ce fil de discussion. Je pourrai l'expliquer si vous en avez besoin.
