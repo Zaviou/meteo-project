@@ -5,11 +5,13 @@ TEMPERATURE FUNCTIONS
 ------------------------------------------------------------
 */
 
+
 /*
 ------------------------------------------------------------
 MODE 1
 ------------------------------------------------------------
 */
+
 
 /*
 This function is used to know the lenght of a linked list.
@@ -23,11 +25,13 @@ int tabT1sort1(FILE* o,NODE_T1* l) ;
 
 int tabT1sort2(FILE* o,NODE_T1* l) ;
 
+
 /*
 ------------------------------------------------------------
 MODE 2
 ------------------------------------------------------------
 */
+
 
 /*
 This function is used to know the lenght of a linked list.
@@ -46,6 +50,7 @@ int tabT2sort2(FILE* o,NODE_T2* l) ;
 MODE 3
 ------------------------------------------------------------
 */
+
 
 /*
 This function is used to know the lenght of a linked list.
@@ -71,6 +76,8 @@ PRESSURE FUNCTIONS
 MODE 1
 ------------------------------------------------------------
 */
+
+
 /*
 This function is used to know the lenght of a linked list.
 * l : the linked list (NODE_P1*).
@@ -88,6 +95,7 @@ int tabP1sort2(FILE* o,NODE_P1* l) ;
 MODE 2
 ------------------------------------------------------------
 */
+
 
 /*
 This function is used to know the lenght of a linked list.
@@ -126,6 +134,7 @@ WIND FUNCTIONS
 ------------------------------------------------------------
 */
 
+
 /*
 This function is used to know the lenght of a linked list.
 * l : the linked list (NODE_W*).
@@ -145,6 +154,7 @@ HEIGHT FUNCTIONS
 ------------------------------------------------------------
 */
 
+
 /*
 This function is used to know the lenght of a linked list.
 * l : the linked list (NODE_H*).
@@ -162,6 +172,7 @@ int tabHsort2(FILE* o,NODE_H* l) ;
 MOISTURE FUNCTIONS
 ------------------------------------------------------------
 */
+
 
 /*
 This function is used to know the lenght of a linked list.

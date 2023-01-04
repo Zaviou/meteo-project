@@ -121,6 +121,7 @@ NODE_T1* linkedlist_T1(FILE* f){
     l=averagingNODE_T1(l);
     return l;
 }
+
 /*
 ------------------------------------------
 MODE 2
