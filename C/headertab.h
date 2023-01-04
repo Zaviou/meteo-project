@@ -1,5 +1,15 @@
-#include "commun.c"
 
+/*
+------------------------------------------------------------
+TEMPERATURE FUNCTIONS
+------------------------------------------------------------
+*/
+
+/*
+------------------------------------------------------------
+MODE 1
+------------------------------------------------------------
+*/
 
 /*
 This function is used to know the lenght of a linked list.
@@ -14,6 +24,12 @@ int tabT1sort1(FILE* o,NODE_T1* l) ;
 int tabT1sort2(FILE* o,NODE_T1* l) ;
 
 /*
+------------------------------------------------------------
+MODE 2
+------------------------------------------------------------
+*/
+
+/*
 This function is used to know the lenght of a linked list.
 * l : the linked list (NODE_T2*).
 * Returns the lenght of l (int).
@@ -24,6 +40,12 @@ int getlenghtNODE_T2(NODE_T2* l) ;
 int tabT2sort1(FILE* o,NODE_T2* l) ;
 
 int tabT2sort2(FILE* o,NODE_T2* l) ;
+
+/*
+------------------------------------------------------------
+MODE 3
+------------------------------------------------------------
+*/
 
 /*
 This function is used to know the lenght of a linked list.
@@ -39,6 +61,17 @@ int tabT3sort2(FILE* o,NODE_T3* l) ;
 
 
 /*
+------------------------------------------------------------
+PRESSURE FUNCTIONS
+------------------------------------------------------------
+*/
+
+/*
+------------------------------------------------------------
+MODE 1
+------------------------------------------------------------
+*/
+/*
 This function is used to know the lenght of a linked list.
 * l : the linked list (NODE_P1*).
 * Returns the lenght of l (int).
@@ -49,6 +82,12 @@ int getlenghtNODE_P1(NODE_P1* l) ;
 int tabP1sort1(FILE* o,NODE_P1* l) ;
 
 int tabP1sort2(FILE* o,NODE_P1* l) ;
+
+/*
+------------------------------------------------------------
+MODE 2
+------------------------------------------------------------
+*/
 
 /*
 This function is used to know the lenght of a linked list.
@@ -63,6 +102,12 @@ int tabP2sort1(FILE* o,NODE_P2* l) ;
 int tabP2sort2(FILE* o,NODE_P2* l) ;
 
 /*
+------------------------------------------------------------
+MODE 3
+------------------------------------------------------------
+*/
+
+/*
 This function is used to know the lenght of a linked list.
 * l : the linked list (NODE_P3*).
 * Returns the lenght of l (int).
@@ -73,6 +118,13 @@ int getlenghtNODE_P3(NODE_P3* l) ;
 int tabP3sort1(FILE* o,NODE_P3* l) ;
 
 int tabP3sort2(FILE* o,NODE_P3* l) ;
+
+
+/*
+------------------------------------------------------------
+WIND FUNCTIONS
+------------------------------------------------------------
+*/
 
 /*
 This function is used to know the lenght of a linked list.
@@ -86,6 +138,13 @@ int tabWsort1(FILE* o,NODE_W* l) ;
 
 int tabWsort2(FILE* o,NODE_W* l) ;
 
+
+/*
+------------------------------------------------------------
+HEIGHT FUNCTIONS
+------------------------------------------------------------
+*/
+
 /*
 This function is used to know the lenght of a linked list.
 * l : the linked list (NODE_H*).
@@ -97,6 +156,12 @@ int getlenghtNODE_H(NODE_H* l) ;
 int tabHsort1(FILE* o,NODE_H* l) ;
 
 int tabHsort2(FILE* o,NODE_H* l) ;
+
+/*
+------------------------------------------------------------
+MOISTURE FUNCTIONS
+------------------------------------------------------------
+*/
 
 /*
 This function is used to know the lenght of a linked list.

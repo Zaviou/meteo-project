@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "tab.c"
 
 /*
 ------------------------------------------------------------
@@ -107,7 +108,7 @@ It is specifically used when temperature with mode 3 was chosen.
 */
 typedef struct NODE_T3{
 
-    STATION_T3 s;
+    MEASURE_T3 m;
     struct NODE_T3* next;
 
 }NODE_T3;
@@ -198,7 +199,7 @@ typedef struct MEASURE_P3{
     int month;
     int day;
     int hour;
-    int pressure;
+    float pressure;
 
 }MEASURE_P3;
 
@@ -211,7 +212,7 @@ It is specifically used when pressure with mode 3 was chosen.
 */
 typedef struct NODE_P3{
 
-    STATION_P3 s;
+    MEASURE_P3 m;
     struct NODE_P3* next;
 
 }NODE_P3;
@@ -400,12 +401,13 @@ void freeNODE_T3(NODE_T3* l) ;
 /*
 
 */
-int inlistNODE_T3(NODE_T3* l,int id) ;
+NODE_T3* addNODE_T3(NODE_T3* l,int id,int year,int month, int day, int hour, float temperature) ;
 
-/*
+int chronologicalorder_T3(MEASURE_T3 d1,MEASURE_T3 d2) ;
 
-*/
-NODE_T3* addNODE_T3(NODE_T3* l,int id, int height) ;
+void producestring_T3(FILE* o,MEASURE_T3 measure) ;
+
+NODE_T3* linkedlist_T3(FILE* f) ;
 
 
 /*
@@ -493,13 +495,13 @@ void freeNODE_P3(NODE_P3* l) ;
 /*
 
 */
-int inlistNODE_P3(NODE_P3* l,int id) ;
+NODE_P3* addNODE_P3(NODE_P3* l,int id,int year,int month, int day, int hour, float pressure) ;
 
-/*
+int chronologicalorder_P3(MEASURE_P3 d1,MEASURE_P3 d2) ;
 
-*/
-NODE_P3* addNODE_P3(NODE_P3* l,int id, int height) ;
+void producestring_P3(FILE* o,MEASURE_P3 measure) ;
 
+NODE_P3* linkedlist_P3(FILE* f) ;
 
 /*
 ------------------------------------------------------------

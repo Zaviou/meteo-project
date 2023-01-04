@@ -1,6 +1,21 @@
 #include "headertab.h"
 
+/*
+------------------------------------------------------------
+TEMPERATURE FUNCTIONS
+------------------------------------------------------------
+*/
+
+/*
+------------------------------------------------------------
+MODE 1
+------------------------------------------------------------
+*/
+
 int getlenghtNODE_T1(NODE_T1* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
     int n;
     if(l==NULL){
         return 0;
@@ -15,20 +30,24 @@ int getlenghtNODE_T1(NODE_T1* l){
 
 
 int tabT1sort1(FILE* o,NODE_T1* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
     int i;
     int lenght=getlenghtNODE_T1(l);
-    NODE_T1* l0=l;                                             // We keep the linked list in a variable to be able to free it later. 
+    NODE_T1* l0=l;                                             
     STATION_T1* list=malloc(lenght*sizeof(STATION_T1));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          // Each element of the linked list (which lenght was determined) is directly put in a static list.
+        *(list+i)=l0->s;                                          
         l0=l0->next;
     }
     freeNODE_T1(l);
-    // STEP 3 : Sorting by maximal moisture level (default is descending sort, so using -r will make it ascending)
-    // A bubble sort is applied on the stations' IDs.
+    // STEP 2 : Sorting by station ID (ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the IDs of two adjacents structures not being in the right order.
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -45,11 +64,13 @@ int tabT1sort1(FILE* o,NODE_T1* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
+    // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
     // Format : "Station ID;minimal temperature;maximal temperature;average temperature"
+    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
     fprintf(o,"Station ID;minimal temperature;maximal temperature;average temperature\n");
-    for(i=0;i<lenght;i++){                                   // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999.
+    for(i=0;i<lenght;i++){                                   
         if((*(list+i)).id <= 9999){
             fprintf(o,"0%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
         }
@@ -62,20 +83,18 @@ int tabT1sort1(FILE* o,NODE_T1* l){
 }
 
 int tabT1sort2(FILE* o,NODE_T1* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // This function works the same as tabT1sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_T1(l);
-    NODE_T1* l0=l;                                             // We keep the linked list in a variable to be able to free it later. 
+    NODE_T1* l0=l;                                              
     STATION_T1* list=malloc(lenght*sizeof(STATION_T1));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          // Each element of the linked list (which lenght was determined) is directly put in a static list.
+        *(list+i)=l0->s;                                          
         l0=l0->next;
     }
     freeNODE_T1(l);
-    // STEP 3 : Sorting by maximal moisture level (default is descending sort, so using -r will make it ascending)
-    // A bubble sort is applied on the stations' IDs.
+
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -92,11 +111,9 @@ int tabT1sort2(FILE* o,NODE_T1* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
-    // Each element of the sorted list is then written in the output file.
-    // Format : "Station ID;minimal temperature;maximal temperature;average temperature"
+
     fprintf(o,"Station ID;minimal temperature;maximal temperature;average temperature\n");
-    for(i=0;i<lenght;i++){                                   // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999.
+    for(i=0;i<lenght;i++){                                   
         if((*(list+i)).id <= 9999){
             fprintf(o,"0%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
         }
@@ -108,7 +125,16 @@ int tabT1sort2(FILE* o,NODE_T1* l){
     return 0;
 }
 
+/*
+------------------------------------------------------------
+MODE 2
+------------------------------------------------------------
+*/
+
 int getlenghtNODE_T2(NODE_T2* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
     int n;
     if(l==NULL){
         return 0;
@@ -122,8 +148,11 @@ int getlenghtNODE_T2(NODE_T2* l){
 }
 
 int tabT2sort1(FILE* o,NODE_T2* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
     int i;
     int lenght=getlenghtNODE_T2(l);
     NODE_T2* l0=l;                                              
@@ -134,8 +163,9 @@ int tabT2sort1(FILE* o,NODE_T2* l){
         l0=l0->next;
     }
     freeNODE_T2(l);
-    // STEP 3 : Sorting by chronological order.
-    // A bubble sort is applied on the dates.
+    // STEP 2 : Sorting by chronological order (ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the dates of two adjacents structures not being in the right order.
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -152,9 +182,11 @@ int tabT2sort1(FILE* o,NODE_T2* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
+    // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
     // Format : "Time (UTC) ; average temperature (world)"
+    // A special function is used to write each line because writing dates and times with ints is lenghty.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
     fprintf(o,"Time;average temperature\n");
     for(i=0;i<lenght;i++){                                  
         producestring_T2(o,*(list+i)); 
@@ -165,8 +197,7 @@ int tabT2sort1(FILE* o,NODE_T2* l){
 
 
 int tabT2sort2(FILE* o,NODE_T2* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // This function works the same as tabT2sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_T2(l);
     NODE_T2* l0=l;                                              
@@ -177,8 +208,7 @@ int tabT2sort2(FILE* o,NODE_T2* l){
         l0=l0->next;
     }
     freeNODE_T2(l);
-    // STEP 3 : Sorting by chronological order.
-    // A bubble sort is applied on the dates.
+
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -195,9 +225,7 @@ int tabT2sort2(FILE* o,NODE_T2* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
-    // Each element of the sorted list is then written in the output file.
-    // Format : "Time (UTC) ; average temperature (world)"
+
     fprintf(o,"Time;average temperature\n");
     for(i=0;i<lenght;i++){                                  
         producestring_T2(o,*(list+i)); 
@@ -206,7 +234,28 @@ int tabT2sort2(FILE* o,NODE_T2* l){
     return 0;
 }
 
+/*
+------------------------------------------------------------
+MODE 3
+------------------------------------------------------------
+*/
+
+/*
+------------------------------------------------------------
+PRESSURE FUNCTIONS
+------------------------------------------------------------
+*/
+
+/*
+------------------------------------------------------------
+MODE 1
+------------------------------------------------------------
+*/
+
 int getlenghtNODE_P1(NODE_P1* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
     int n;
     if(l==NULL){
         return 0;
@@ -220,20 +269,24 @@ int getlenghtNODE_P1(NODE_P1* l){
 }
 
 int tabP1sort1(FILE* o,NODE_P1* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
     int i;
     int lenght=getlenghtNODE_P1(l);
-    NODE_P1* l0=l;                                             // We keep the linked list in a variable to be able to free it later. 
+    NODE_P1* l0=l;                                              
     STATION_P1* list=malloc(lenght*sizeof(STATION_P1));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          // Each element of the linked list (which lenght was determined) is directly put in a static list.
+        *(list+i)=l0->s;                                         
         l0=l0->next;
     }
     freeNODE_P1(l);
-    // STEP 3 : Sorting (default is descending sort, so using -r will make it ascending)
-    // A bubble sort is applied on the stations' IDs.
+    // STEP 2 : Sorting by station ID (ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the IDs of two adjacents structures not being in the right order.
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -250,11 +303,13 @@ int tabP1sort1(FILE* o,NODE_P1* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
+    // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
     // Format : "Station ID;minimal pressure;maximal pressure;average pressure"
+    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
     fprintf(o,"Station ID;minimal pressure;maximal pressure;average pression\n");
-    for(i=0;i<lenght;i++){                                   // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999.
+    for(i=0;i<lenght;i++){                                   
         if((*(list+i)).id <= 9999){
             fprintf(o,"0%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
         }
@@ -267,20 +322,18 @@ int tabP1sort1(FILE* o,NODE_P1* l){
 }
 
 int tabP1sort2(FILE* o,NODE_P1* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // This function works the same as tabP1sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_P1(l);
-    NODE_P1* l0=l;                                             // We keep the linked list in a variable to be able to free it later. 
+    NODE_P1* l0=l;                                            
     STATION_P1* list=malloc(lenght*sizeof(STATION_P1));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          // Each element of the linked list (which lenght was determined) is directly put in a static list.
+        *(list+i)=l0->s;                                         
         l0=l0->next;
     }
     freeNODE_P1(l);
-    // STEP 3 : Sorting (default is descending sort, so using -r will make it ascending)
-    // A bubble sort is applied on the stations' IDs.
+
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -297,11 +350,9 @@ int tabP1sort2(FILE* o,NODE_P1* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
-    // Each element of the sorted list is then written in the output file.
-    // Format : "Station ID;minimal pressure;maximal pressure;average pressure"
+
     fprintf(o,"Station ID;minimal pressure;maximal pressure;average pression\n");
-    for(i=0;i<lenght;i++){                                   // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999.
+    for(i=0;i<lenght;i++){                                   
         if((*(list+i)).id <= 9999){
             fprintf(o,"0%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
         }
@@ -313,7 +364,16 @@ int tabP1sort2(FILE* o,NODE_P1* l){
     return 0;
 }
 
+/*
+------------------------------------------------------------
+MODE 2
+------------------------------------------------------------
+*/
+
 int getlenghtNODE_P2(NODE_P2* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
     int n;
     if(l==NULL){
         return 0;
@@ -328,8 +388,11 @@ int getlenghtNODE_P2(NODE_P2* l){
 
 
 int tabP2sort1(FILE* o,NODE_P2* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
     int i;
     int lenght=getlenghtNODE_P2(l);
     NODE_P2* l0=l;                                              
@@ -340,8 +403,9 @@ int tabP2sort1(FILE* o,NODE_P2* l){
         l0=l0->next;
     }
     freeNODE_P2(l);
-    // STEP 3 : Sorting by chronological order.
-    // A bubble sort is applied on the dates.
+    // STEP 2 : Sorting by chronological order (ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the dates of two adjacents structures not being in the right order.
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -358,9 +422,11 @@ int tabP2sort1(FILE* o,NODE_P2* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
+    // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "Time (UTC) ; average temperature (world)"
+    // Format : "Time (UTC) ; average pressure (world)"
+    // A special function is used to write each line because writing dates and times with ints is lenghty.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
     fprintf(o,"Time;average pressure\n");
     for(i=0;i<lenght;i++){                                  
         producestring_P2(o,*(list+i)); 
@@ -371,8 +437,7 @@ int tabP2sort1(FILE* o,NODE_P2* l){
 
 
 int tabP2sort2(FILE* o,NODE_P2* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // This function works the same as tabP2sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_P2(l);
     NODE_P2* l0=l;                                              
@@ -383,8 +448,7 @@ int tabP2sort2(FILE* o,NODE_P2* l){
         l0=l0->next;
     }
     freeNODE_P2(l);
-    // STEP 3 : Sorting by chronological order.
-    // A bubble sort is applied on the dates.
+
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -401,9 +465,7 @@ int tabP2sort2(FILE* o,NODE_P2* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
-    // Each element of the sorted list is then written in the output file.
-    // Format : "Time (UTC) ; average temperature (world)"
+
     fprintf(o,"Time;average pressure\n");
     for(i=0;i<lenght;i++){                                  
         producestring_P2(o,*(list+i)); 
@@ -412,8 +474,23 @@ int tabP2sort2(FILE* o,NODE_P2* l){
     return 0;
 }
 
+/*
+------------------------------------------------------------
+MODE 3
+------------------------------------------------------------
+*/
+
+
+/*
+------------------------------------------------------------
+WIND FUNCTIONS
+------------------------------------------------------------
+*/
 
 int getlenghtNODE_W(NODE_W* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
     int n;
     if(l==NULL){
         return 0;
@@ -428,7 +505,11 @@ int getlenghtNODE_W(NODE_W* l){
 
 
 int tabWsort1(FILE* o, NODE_W* l){
-    // STEP 2 : Transfering to a static list
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
     int i;
     int lenght=getlenghtNODE_W(l);
     NODE_W* l0=l;
@@ -439,7 +520,9 @@ int tabWsort1(FILE* o, NODE_W* l){
         l0=l0->next;
     }
     freeNODE_W(l);
-    // STEP 3 : Sorting by ID (ascending sort)
+    // STEP 2 : Sorting by station ID (ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the IDs of two adjacents structures not being in the right order.
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -456,7 +539,11 @@ int tabWsort1(FILE* o, NODE_W* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
+    // STEP 3 : Writing the result in the output file.
+    // Each element of the sorted list is then written in the output file.
+    // Format : "ID;average wind orientation;average wind speed"
+    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
     fprintf(o,"ID;average wind orientation;average wind speed\n");
     for(i=0;i<lenght;i++){
         if((*(list+i)).id <= 9999){
@@ -471,7 +558,7 @@ int tabWsort1(FILE* o, NODE_W* l){
 }
 
 int tabWsort2(FILE* o, NODE_W* l){
-    // STEP 2 : Transfering to a static list
+    // This function works the same as tabWsort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_W(l);
     NODE_W* l0=l;
@@ -482,7 +569,7 @@ int tabWsort2(FILE* o, NODE_W* l){
         l0=l0->next;
     }
     freeNODE_W(l);
-    // STEP 3 : Sorting by ID (ascending sort)
+    
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -499,7 +586,7 @@ int tabWsort2(FILE* o, NODE_W* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
+
     fprintf(o,"ID;average wind orientation;average wind speed\n");
     for(i=0;i<lenght;i++){
         if((*(list+i)).id <= 9999){
@@ -513,7 +600,16 @@ int tabWsort2(FILE* o, NODE_W* l){
     return 0;
 }
 
+/*
+------------------------------------------------------------
+HEIGHT FUNCTIONS
+------------------------------------------------------------
+*/
+
 int getlenghtNODE_H(NODE_H* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
     int n;
     if(l==NULL){
         return 0;
@@ -527,7 +623,11 @@ int getlenghtNODE_H(NODE_H* l){
 }
 
 int tabHsort1(FILE* o,NODE_H* l){
-    // STEP 2 : Transfering to a static list
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
     int i;
     int lenght=getlenghtNODE_H(l);
     NODE_H* l0=l;
@@ -538,7 +638,9 @@ int tabHsort1(FILE* o,NODE_H* l){
         l0=l0->next;
     }
     freeNODE_H(l);
-    // STEP 3 : Sorting by height (default is descending sort, so using -r will make it ascending)
+    // STEP 2 : Sorting by station height (descending, using -r will make it ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the heights of two adjacents structures not being in the right order.
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -555,7 +657,11 @@ int tabHsort1(FILE* o,NODE_H* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
+    // STEP 3 : Writing the result in the output file.
+    // Each element of the sorted list is then written in the output file.
+    // Format : "ID;height"
+    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
     fprintf(o,"ID;height(m)\n");
     for(i=0;i<lenght;i++){
         if((*(list+i)).id <= 9999){
@@ -571,7 +677,7 @@ int tabHsort1(FILE* o,NODE_H* l){
 
 
 int tabHsort2(FILE* o,NODE_H* l){
-    // STEP 2 : Transfering to a static list
+    // This function works the same as tabHsort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_H(l);
     NODE_H* l0=l;
@@ -582,7 +688,7 @@ int tabHsort2(FILE* o,NODE_H* l){
         l0=l0->next;
     }
     freeNODE_H(l);
-    // STEP 3 : Sorting by height (default is descending sort, so using -r will make it ascending)
+
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -613,7 +719,16 @@ int tabHsort2(FILE* o,NODE_H* l){
     return 0;
 }
 
+/*
+------------------------------------------------------------
+MOISTURE FUNCTIONS
+------------------------------------------------------------
+*/
+
 int getlenghtNODE_M(NODE_M* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
     int n;
     if(l==NULL){
         return 0;
@@ -627,20 +742,24 @@ int getlenghtNODE_M(NODE_M* l){
 }
 
 int tabMsort1(FILE* o,NODE_M* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
     int i;
     int lenght=getlenghtNODE_M(l);
-    NODE_M* l0=l;                                             // We keep the linked list in a variable to be able to free it later. 
+    NODE_M* l0=l;                                            
     STATION_M* list=malloc(lenght*sizeof(STATION_M));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          // Each element of the linked list (which lenght was determined) is directly put in a static list.
+        *(list+i)=l0->s;                                          
         l0=l0->next;
     }
     freeNODE_M(l);
-    // STEP 3 : Sorting by maximal moisture level (default is descending sort, so using -r will make it ascending)
-    // A bubble sort is applied on the moisture values of the structures (STATION_M).
+    // STEP 2 : Sorting by maximal moisture level (descending, using -r will make it ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the moisture levels of two adjacents structures not being in the right order.
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -657,11 +776,13 @@ int tabMsort1(FILE* o,NODE_M* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
+    // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "Station ID;maximal moisture level"
+    // Format : "ID;maximal moisture level"
+    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
     fprintf(o,"ID;maximal moisture level\n");
-    for(i=0;i<lenght;i++){                                   // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999.
+    for(i=0;i<lenght;i++){                                   
         if((*(list+i)).id <= 9999){
             fprintf(o,"0%d;%d\n",(*(list+i)).id,(*(list+i)).maximal);
         }
@@ -674,20 +795,18 @@ int tabMsort1(FILE* o,NODE_M* l){
 }
 
 int tabMsort2(FILE* o,NODE_M* l){
-    // STEP 2 : Transfering to a static list
-    // To make the sort easier, we transform the linked list into a static list.
+    // This function works the same as tabMsort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_M(l);
-    NODE_M* l0=l;                                             // We keep the linked list in a variable to be able to free it later. 
+    NODE_M* l0=l;                                             
     STATION_M* list=malloc(lenght*sizeof(STATION_M));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          // Each element of the linked list (which lenght was determined) is directly put in a static list.
+        *(list+i)=l0->s;                                          
         l0=l0->next;
     }
     freeNODE_M(l);
-    // STEP 3 : Sorting by maximal moisture level (default is descending sort, so using -r will make it ascending)
-    // A bubble sort is applied on the moisture values of the structures (STATION_M).
+
     int sorted = 0;
     int step = lenght-1;
     int k;
@@ -704,11 +823,9 @@ int tabMsort2(FILE* o,NODE_M* l){
         }
         step-=1;
     }    
-    // STEP 4 : Writing
-    // Each element of the sorted list is then written in the output file.
-    // Format : "Station ID;maximal moisture level"
+
     fprintf(o,"ID;maximal moisture level\n");
-    for(i=0;i<lenght;i++){                                   // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999.
+    for(i=0;i<lenght;i++){                                  
         if((*(list+i)).id <= 9999){
             fprintf(o,"0%d;%d\n",(*(list+i)).id,(*(list+i)).maximal);
         }

@@ -262,6 +262,92 @@ MODE 3
 ------------------------------------------
 */
 
+void freeNODE_T3(NODE_T3* l){
+    // Each node of the structure needs to be freed individually.
+    while(l!=NULL){
+        NODE_T3* temp = l;
+        l=l->next;
+        free(temp);
+    }
+}
+
+NODE_T3* addNODE_T3(NODE_T3* l,int id,int year,int month, int day, int hour, float temperature){
+    NODE_T3* new = malloc(sizeof(NODE_T3));
+    if(new==NULL){
+        printf("Error : addNODE_T3");
+        exit(4);
+    }
+    new->m.id=id
+    new->m.year=year;
+    new->m.month=month;
+    new->m.day=day;
+    new->m.hour=hour;
+    new->m.temperature=temperature;
+    new->next=l;
+    return new;
+}
+
+int chronologicalorder_T3(MEASURE_T3 d1,MEASURE_T3 d2){
+    if(d1.year > d2.year){
+        return 0;
+    }
+    else if(d1.year==d2.year){
+        if(d1.month > d2.month){
+            return 0;
+        }
+        else if(d1.month == d2.month){
+            if(d1.day > d2.day){
+                return 0;
+            }
+            else if(d1.day == d2.day){
+                if(d1.hour > d2.hour){
+                    return 0;
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+void producestring_T3(FILE* o,MEASURE_T3 measure){
+    fprintf(o,"%d-",measure.year);
+    if(measure.month < 10){
+        fprintf(o,"0%d-",measure.month);
+    }
+    else{
+        fprintf(o,"%d-",measure.month);
+    }
+    if(measure.day < 10){
+        fprintf(o,"0%dT",measure.day);
+    }
+    else{
+        fprintf(o,"%dT",measure.day);
+    }
+    if(measure.hour < 10){
+        fprintf(o,"0%d:00:00;",measure.hour);
+    }
+    else{
+        fprintf(o,"%d:00:00;",measure.hour);
+    }
+    fprintf(o,"%d;%f\n",measure.id,measure.temperature);
+}
+
+NODE_T3* linkedlist_T3(FILE* f){
+    NODE_T3* l = NULL;
+    int id;
+    int year;
+    int month;
+    int day;
+    int hour;
+    int timezone;
+    float temperature;
+    while(feof(f)==0){                                             
+        fscanf(f,"%d;%d-%d-%dT%d:00:00+%d:00;%f\n",&id,&year,&month,&day,&hour,&timezone,&temperature);
+        UTCtime(&year,&month,&day,&hour,&timezone);                       
+        l=addNODE_T3(l,id,year,month,day,hour,temperature);
+    }
+    return l;
+}
 
 /*
 ------------------------------------------
@@ -498,6 +584,93 @@ MODE 3
 ------------------------------------------
 */
 
+
+void freeNODE_P3(NODE_P3* l){
+    // Each node of the structure needs to be freed individually.
+    while(l!=NULL){
+        NODE_P3* temp = l;
+        l=l->next;
+        free(temp);
+    }
+}
+
+NODE_P3* addNODE_P3(NODE_P3* l,int id,int year,int month, int day, int hour, float pressure){
+    NODE_P3* new = malloc(sizeof(NODE_P3));
+    if(new==NULL){
+        printf("Error : addNODE_P3");
+        exit(4);
+    }
+    new->m.id=id
+    new->m.year=year;
+    new->m.month=month;
+    new->m.day=day;
+    new->m.hour=hour;
+    new->m.pressure=pressure;
+    new->next=l;
+    return new;
+}
+
+int chronologicalorder_P3(MEASURE_P3 d1,MEASURE_P3 d2){
+    if(d1.year > d2.year){
+        return 0;
+    }
+    else if(d1.year==d2.year){
+        if(d1.month > d2.month){
+            return 0;
+        }
+        else if(d1.month == d2.month){
+            if(d1.day > d2.day){
+                return 0;
+            }
+            else if(d1.day == d2.day){
+                if(d1.hour > d2.hour){
+                    return 0;
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+void producestring_P3(FILE* o,MEASURE_P3 measure){
+    fprintf(o,"%d-",measure.year);
+    if(measure.month < 10){
+        fprintf(o,"0%d-",measure.month);
+    }
+    else{
+        fprintf(o,"%d-",measure.month);
+    }
+    if(measure.day < 10){
+        fprintf(o,"0%dT",measure.day);
+    }
+    else{
+        fprintf(o,"%dT",measure.day);
+    }
+    if(measure.hour < 10){
+        fprintf(o,"0%d:00:00;",measure.hour);
+    }
+    else{
+        fprintf(o,"%d:00:00;",measure.hour);
+    }
+    fprintf(o,"%d;%f\n",measure.id,measure.pressure);
+}
+
+NODE_P3* linkedlist_P3(FILE* f){
+    NODE_P3* l = NULL;
+    int id;
+    int year;
+    int month;
+    int day;
+    int hour;
+    int timezone;
+    float pressure;
+    while(feof(f)==0){                                             
+        fscanf(f,"%d;%d-%d-%dT%d:00:00+%d:00;%f\n",&id,&year,&month,&day,&hour,&timezone,&pressure);
+        UTCtime(&year,&month,&day,&hour,&timezone);                       
+        l=addNODE_P3(l,id,year,month,day,hour,pressure);
+    }
+    return l;
+}
 
 /*
 ------------------------------------------
