@@ -1,16 +1,19 @@
 #include "headertab.h"
 
+
 /*
 ------------------------------------------------------------
 TEMPERATURE FUNCTIONS
 ------------------------------------------------------------
 */
 
+
 /*
 ------------------------------------------------------------
 MODE 1
 ------------------------------------------------------------
 */
+
 
 int getlenghtNODE_T1(NODE_T1* l){
     // If the list is empty, the function has to return 0.
@@ -82,6 +85,7 @@ int tabT1sort1(FILE* o,NODE_T1* l){
     return 0;
 }
 
+
 int tabT1sort2(FILE* o,NODE_T1* l){
     // This function works the same as tabT1sort1(). The only difference is the inversion of sorting order.
     int i;
@@ -125,11 +129,13 @@ int tabT1sort2(FILE* o,NODE_T1* l){
     return 0;
 }
 
+
 /*
 ------------------------------------------------------------
 MODE 2
 ------------------------------------------------------------
 */
+
 
 int getlenghtNODE_T2(NODE_T2* l){
     // If the list is empty, the function has to return 0.
@@ -146,6 +152,7 @@ int getlenghtNODE_T2(NODE_T2* l){
     }
     return n;
 }
+
 
 int tabT2sort1(FILE* o,NODE_T2* l){
     // STEP 1 : Transfering the linked list's elements to a static list.
@@ -234,11 +241,13 @@ int tabT2sort2(FILE* o,NODE_T2* l){
     return 0;
 }
 
+
 /*
 ------------------------------------------------------------
 MODE 3
 ------------------------------------------------------------
 */
+
 
 /*
 ------------------------------------------------------------
@@ -246,11 +255,13 @@ PRESSURE FUNCTIONS
 ------------------------------------------------------------
 */
 
+
 /*
 ------------------------------------------------------------
 MODE 1
 ------------------------------------------------------------
 */
+
 
 int getlenghtNODE_P1(NODE_P1* l){
     // If the list is empty, the function has to return 0.
@@ -267,6 +278,7 @@ int getlenghtNODE_P1(NODE_P1* l){
     }
     return n;
 }
+
 
 int tabP1sort1(FILE* o,NODE_P1* l){
     // STEP 1 : Transfering the linked list's elements to a static list.
@@ -321,6 +333,7 @@ int tabP1sort1(FILE* o,NODE_P1* l){
     return 0;
 }
 
+
 int tabP1sort2(FILE* o,NODE_P1* l){
     // This function works the same as tabP1sort1(). The only difference is the inversion of sorting order.
     int i;
@@ -364,11 +377,13 @@ int tabP1sort2(FILE* o,NODE_P1* l){
     return 0;
 }
 
+
 /*
 ------------------------------------------------------------
 MODE 2
 ------------------------------------------------------------
 */
+
 
 int getlenghtNODE_P2(NODE_P2* l){
     // If the list is empty, the function has to return 0.
@@ -474,6 +489,7 @@ int tabP2sort2(FILE* o,NODE_P2* l){
     return 0;
 }
 
+
 /*
 ------------------------------------------------------------
 MODE 3
@@ -486,6 +502,7 @@ MODE 3
 WIND FUNCTIONS
 ------------------------------------------------------------
 */
+
 
 int getlenghtNODE_W(NODE_W* l){
     // If the list is empty, the function has to return 0.
@@ -557,6 +574,7 @@ int tabWsort1(FILE* o, NODE_W* l){
     return 0;
 }
 
+
 int tabWsort2(FILE* o, NODE_W* l){
     // This function works the same as tabWsort1(). The only difference is the inversion of sorting order.
     int i;
@@ -600,11 +618,13 @@ int tabWsort2(FILE* o, NODE_W* l){
     return 0;
 }
 
+
 /*
 ------------------------------------------------------------
 HEIGHT FUNCTIONS
 ------------------------------------------------------------
 */
+
 
 int getlenghtNODE_H(NODE_H* l){
     // If the list is empty, the function has to return 0.
@@ -621,6 +641,7 @@ int getlenghtNODE_H(NODE_H* l){
     }
     return n;
 }
+
 
 int tabHsort1(FILE* o,NODE_H* l){
     // STEP 1 : Transfering the linked list's elements to a static list.
@@ -719,11 +740,13 @@ int tabHsort2(FILE* o,NODE_H* l){
     return 0;
 }
 
+
 /*
 ------------------------------------------------------------
 MOISTURE FUNCTIONS
 ------------------------------------------------------------
 */
+
 
 int getlenghtNODE_M(NODE_M* l){
     // If the list is empty, the function has to return 0.
@@ -740,6 +763,7 @@ int getlenghtNODE_M(NODE_M* l){
     }
     return n;
 }
+
 
 int tabMsort1(FILE* o,NODE_M* l){
     // STEP 1 : Transfering the linked list's elements to a static list.
@@ -794,6 +818,7 @@ int tabMsort1(FILE* o,NODE_M* l){
     return 0;
 }
 
+
 int tabMsort2(FILE* o,NODE_M* l){
     // This function works the same as tabMsort1(). The only difference is the inversion of sorting order.
     int i;
@@ -823,7 +848,7 @@ int tabMsort2(FILE* o,NODE_M* l){
         }
         step-=1;
     }    
-
+    
     fprintf(o,"ID;maximal moisture level\n");
     for(i=0;i<lenght;i++){                                  
         if((*(list+i)).id <= 9999){

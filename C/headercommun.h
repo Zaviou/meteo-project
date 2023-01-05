@@ -1,7 +1,24 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "tab.c"
+
+#define OPTION_T1 1100000
+#define OPTION_T2 1200000 
+#define OPTION_T3 1300000
+
+#define OPTION_P1 0011000
+#define OPTION_P2 0012000
+#define OPTION_P3 0013000
+
+#define OPTION_W 0000100
+
+#define OPTION_H 0000010
+
+#define OPTION_M 0000001
+
 
 /*
 ------------------------------------------------------------
@@ -342,6 +359,7 @@ TEMPERATURE FUNCTIONS
 ------------------------------------------------------------
 */
 
+
 /*
 ------------------------------------------------------------
 MODE 1
@@ -417,6 +435,7 @@ NODE_T1* linkedlist_T1(FILE* f) ;
 MODE 2
 ------------------------------------------------------------
 */
+
 
 /*
 A function used to free all the nodes of a given list.

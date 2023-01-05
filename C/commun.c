@@ -1,6 +1,11 @@
 #include "headercommun.h"
 
+
 void UTCtime(int* year,int* month, int* day, int* hour, int* timezone){
+    // To begin this function, the hour is directly modified to match the timezone +00:00
+    // If other adjustements need to be done (the hour is now at an impossible value), year, month and day can be modified.
+    // The months are a special case because they don't always have the same number of days.
+    // Throughout this function, it is pointers that are modified to allow returning multiple values.
     *hour = *hour - *timezone;
     if(*hour < 0){
         *hour = 24 + *hour;
@@ -25,17 +30,20 @@ void UTCtime(int* year,int* month, int* day, int* hour, int* timezone){
     }
 }
 
+
 /*
 ------------------------------------------
 TEMPERATURE FUNCTIONS
 ------------------------------------------
 */
 
+
 /*
 ------------------------------------------
 MODE 1
 ------------------------------------------
 */
+
 
 void freeNODE_T1(NODE_T1* l){
     // Each node of the structure needs to be freed individually.
@@ -45,6 +53,7 @@ void freeNODE_T1(NODE_T1* l){
         free(temp);
     }
 }
+
 
 int inlistNODE_T1(NODE_T1* l,int id){
     // To know if the station which ID is 'id' is already in the list, we have to get through all of it.
@@ -59,7 +68,12 @@ int inlistNODE_T1(NODE_T1* l,int id){
     return 0;
 }
 
+
 NODE_T1* addNODE_T1(NODE_T1* l,int id, float temperature, float minimaltemperature, float maximaltemperature){
+    // A new node is created using malloc (we use the freeing function later to not waste memory)
+    // The parameters set the values of the structure inside it.
+    // The count is set to one because when this function is called, we have encountered an id for the first time.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_T1* new = malloc(sizeof(NODE_T1));
     if(new==NULL){
         printf("Error : addNODE_T1");
@@ -75,8 +89,11 @@ NODE_T1* addNODE_T1(NODE_T1* l,int id, float temperature, float minimaltemperatu
 }
 
 
-
 NODE_T1* searchandchangevaluesNODE_T1(NODE_T1* l,int id,float temperature,float minimaltemperature,float maximaltemperature){
+    // This function first goes through the list to find the structure representing the station of ID 'id'. 
+    // It is in the list as we have called another function before to know it.
+    // Then, if the maximal value parameter is higher than the current one for the station, it is uptdated. Same for the minimal value.
+    // Since we have seen the station one more time, the count is augmented. The temperature measured is also added to the sum to calculate the average later.
     NODE_T1* temp=l;
     while(temp!=NULL){
         if(temp->s.id == id){
@@ -94,7 +111,10 @@ NODE_T1* searchandchangevaluesNODE_T1(NODE_T1* l,int id,float temperature,float 
     }
 }
 
+
 NODE_T1* averagingNODE_T1(NODE_T1* l){
+    // To calculate the averages of the measures, all has been set up before, in the functions that change the linked list.
+    // The sums of all the encountered measures are divided by the number of times the station was encountered. This for each node.
     NODE_T1* temp=l;
     while(temp!=NULL){
         temp->s.average = (temp->s.average)/(temp->s.count);
@@ -103,18 +123,26 @@ NODE_T1* averagingNODE_T1(NODE_T1* l){
     return l;
 }
 
+
 NODE_T1* linkedlist_T1(FILE* f){
+    // Lines (measures) are read from the input file until its end.
+    // A linked list is built.
+    // Format of the measure : "Station ID;temperature;minimal temperature over 24 hrs;maximal temperature over 24hrs"
+    // If the station was not seen before, we add a new node representing it.
+    // If it was already seen, we search for the node representing it and uptdate its values.
+    // The average values need to be calculated at the end. We use a special function to proceed.
+    // The linked list representing all the encountered stations is returned at the end.
     NODE_T1* l = NULL;
     int id;
     float temperature;
     float minimaltemperature;
     float maximaltemperature;
-    while(feof(f)==0){                                               // Lines (measures) are read from the input file until its end.
-        fscanf(f,"%d;%f;%f;%f",&id,&temperature,&minimaltemperature,&maximaltemperature);                             // Format of the measure : "Station ID;temperature;minimal temperature over 24 hrs;maximal temperature over 24hrs"
-        if(inlistNODE_T1(l,id)==0){                               // If the station was not seen before, we add a new node.
+    while(feof(f)==0){                                               
+        fscanf(f,"%d;%f;%f;%f",&id,&temperature,&minimaltemperature,&maximaltemperature);                            
+        if(inlistNODE_T1(l,id)==0){                               
             l = addNODE_T1(l,id,temperature,minimaltemperature,maximaltemperature);
         }
-        else{                                                        // If it was already seen, we search for the right node and replace the value if it is lower than what was just read.
+        else{                                                        
             l = searchandchangevaluesNODE_T1(l,id,temperature,minimaltemperature,maximaltemperature);
         }
     }
@@ -122,12 +150,12 @@ NODE_T1* linkedlist_T1(FILE* f){
     return l;
 }
 
+
 /*
 ------------------------------------------
 MODE 2
 ------------------------------------------
 */
-
 
 
 void freeNODE_T2(NODE_T2* l){
@@ -139,7 +167,10 @@ void freeNODE_T2(NODE_T2* l){
     }
 }
 
+
 int inlistNODE_T2(NODE_T2* l,int year,int month, int day, int hour){
+    // To know if the date defined by 'year','month','day','hour' is already in the list, we have to get through all of it.
+    // If it is found in one of the nodes, 1 is returned.
     NODE_T2* temp=l;
     while(temp!=NULL){
         if(temp->t.year == year && temp->t.month == month && temp->t.day == day && temp->t.hour == hour){
@@ -150,7 +181,12 @@ int inlistNODE_T2(NODE_T2* l,int year,int month, int day, int hour){
     return 0;
 }
 
+
 NODE_T2* addNODE_T2(NODE_T2* l,int year,int month, int day, int hour, float temperature){
+    // A new node is created using malloc (we use the freeing function later to not waste memory)
+    // The parameters set the values of the structure inside it.
+    // The count is set to one because when this function is called, we have encountered a date for the first time.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_T2* new = malloc(sizeof(NODE_T2));
     if(new==NULL){
         printf("Error : addNODE_T2");
@@ -167,8 +203,10 @@ NODE_T2* addNODE_T2(NODE_T2* l,int year,int month, int day, int hour, float temp
 }
 
 
-
 NODE_T2* searchandchangevaluesNODE_T2(NODE_T2* l,int year,int month, int day, int hour,float temperature){
+    // This function first goes through the list to find the structure representing the time defined by the parameters. 
+    // It is in the list as we have called another function before to know it.
+    // Since we have seen this given date one more time, the count is augmented. The temperature measured is also added to the sum to calculate the average later.
     NODE_T2* temp=l;
     while(temp!=NULL){
         if(temp->t.year == year && temp->t.month == month && temp->t.day == day && temp->t.hour == hour ){
@@ -180,7 +218,10 @@ NODE_T2* searchandchangevaluesNODE_T2(NODE_T2* l,int year,int month, int day, in
     }
 }
 
+
 NODE_T2* averagingNODE_T2(NODE_T2* l){
+    // To calculate the averages of the measures, all has been set up before, in the functions that change the linked list.
+    // The sums of all the encountered measures are divided by the number of times the date was encountered. This for each node.
     NODE_T2* temp=l;
     while(temp!=NULL){
         temp->t.average = (temp->t.average)/(temp->t.count);
@@ -191,6 +232,8 @@ NODE_T2* averagingNODE_T2(NODE_T2* l){
 
 
 int chronologicalorder_T2(TIME_T2 d1,TIME_T2 d2){
+    // Comparisons are made between the time values that are in the structures to know if the first date comes after the second.
+    // When all the possibilities for that have been explored, 1 is returned because the dates are in the right order.
     if(d1.year > d2.year){
         return 0;
     }
@@ -212,7 +255,11 @@ int chronologicalorder_T2(TIME_T2 d1,TIME_T2 d2){
     return 1;
 }
 
+
 void producestring_T2(FILE* o,TIME_T2 date){
+    // This function is used to always write the same format for a measure, inside the file o.
+    // Since most values are stored as integers, directly printing is sometimes not effective as some 0s may be missing.
+    // Checks are made to counter this and use the right fprintf each time.
     fprintf(o,"%d-",date.year);
     if(date.month < 10){
         fprintf(o,"0%d-",date.month);
@@ -235,7 +282,16 @@ void producestring_T2(FILE* o,TIME_T2 date){
     fprintf(o,"%f\n",date.average);
 }
 
+
 NODE_T2* linkedlist_T2(FILE* f){
+    // Lines (measures) are read from the input file until its end.
+    // A linked list is built.
+    // Format of the measure : "datetime;temperature"
+    // All dates are changed to match UTC time.
+    // If a date was not seen before, we add a new node representing it.
+    // If it was already seen, we search for the node representing it and uptdate its values.
+    // The average values need to be calculated at the end. We use a special function to proceed.
+    // The linked list representing all the encountered dates is returned at the end.
     NODE_T2* l = NULL;
     int year;
     int month;
@@ -257,11 +313,13 @@ NODE_T2* linkedlist_T2(FILE* f){
     return l;
 }
 
+
 /*
 ------------------------------------------
 MODE 3
 ------------------------------------------
 */
+
 
 void freeNODE_T3(NODE_T3* l){
     // Each node of the structure needs to be freed individually.
@@ -272,7 +330,11 @@ void freeNODE_T3(NODE_T3* l){
     }
 }
 
+
 NODE_T3* addNODE_T3(NODE_T3* l,int id,int year,int month, int day, int hour, float temperature){
+    // A new node is created using malloc (we use the freeing function later to not waste memory)
+    // The parameters set the values of the structure inside it.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_T3* new = malloc(sizeof(NODE_T3));
     if(new==NULL){
         printf("Error : addNODE_T3");
@@ -288,7 +350,10 @@ NODE_T3* addNODE_T3(NODE_T3* l,int id,int year,int month, int day, int hour, flo
     return new;
 }
 
+
 int chronologicalorder_T3(MEASURE_T3 d1,MEASURE_T3 d2){
+    // Comparisons are made between the time values that are in the structures to know if the first date comes after the second.
+    // When all the possibilities for that have been explored, 1 is returned because the dates are in the right order.
     if(d1.year > d2.year){
         return 0;
     }
@@ -310,7 +375,11 @@ int chronologicalorder_T3(MEASURE_T3 d1,MEASURE_T3 d2){
     return 1;
 }
 
+
 void producestring_T3(FILE* o,MEASURE_T3 measure){
+    // This function is used to always write the same format for a measure, inside the file o.
+    // Since most values are stored as integers, directly printing is sometimes not effective as some 0s may be missing.
+    // Checks are made to counter this and use the right fprintf each time.
     fprintf(o,"%d-",measure.year);
     if(measure.month < 10){
         fprintf(o,"0%d-",measure.month);
@@ -333,7 +402,13 @@ void producestring_T3(FILE* o,MEASURE_T3 measure){
     fprintf(o,"%d;%f\n",measure.id,measure.temperature);
 }
 
+
 NODE_T3* linkedlist_T3(FILE* f){
+    // Lines (measures) are read from the input file until its end.
+    // A linked list is built. A node is added for each measure.
+    // Format of the measure : "Station ID;datetime;temperature"
+    // All dates are changed to match UTC time.
+    // The linked list representing all the encountered measures is returned at the end.
     NODE_T3* l = NULL;
     int id;
     int year;
@@ -350,17 +425,20 @@ NODE_T3* linkedlist_T3(FILE* f){
     return l;
 }
 
+
 /*
 ------------------------------------------
 PRESSURE FUNCTIONS
 ------------------------------------------
 */
 
+
 /*
 ------------------------------------------
 MODE 1
 ------------------------------------------
 */
+
 
 void freeNODE_P1(NODE_P1* l){
     // Each node of the structure needs to be freed individually.
@@ -370,6 +448,7 @@ void freeNODE_P1(NODE_P1* l){
         free(temp);
     }
 }
+
 
 int inlistNODE_P1(NODE_P1* l,int id){
     // To know if the station which ID is 'id' is already in the list, we have to get through all of it.
@@ -384,7 +463,12 @@ int inlistNODE_P1(NODE_P1* l,int id){
     return 0;
 }
 
+
 NODE_P1* addNODE_P1(NODE_P1* l,int id, float pressure){
+    // A new node is created using malloc (we use the freeing function later to not waste memory)
+    // The parameters set the values of the structure inside it.
+    // The count is set to one because when this function is called, we have encountered an id for the first time.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_P1* new = malloc(sizeof(NODE_P1));
     if(new==NULL){
         printf("Error : addNODE_P1");
@@ -400,8 +484,11 @@ NODE_P1* addNODE_P1(NODE_P1* l,int id, float pressure){
 }
 
 
-
 NODE_P1* searchandchangevaluesNODE_P1(NODE_P1* l,int id,float pressure){
+    // This function first goes through the list to find the structure representing the station of ID 'id'. 
+    // It is in the list as we have called another function before to know it.
+    // Then, if the maximal value parameter is higher than the current one for the station, it is uptdated. Same for the minimal value.
+    // Since we have seen the station one more time, the count is augmented. The pressure measured is also added to the sum to calculate the average later.
     NODE_P1* temp=l;
     while(temp!=NULL){
         if(temp->s.id == id){
@@ -419,7 +506,10 @@ NODE_P1* searchandchangevaluesNODE_P1(NODE_P1* l,int id,float pressure){
     }
 }
 
+
 NODE_P1* averagingNODE_P1(NODE_P1* l){
+    // To calculate the averages of the measures, all has been set up before, in the functions that change the linked list.
+    // The sums of all the encountered measures are divided by the number of times the station was encountered. This for each node.
     NODE_P1* temp=l;
     while(temp!=NULL){
         temp->s.average = (temp->s.average)/(temp->s.count);
@@ -430,15 +520,22 @@ NODE_P1* averagingNODE_P1(NODE_P1* l){
 
 
 NODE_P1* linkedlist_P1(FILE* f){
+    // Lines (measures) are read from the input file until its end.
+    // A linked list is built.
+    // Format of the measure : "Station ID;pressure"
+    // If the station was not seen before, we add a new node representing it.
+    // If it was already seen, we search for the node representing it and uptdate its values.
+    // The average values need to be calculated at the end. We use a special function to proceed.
+    // The linked list representing all the encountered stations is returned at the end.
     NODE_P1* l = NULL;
     int id;
     float pressure;
-    while(feof(f)==0){                                               // Lines (measures) are read from the input file until its end.
+    while(feof(f)==0){                                               
         fscanf(f,"%d;%f",&id,&pressure);                     
-        if(inlistNODE_P1(l,id)==0){                               // If the station was not seen before, we add a new node.
+        if(inlistNODE_P1(l,id)==0){                            
             l = addNODE_P1(l,id,pressure);
         }
-        else{                                                        // If it was already seen, we search for the right node and replace the value if it is lower than what was just read.
+        else{                 
             l = searchandchangevaluesNODE_P1(l,id,pressure);
         }
     }
@@ -446,11 +543,13 @@ NODE_P1* linkedlist_P1(FILE* f){
     return l;
 }
 
+
 /*
 ------------------------------------------
 MODE 2
 ------------------------------------------
 */
+
 
 void freeNODE_P2(NODE_P2* l){
     // Each node of the structure needs to be freed individually.
@@ -461,7 +560,10 @@ void freeNODE_P2(NODE_P2* l){
     }
 }
 
+
 int inlistNODE_P2(NODE_P2* l,int year,int month, int day, int hour){
+    // To know if the date defined by 'year','month','day','hour' is already in the list, we have to get through all of it.
+    // If it is found in one of the nodes, 1 is returned.
     NODE_P2* temp=l;
     while(temp!=NULL){
         if(temp->t.year == year && temp->t.month == month && temp->t.day == day && temp->t.hour == hour){
@@ -472,7 +574,12 @@ int inlistNODE_P2(NODE_P2* l,int year,int month, int day, int hour){
     return 0;
 }
 
+
 NODE_P2* addNODE_P2(NODE_P2* l,int year,int month, int day, int hour, float pressure){
+    // A new node is created using malloc (we use the freeing function later to not waste memory).
+    // The parameters set the values of the structure inside it.
+    // The count is set to one because when this function is called, we have encountered a date for the first time.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_P2* new = malloc(sizeof(NODE_P2));
     if(new==NULL){
         printf("Error : addNODE_P2");
@@ -489,8 +596,10 @@ NODE_P2* addNODE_P2(NODE_P2* l,int year,int month, int day, int hour, float pres
 }
 
 
-
 NODE_P2* searchandchangevaluesNODE_P2(NODE_P2* l,int year,int month, int day, int hour,float pressure){
+    // This function first goes through the list to find the structure representing the date given by the parameters.. 
+    // It is in the list as we have called another function before to know it.
+    // Since we have seen the station one more time, the count is augmented. The pressure measured is also added to the sum to calculate the average later.
     NODE_P2* temp=l;
     while(temp!=NULL){
         if(temp->t.year == year && temp->t.month == month && temp->t.day == day && temp->t.hour == hour ){
@@ -502,7 +611,10 @@ NODE_P2* searchandchangevaluesNODE_P2(NODE_P2* l,int year,int month, int day, in
     }
 }
 
+
 NODE_P2* averagingNODE_P2(NODE_P2* l){
+    // To calculate the averages of the measures, all has been set up before, in the functions that change the linked list.
+    // The sums of all the encountered measures are divided by the number of times the date was encountered. This for each node.
     NODE_P2* temp=l;
     while(temp!=NULL){
         temp->t.average = (temp->t.average)/(temp->t.count);
@@ -513,6 +625,8 @@ NODE_P2* averagingNODE_P2(NODE_P2* l){
 
 
 int chronologicalorder_P2(TIME_P2 d1,TIME_P2 d2){
+    // Comparisons are made between the time values that are in the structures to know if the first date comes after the second.
+    // When all the possibilities for that have been explored, 1 is returned because the dates are in the right order.
     if(d1.year > d2.year){
         return 0;
     }
@@ -534,7 +648,11 @@ int chronologicalorder_P2(TIME_P2 d1,TIME_P2 d2){
     return 1;
 }
 
+
 void producestring_P2(FILE* o,TIME_P2 date){
+    // This function is used to always write the same format for a measure, inside the file o.
+    // Since most values are stored as integers, directly printing is sometimes not effective as some 0s may be missing.
+    // Checks are made to counter this and use the right fprintf each time.
     fprintf(o,"%d-",date.year);
     if(date.month < 10){
         fprintf(o,"0%d-",date.month);
@@ -557,7 +675,16 @@ void producestring_P2(FILE* o,TIME_P2 date){
     fprintf(o,"%f\n",date.average);
 }
 
+
 NODE_P2* linkedlist_P2(FILE* f){
+    // Lines (measures) are read from the input file until its end.
+    // A linked list is built.
+    // Format of the measure : "datetime;pressure"
+    // All dates are changed to match UTC time.
+    // If a date was not seen before, we add a new node representing it.
+    // If it was already seen, we search for the node representing it and uptdate its values.
+    // The average values need to be calculated at the end. We use a special function to proceed.
+    // The linked list representing all the encountered dates is returned at the end.
     NODE_P2* l = NULL;
     int year;
     int month;
@@ -579,6 +706,7 @@ NODE_P2* linkedlist_P2(FILE* f){
     return l;
 }
 
+
 /*
 ------------------------------------------
 MODE 3
@@ -595,7 +723,11 @@ void freeNODE_P3(NODE_P3* l){
     }
 }
 
+
 NODE_P3* addNODE_P3(NODE_P3* l,int id,int year,int month, int day, int hour, float pressure){
+    // A new node is created using malloc (we use the freeing function later to not waste memory).
+    // The parameters set the values of the structure inside it.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_P3* new = malloc(sizeof(NODE_P3));
     if(new==NULL){
         printf("Error : addNODE_P3");
@@ -611,7 +743,10 @@ NODE_P3* addNODE_P3(NODE_P3* l,int id,int year,int month, int day, int hour, flo
     return new;
 }
 
+
 int chronologicalorder_P3(MEASURE_P3 d1,MEASURE_P3 d2){
+    // Comparisons are made between the time values that are in the structures to know if the first date comes after the second.
+    // When all the possibilities for that have been explored, 1 is returned because the dates are in the right order.
     if(d1.year > d2.year){
         return 0;
     }
@@ -633,7 +768,11 @@ int chronologicalorder_P3(MEASURE_P3 d1,MEASURE_P3 d2){
     return 1;
 }
 
+
 void producestring_P3(FILE* o,MEASURE_P3 measure){
+    // This function is used to always write the same format for a measure, inside the file o.
+    // Since most values are stored as integers, directly printing is sometimes not effective as some 0s may be missing.
+    // Checks are made to counter this and use the right fprintf each time.
     fprintf(o,"%d-",measure.year);
     if(measure.month < 10){
         fprintf(o,"0%d-",measure.month);
@@ -656,7 +795,13 @@ void producestring_P3(FILE* o,MEASURE_P3 measure){
     fprintf(o,"%d;%f\n",measure.id,measure.pressure);
 }
 
+
 NODE_P3* linkedlist_P3(FILE* f){
+    // Lines (measures) are read from the input file until its end.
+    // A linked list is built. A node is added for each measure.
+    // Format of the measure : "Station ID;datetime;pressure"
+    // All dates are changed to match UTC time.
+    // The linked list representing all the encountered measures is returned at the end.
     NODE_P3* l = NULL;
     int id;
     int year;
@@ -673,11 +818,13 @@ NODE_P3* linkedlist_P3(FILE* f){
     return l;
 }
 
+
 /*
 ------------------------------------------
 WIND FUNCTIONS
 ------------------------------------------
 */
+
 
 void freeNODE_W(NODE_W* l){
     // Each node of the structure needs to be freed individually.
@@ -687,6 +834,7 @@ void freeNODE_W(NODE_W* l){
         free(temp);
     }
 }
+
 
 int inlistNODE_W(NODE_W* l,int id){
     // To know if the station which ID is 'id' is already in the list, we have to get through all of it.
@@ -701,7 +849,12 @@ int inlistNODE_W(NODE_W* l,int id){
     return 0;
 }
 
+
 NODE_W* addNODE_W(NODE_W* l,int id, int orientation, float speed){
+    // A new node is created using malloc (we use the freeing function later to not waste memory).
+    // The parameters set the values of the structure inside it.
+    // The count is set to one because when this function is called, we have encountered an id for the first time.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_W* new = malloc(sizeof(NODE_W));
     if(new==NULL){
         printf("Error : addNODE_W");
@@ -716,8 +869,10 @@ NODE_W* addNODE_W(NODE_W* l,int id, int orientation, float speed){
 }
 
 
-
 NODE_W* searchandaddNODE_W(NODE_W* l,int id,int orientation,float speed){
+    // This function first goes through the list to find the structure representing the station of ID 'id'. 
+    // It is in the list as we have called another function before to know it.
+    // Since we have seen the station one more time, the count is augmented. The wind measured is also added to the sums to calculate the averages later.
     NODE_W* temp=l;
     while(temp!=NULL){
         if(temp->s.id == id){
@@ -730,7 +885,10 @@ NODE_W* searchandaddNODE_W(NODE_W* l,int id,int orientation,float speed){
     }
 }
 
+
 NODE_W* averagingNODE_W(NODE_W* l){
+    // To calculate the averages of the measures, all has been set up before, in the functions that change the linked list.
+    // The sums of all the encountered measures are divided by the number of times the station was encountered. This for each node.
     NODE_W* temp=l;
     while(temp!=NULL){
         temp->s.orientation = (temp->s.orientation)/(temp->s.count);
@@ -740,7 +898,15 @@ NODE_W* averagingNODE_W(NODE_W* l){
     return l;
 }
 
+
 NODE_W* linkedlist_W(FILE* f){
+    // Lines (measures) are read from the input file until its end.
+    // A linked list is built.
+    // Format of the measure : "Station ID;wind orientation over 10 min;wind speed over 10 min"
+    // If the station was not seen before, we add a new node representing it.
+    // If it was already seen, we search for the node representing it and uptdate its values.
+    // The average values need to be calculated at the end. We use a special function to proceed.
+    // The linked list representing all the encountered stations is returned at the end.
     NODE_W* l = NULL;
     int id;
     int orientation;
@@ -758,11 +924,13 @@ NODE_W* linkedlist_W(FILE* f){
     return l;
 }
 
+
 /*
 ------------------------------------------
 HEIGHT FUNCTIONS
 ------------------------------------------
 */
+
 
 void freeNODE_H(NODE_H* l){
     // Each node of the structure needs to be freed individually.
@@ -772,6 +940,7 @@ void freeNODE_H(NODE_H* l){
         free(temp);
     }
 }
+
 
 int inlistNODE_H(NODE_H* l,int id){
     // To know if the station which ID is 'id' is already in the list, we have to get through all of it.
@@ -786,7 +955,11 @@ int inlistNODE_H(NODE_H* l,int id){
     return 0;
 }
 
+
 NODE_H* addNODE_H(NODE_H* l,int id, int height){
+    // A new node is created using malloc (we use the freeing function later to not waste memory).
+    // The parameters set the values of the structure inside it.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_H* new = malloc(sizeof(NODE_H));
     if(new==NULL){
         printf("Error : addNODE_H");
@@ -800,11 +973,15 @@ NODE_H* addNODE_H(NODE_H* l,int id, int height){
 
 
 NODE_H* linkedlist_H(FILE* f){
+    // Lines are read from the input file until its end.
+    // A linked list is built.
+    // Format of the measure : "Station ID;height of the station"
+    // If the station was not seen before, we add a new node representing it.
+    // Else, nothing needs to be done because a same station always has the same height.
+    // The linked list representing all the encountered stations is returned at the end.
     NODE_H* l = NULL;
     int id;
     int height;
-
-    // STEP 1 : Building a linked list, reading the file line by line
     while(feof(f)==0){
         fscanf(f,"%d;%d",&id,&height);
         if(inlistNODE_H(l,id)==0){
@@ -821,6 +998,7 @@ MOISTURE FUNCTIONS
 ------------------------------------------
 */
 
+
 void freeNODE_M(NODE_M* l){
     // Each node of the structure needs to be freed individually.
     while(l!=NULL){
@@ -829,6 +1007,7 @@ void freeNODE_M(NODE_M* l){
         free(temp);
     }
 }
+
 
 int inlistNODE_M(NODE_M* l,int id){
     // To know if the station which ID is 'id' is already in the list, we have to get through all of it.
@@ -843,7 +1022,11 @@ int inlistNODE_M(NODE_M* l,int id){
     return 0;
 }
 
+
 NODE_M* addNODE_M(NODE_M* l,int id, int moisture){
+    // A new node is created using malloc (we use the freeing function later to not waste memory)
+    // The parameters set the values of the structure inside it.
+    // The new node is linked to the beginning of the linked list and is returned.
     NODE_M* new = malloc(sizeof(NODE_M));
     if(new==NULL){
         printf("Error : addNODE_M");
@@ -856,8 +1039,10 @@ NODE_M* addNODE_M(NODE_M* l,int id, int moisture){
 }
 
 
-
 NODE_M* searchandmaybereplaceNODE_M(NODE_M* l,int id,int moisture){
+    // This function first goes through the list to find the structure representing the station of ID 'id'. 
+    // It is in the list as we have called another function before to know it.
+    // Then, if the maximal value parameter is higher than the current one for the station, it is uptdated.
     NODE_M* temp=l;
     while(temp!=NULL){
         if(temp->s.id == id){
@@ -870,7 +1055,14 @@ NODE_M* searchandmaybereplaceNODE_M(NODE_M* l,int id,int moisture){
     }
 }
 
+
 NODE_M* linkedlist_M(FILE* f){
+    // Lines (measures) are read from the input file until its end.
+    // A linked list is built.
+    // Format of the measure : "Station ID;moisture level"
+    // If the station was not seen before, we add a new node representing it.
+    // If it was already seen, we search for the node representing it and uptdate its values.
+    // The linked list representing all the encountered stations is returned at the end.
     NODE_M* l = NULL;
     int id;
     int moisture;
