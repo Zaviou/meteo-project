@@ -58,45 +58,7 @@ De ce que j'ai vu, les champs 3,8,9,10,15 ne sont pas du tout utiles pour ce que
 (1) : C'est mieux de considérer et de coder en considérant que l'ID est une chaîne de caractères car parfois, il commence par un 0, et donc si on stocke par exemple 07111 en ID en nombre entier, le programme va sortir un 7111 quand on le lui demandera.
 (2) : Pour le vent, il est modélisé par une orientation et une vitesse. On peut penser ça comme un vecteur sur un plan (O,x,y), une flèche avec un sens (orientation) et une norme (vitesse). Je note ça car j'ai été confus par l'énoncé qui parlait de moyennes sur les axes x et y, j'ai cru que je devais chercher une vitesse de vent pour x et une pour y.
 
-
-3) PROGRAMMATION DYNAMIQUE 
-(traiter le fichier au fur et à mesure de la lecture)
-
-A - Description du problème :
-
-Le fichier à manipuler est très grand. On nous demande de traiter chaque ligne du fichier en en mettant une partie dans une liste ou dans un arbre. Cette liste ou arbre sera ensuite utilisé pour un tri.
-Si l'on place directement la partie de chaque ligne, sous la forme d'une structure par exemple, dans la liste ou l'arbre, on se retrouve avec une liste ou un arbre à 2 000 000 d'éléments, comme il y a environ 2 000 000 de lignes.
-Le problème est donc de chercher à éviter cela, d'avoir des tailles plus petites pour les structures que l'on manipule.
-
-B - Solution :
-
-Heureusement, chaque option que l'utilisateur peut invoquer n'exige pas d'avoir les 2 000 000 de mesures en sortie. Parfois, il faut juste la moyenne des mesures, parfois le maximum ou le minimum. Ci-dessous les cas spécifiques :
-
-Température mode 1 : On demande un minimum, un maximum, une moyenne dans toutes les mesures de température d'une station.
-Température mode 2 : On demande la moyenne de température mondiale pour chaque date.
-Température mode 3 : Exception. Je ne sais pas encore comment faire.
-Pression mode 1 : On demande un minimum, un maximum, une moyenne dans toutes les mesures de pression d'une station.
-Pression mode 2 : On demande la moyenne de pression mondiale pour chaque date.
-Pression mode 3 : Exception. Je ne sais pas encore comment faire.
-Vent : On demande la moyenne de deux coordonnées pour toutes les mesures de vent d'une station.
-Altitude : On demande l'altitude de chaque station.
-Humidité : On demande l'humidité maximale parmi toutes les mesures d'une station.
-
-On peut donc, au fur et à mesure que le programme C lit (avec une boucle de fscanf par exemple) les mesures des stations (les lignes), exclure ou mettre ensemble certaines informations. 
-
-Par exemple, pour l'altitude, la sortie demande les altitudes des stations triées par ordre décroissant. Sauf qu'une même station météo a toujours la même altitude. Et comme une station a fait des centaines de mesures dans le fichier, on va forcément croiser plusieurs fois la même station. 
-Alors on peut décider que notre programme C voyant apparaître, dans la ligne qu'il vient de lire, un numéro de station qu'il a déjà rencontré dans le fichier, va tout simplement ne pas traiter cette ligne, ne pas rajouter un nouvel élément à la liste/arbre.
-
-Autre exemple, si la sortie demande un maximum, on peut avoir notre liste/arbre de mesures, et si on croise une des stations déjà croisées, on va à sa position dans notre structure et on change selon si l'élément qui vient d'être lu doit être le nouveau maximum. 
-
-C'est ce principe que l'on peut appliquer partout. Il me semble que ça s'appelle de la programmation dynamique (le programme change la liste au fil de la lecture).
-
-C - Exemple :
-
-(voir mes fonctions tabWsort1(), tabWsort2(), tabHsort1(), tabHsort2(), tabMsort1(), tabMsort2() où j'applique ce principe dans leur étape 1)
-(fichier .c dans ma branche)
-
-4) QUESTIONS DIVERSES
+3) QUESTIONS DIVERSES
 
 Question : 
 Est-ce qu'on fait en sorte que le script shell filtre en amont avec les bons lieux et dates, ou que ce soit le C qui fasse le tri ?
@@ -112,12 +74,3 @@ Normalement, l'énoncé dit qu'il y a seulement 4 arguments pour l'appel du C : 
 Je suis pour l'instant parti dans la direction de donner d'autres arguments au C, je pense que je vais être bloqué longtemps si je ne le fais pas.
 
 RESOLU : éventuellement faire faire par le shell une ligne en plus en début de fichier pour indiquer au C tous les paramètre qu'on veut. On respectera ainsi l'énoncé en ne mettant que les 4 options lors de l'appel du C.
-
-
-Question :
-Comment traiter un fichier au fur et à mesure de la lecture en C ? 
-(Ils le demandent dans l'énoncé.)
-
-Lire et pouvoir traiter un fichier ligne par ligne : https://stackoverflow.com/questions/3501338/c-read-file-line-by-line
-
-MISE A JOUR : J'ai trouvé (il semble) un moyen un peu plus simple que ceux que les gens mettent sur ce fil de discussion. Je pourrai l'expliquer si vous en avez besoin.
