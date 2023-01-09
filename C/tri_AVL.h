@@ -8,9 +8,10 @@ STRUCTURES
 
 typedef struct NODE2_P1{
 
-    STATION_P1 s;
-    struct NODE2_P1* sl;
-    struct NODE2_P1* sr;
+	int balance;
+	STATION_P1 s;
+	struct NODE2_P1* sl;
+	struct NODE2_P1* sr;
 
 }NODE2_P1;
 
@@ -55,7 +56,7 @@ void freeNODE2_P1(NODE2_P1* l) ;
 
 NODE2_P1* createNODE2_P1(NODE2_P1* t, STATION_P1 p1) ;
 
-NODE2_P1* addNODE2_P1(NODE2_P1* t, STATION_P1 p1, int r);
+NODE2_P1* addNODE2_P1(NODE2_P1* t, STATION_P1 p1, int* h, int r);
 
 void writeinfileNODE2_P1(FILE* o, NODE2_P1* t) ;
 
