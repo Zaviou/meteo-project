@@ -50,10 +50,9 @@ NODE2_P1* createNODE2_P1(NODE2_P1* t, STATION_P1 p1){
 }
 
 NODE2_P1* addNODE2_P1(NODE2_P1* t, STATION_P1 p1, int* h, int r){
-	NODE2_P1* t1=createNODE2_P1(t, p1);
 	if(t==NULL){
 		*h=1;
-		return t1;
+		return createNODE2_P1(t, p1);
 	}else{
 		if(t->s.id < r*(p1.id)){
 			if (r ==1) *h=-*h;
@@ -70,6 +69,9 @@ NODE2_P1* addNODE2_P1(NODE2_P1* t, STATION_P1 p1, int* h, int r){
 	}
 	if(*h!=0){
 		t->balance=t->balance+*h;
+/*
+		if(t->balance <-1 || t->balance >1) rebalance(t);
+*/
 		if (t->balance==0) *h=0;
 		else *h=1;
 	}
