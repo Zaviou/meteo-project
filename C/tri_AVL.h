@@ -9,7 +9,7 @@ STRUCTURES
 /*
 This structure is used to build a tree.
 Each node contains informations about the station's pressure measures.
-* balance : the height of the sun left's tree minus the height of the sun right's tree (int)
+* balance : the height of the right-sun's tree minus the height of the left-sun's tree (int).
 * s : the station (STATION_T1).
 * sl : the next node (NODE_T1*).
 * sr : the next node (NODE_T1*).
