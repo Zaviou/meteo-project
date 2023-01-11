@@ -1,3 +1,13 @@
+#ifndef HEADCOMMUN
+	#define HEADCOMMUN
+	#include "headercommun.h"
+#endif
+
+#ifndef COMMUN
+	#define COMMUN
+	#include "commun.c"
+#endif
+
 #ifndef TRIAVL
 	#define TRIAVL
 	#include "tri_AVL.h"
@@ -57,8 +67,8 @@ void freetreeNODE2_P1(NODE2_P1* t){
 	if(t !=NULL){
 		if(t->sl==NULL && t->sr==NULL) free(t);
 		else {
-			if(t->sl!=NULL) freeNODE2_P1(t->sl);
-			if(t->sr!=NULL) freeNODE2_P1(t->sr);
+			if(t->sl!=NULL) freetreeNODE2_P1(t->sl);
+			if(t->sr!=NULL) freetreeNODE2_P1(t->sr);
 		}
 	}
 }
@@ -162,6 +172,32 @@ void writeinfileNODE2_P1(FILE* o, NODE2_P1* t){
 	fprintf(o, "0%d;%f;%f;%f\n", t->s.id, t->s.minimal, t->s.maximal, t->s.average);
 	writeinfileNODE2_P1(o, t->sr);
 	freetreeNODE2_P1(t);
+}
+
+int main(){
+	printf("coucou\n");
+	NODE2_P1* testt=NULL;
+	FILE* f=fopen("data/test.csv", "r");
+	if(f ==NULL){
+		printf("Can't open the file f\n");
+		exit(1);
+	}
+
+	printf("hehe\n");
+	NODE_P1* testl=linkedlist_P1(f); //erreur de fichier temporaire
+	printf("toto\n");
+	FILE* o=fopen("data/temp.csv", "w");
+	if(o ==NULL){
+		printf("Can't open the file o\n");
+		exit(1);
+	}
+
+	printf("au revoir\n");
+
+//	fillNODE2_P1withNODE_P1(testt,testl, 1);
+//	writeinfileNODE2_P1(o, testt);
+
+	return 0;
 }
 
 /*
