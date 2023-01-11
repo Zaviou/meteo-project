@@ -1,7 +1,9 @@
-#ifndef HEADCOMMUN
-	#define HEADCOMMUN
-	#include "headercommun.h"
-#endif
+
+#include "headercommun.h"
+#include "headertab.h"
+#include "tab.c"
+
+
 
 void UTCtime(int* year,int* month, int* day, int* hour, int* timezone){
     // To begin this function, the hour is directly modified to match the timezone +00:00
@@ -401,7 +403,12 @@ void producestring_T3(FILE* o,MEASURE_T3 measure){
     else{
         fprintf(o,"%d:00:00;",measure.hour);
     }
-    fprintf(o,"%d;%f\n",measure.id,measure.temperature);
+    if(measure.id <= 9999 ){
+        fprintf(o,"0%d;%f\n",measure.id,measure.temperature);
+    }
+    else{
+        fprintf(o,"%d;%f\n",measure.id,measure.temperature);
+    }
 }
 
 
@@ -794,7 +801,12 @@ void producestring_P3(FILE* o,MEASURE_P3 measure){
     else{
         fprintf(o,"%d:00:00;",measure.hour);
     }
-    fprintf(o,"%d;%f\n",measure.id,measure.pressure);
+    if(measure.id <= 9999 ){
+        fprintf(o,"0%d;%f\n",measure.id,measure.pressure);
+    }
+    else{
+        fprintf(o,"%d;%f\n",measure.id,measure.pressure);
+    }
 }
 
 
@@ -1078,4 +1090,19 @@ NODE_M* linkedlist_M(FILE* f){
         }
     }
     return l;
+}
+
+
+int main(){
+    FILE* f=fopen("testtemperature.txt","r");
+    FILE* o=fopen("sortietemp.txt","w");
+    NODE_T1* l=NULL;
+    printf("1");
+    l=linkedlist_T1(f);
+    printf("2");
+    tabT1sort1(o,l);
+    printf("3");
+    fclose(f);
+    fclose(o);
+    return 0;
 }

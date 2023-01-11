@@ -1,4 +1,6 @@
-#include "headertab.h"
+
+
+
 
 
 /*
@@ -249,6 +251,126 @@ MODE 3
 */
 
 
+int getlenghtNODE_T3(NODE_T3* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
+    int n;
+    if(l==NULL){
+        return 0;
+    }
+    NODE_T3* temp=l;
+    while(temp!=NULL){
+        n+=1;
+        temp=temp->next;
+    }
+    return n;
+}
+
+
+int tabT3sort1(FILE* o,NODE_T3* l){
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
+    int i;
+    int lenght=getlenghtNODE_T3(l);
+    NODE_T3* l0=l;                                              
+    MEASURE_T3* list=malloc(lenght*sizeof(MEASURE_T3));
+
+    for(i=0;i<lenght;i++){
+        *(list+i)=l0->m;                                          
+        l0=l0->next;
+    }
+    freeNODE_T3(l);
+    // STEP 2 : Sorting by 1) chronological order (ascending) and 2) station ID (ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the dates of two adjacents structures not being in the right order.
+    int sorted = 0;
+    int step = lenght-1;
+    int k;
+    MEASURE_T3 temp;
+    while(sorted==0 && step>0){
+        sorted=1;
+        for(k=0;k<step;k++){
+            if( chronologicalorder_T3(*(list+k),*(list+k+1)) == 0 ){
+                sorted=0;
+                temp=(*(list+k));
+                (*(list+k))=(*(list+k+1));
+                (*(list+k+1))=temp;
+            }
+            else if( (*(list+k)).year == (*(list+k+1)).year && (*(list+k)).month == (*(list+k+1)).month && (*(list+k)).day == (*(list+k+1)).day && (*(list+k)).hour == (*(list+k+1)).hour ){
+                if((*(list+k)).id > (*(list+k+1)).id){
+                    sorted=0;
+                    temp=(*(list+k));
+                    (*(list+k))=(*(list+k+1));
+                    (*(list+k+1))=temp;
+                }
+            }
+        }
+        step-=1;
+    }    
+    // STEP 3 : Writing the result in the output file.
+    // Each element of the sorted list is then written in the output file.
+    // Format : "Time (UTC);ID;temperature"
+    // A special function is used to write each line because writing dates and times with ints is lenghty.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
+    fprintf(o,"Time (UTC);ID;temperature\n");
+    for(i=0;i<lenght;i++){                                  
+        producestring_T3(o,*(list+i)); 
+    }
+    free(list);
+    return 0;
+}
+
+
+int tabT3sort2(FILE* o,NODE_T3* l){
+    // This function works the same as tabT3sort1(). The only difference is the inversion of sorting order.
+    int i;
+    int lenght=getlenghtNODE_T3(l);
+    NODE_T3* l0=l;                                              
+    MEASURE_T3* list=malloc(lenght*sizeof(MEASURE_T3));
+
+    for(i=0;i<lenght;i++){
+        *(list+i)=l0->m;                                          
+        l0=l0->next;
+    }
+    freeNODE_T3(l);
+    // Sorting by 1) chronological order (descending) and 2) station ID (ascending).
+    int sorted = 0;
+    int step = lenght-1;
+    int k;
+    MEASURE_T3 temp;
+    while(sorted==0 && step>0){
+        sorted=1;
+        for(k=0;k<step;k++){
+            if( chronologicalorder_T3(*(list+k),*(list+k+1)) == 1 ){
+                sorted=0;
+                temp=(*(list+k));
+                (*(list+k))=(*(list+k+1));
+                (*(list+k+1))=temp;
+            }
+            else if( (*(list+k)).year == (*(list+k+1)).year && (*(list+k)).month == (*(list+k+1)).month && (*(list+k)).day == (*(list+k+1)).day && (*(list+k)).hour == (*(list+k+1)).hour ){
+                if((*(list+k)).id > (*(list+k+1)).id){
+                    sorted=0;
+                    temp=(*(list+k));
+                    (*(list+k))=(*(list+k+1));
+                    (*(list+k+1))=temp;
+                }
+            }
+        }
+        step-=1;
+    }    
+    fprintf(o,"Time (UTC);ID;temperature\n");
+    for(i=0;i<lenght;i++){                                  
+        producestring_T3(o,*(list+i)); 
+    }
+    free(list);
+    return 0;
+}
+
+
 /*
 ------------------------------------------------------------
 PRESSURE FUNCTIONS
@@ -495,6 +617,126 @@ int tabP2sort2(FILE* o,NODE_P2* l){
 MODE 3
 ------------------------------------------------------------
 */
+
+
+int getlenghtNODE_P3(NODE_P3* l){
+    // If the list is empty, the function has to return 0.
+    // Else, 1 is added to a count for every node encountered in the list.
+    // The final count is returned.
+    int n;
+    if(l==NULL){
+        return 0;
+    }
+    NODE_P3* temp=l;
+    while(temp!=NULL){
+        n+=1;
+        temp=temp->next;
+    }
+    return n;
+}
+
+
+int tabP3sort1(FILE* o,NODE_P3* l){
+    // STEP 1 : Transfering the linked list's elements to a static list.
+    // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
+    // We make sure to keep the original linked list in a variable to be able to free it later. 
+    // Each element of the linked list is directly put in a static list. The sort comes in the next step.
+    // When this is finished, the linked list is freed.
+    int i;
+    int lenght=getlenghtNODE_P3(l);
+    NODE_P3* l0=l;                                              
+    MEASURE_P3* list=malloc(lenght*sizeof(MEASURE_P3));
+
+    for(i=0;i<lenght;i++){
+        *(list+i)=l0->m;                                          
+        l0=l0->next;
+    }
+    freeNODE_P3(l);
+    // STEP 2 : Sorting by 1) chronological order (ascending) and 2) station ID (ascending).
+    // A bubble sort is applied on the static list.
+    // What triggers the inversion of elements is the dates of two adjacents structures not being in the right order.
+    int sorted = 0;
+    int step = lenght-1;
+    int k;
+    MEASURE_P3 temp;
+    while(sorted==0 && step>0){
+        sorted=1;
+        for(k=0;k<step;k++){
+            if( chronologicalorder_P3(*(list+k),*(list+k+1)) == 0 ){
+                sorted=0;
+                temp=(*(list+k));
+                (*(list+k))=(*(list+k+1));
+                (*(list+k+1))=temp;
+            }
+            else if( (*(list+k)).year == (*(list+k+1)).year && (*(list+k)).month == (*(list+k+1)).month && (*(list+k)).day == (*(list+k+1)).day && (*(list+k)).hour == (*(list+k+1)).hour ){
+                if((*(list+k)).id > (*(list+k+1)).id){
+                    sorted=0;
+                    temp=(*(list+k));
+                    (*(list+k))=(*(list+k+1));
+                    (*(list+k+1))=temp;
+                }
+            }
+        }
+        step-=1;
+    }    
+    // STEP 3 : Writing the result in the output file.
+    // Each element of the sorted list is then written in the output file.
+    // Format : "Time (UTC);ID;pressure"
+    // A special function is used to write each line because writing dates and times with ints is lenghty.
+    // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
+    fprintf(o,"Time (UTC);ID;pressure\n");
+    for(i=0;i<lenght;i++){                                  
+        producestring_P3(o,*(list+i)); 
+    }
+    free(list);
+    return 0;
+}
+
+
+int tabP3sort2(FILE* o,NODE_P3* l){
+    // This function works the same as tabP3sort1(). The only difference is the inversion of sorting order.
+    int i;
+    int lenght=getlenghtNODE_P3(l);
+    NODE_P3* l0=l;                                              
+    MEASURE_P3* list=malloc(lenght*sizeof(MEASURE_P3));
+
+    for(i=0;i<lenght;i++){
+        *(list+i)=l0->m;                                          
+        l0=l0->next;
+    }
+    freeNODE_P3(l);
+    // Sorting by 1) chronological order (descending) and 2) station ID (ascending).
+    int sorted = 0;
+    int step = lenght-1;
+    int k;
+    MEASURE_P3 temp;
+    while(sorted==0 && step>0){
+        sorted=1;
+        for(k=0;k<step;k++){
+            if( chronologicalorder_P3(*(list+k),*(list+k+1)) == 1 ){
+                sorted=0;
+                temp=(*(list+k));
+                (*(list+k))=(*(list+k+1));
+                (*(list+k+1))=temp;
+            }
+            else if( (*(list+k)).year == (*(list+k+1)).year && (*(list+k)).month == (*(list+k+1)).month && (*(list+k)).day == (*(list+k+1)).day && (*(list+k)).hour == (*(list+k+1)).hour ){
+                if((*(list+k)).id > (*(list+k+1)).id){
+                    sorted=0;
+                    temp=(*(list+k));
+                    (*(list+k))=(*(list+k+1));
+                    (*(list+k+1))=temp;
+                }
+            }
+        }
+        step-=1;
+    }   
+    fprintf(o,"Time (UTC);ID;pressure\n");
+    for(i=0;i<lenght;i++){                                  
+        producestring_P3(o,*(list+i)); 
+    }
+    free(list);
+    return 0;
+}
 
 
 /*
