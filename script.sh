@@ -3,12 +3,15 @@
 
 echo "Welcome to CY-Météo !"
 
+# 1) OPTIONS READING
+
 # Initialisation of variables. Here, we use various integers to keep track of the user's choices and check for errors. 
 sort=0
 descendingsort=0
 place=0
 file=0
 filename=0
+dates=0
 date1=0
 date2=0
 wind=0
@@ -18,6 +21,7 @@ moisture=0
 temperature=0
 temperaturemode=0
 height=0
+tempfile=0
 
 # This loop runs until all the options and their arguments have been read. Inside, we specify what happens for each given option.
 # The string below is the list of the accepted options. They are followed by ':' if they need arguments.
@@ -154,6 +158,7 @@ do
 					fi
 				fi
 			fi
+			dates=1
 			;;
 		F) # The options for places. As with sorting modes, the user cannot select two.
 			if [ $place -ne 0 ]
@@ -224,6 +229,7 @@ fi
 
 if [ $sort -eq 0 ] # If the user does not chose a type of sort, AVL is selectionned by default.  
 then
+	echo "AVL sorting mode."
 	sort=1
 fi
 
@@ -232,6 +238,241 @@ then
 	echo "Error : one option is at least needed between -t -p -w -h -m."
  	exit 1
 fi
+
+echo "All options are correct."
+
+tail --lines=+2 $filename > file.txt
+
+# 2) TIME AND PLACE OPTIONS
+
+if [ $place -gt 0 ] || [ $dates -eq 1 ]
+then
+	tempfile=1
+	touch tempplace.txt
+	touch temptimeandplace.txt
+
+	if [ $place -gt 0 ]
+	then
+		if [ $place -eq 1 ]
+		then
+			while IFS=";" read -r f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15
+			do
+				if [ $f1 -le 40349 ]
+				then
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+				fi
+			done < file.txt
+		fi
+
+		if [ $place -eq 2 ]
+		then
+			while IFS=";" read -r f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15
+			do
+				if [ $f1 -gt 80000 ] && [ $f1 -lt 88999 ]
+				then
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+				fi
+			done < file.txt
+		fi
+
+		if [ $place -eq 3 ]
+		then
+			while IFS=";" read -r f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15
+			do
+				if [ $f1 -eq 71805 ]
+				then
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+				fi
+			done < file.txt
+		fi
+
+		if [ $place -eq 4 ]
+		then
+			while IFS=";" read -r f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15
+			do
+				if [ $f1 -gt 78000 ] && [ $f1 -lt 79000 ]
+				then
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+				fi
+			done < file.txt
+		fi
+
+		if [ $place -eq 5 ]
+		then
+			while IFS=";" read -r f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15
+			do
+				if [ $f1 -gt 61000 ] && [ $f1 -lt 67006 ]
+				then
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+				fi
+			done < file.txt
+		fi
+
+		if [ $place -eq 6 ]
+		then
+			while IFS=";" read -r f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15
+			do
+				if [ $f1 -eq 89642 ]
+				then
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+				fi
+			done < file.txt
+		fi
+	else
+		cat file.txt >> tempplace.txt
+	fi
+
+	if [ $dates -eq 1 ]
+	then
+		cat tempplace.txt >> temptimeandplace.txt
+	else
+		cat tempplace.txt >> temptimeandplace.txt
+	fi
+fi
+
+
+
+
+# 3) CREATING TEMPORARY FILES
+
+if [ $tempfile -eq 0 ]
+then
+	# Temperature : 
+
+	if [ $temperature -eq 1 ]
+	then
+		if [ $temperaturemode -eq 1 ]
+		then
+			echo "1100000" > temptemperature.txt
+			cut --delimiter=";" --fields=1,11,12,13 file.txt >> temptemperature.txt
+		else
+			if [ $temperaturemode -eq 2 ]
+			then
+				echo "1200000" > temptemperature.txt
+				cut --delimiter=";" --fields=2,11 file.txt >> temptemperature.txt
+			else
+				echo "1300000" > temptemperature.txt
+				cut --delimiter=";" --fields=1,2,11 file.txt >> temptemperature.txt
+			fi
+		fi
+	fi
+
+	# Pressure : 
+
+	if [ $pressure -eq 1 ]
+	then
+		if [ $pressuremode -eq 1 ]
+		then
+			echo "0011000" > temppressure.txt
+			cut --delimiter=";" --fields=1,7 file.txt >> temppressure.txt
+		else
+			if [ $pressuremode -eq 2 ]
+			then
+				echo "0012000" > temppressure.txt
+				cut --delimiter=";" --fields=2,7 file.txt >> temppressure.txt
+			else
+				echo "0013000" > temppressure.txt
+				cut --delimiter=";" --fields=1,2,7 file.txt >> temppressure.txt
+			fi
+		fi
+	fi
+
+	# Wind : 
+
+	if [ $wind -eq 1 ]
+	then
+		echo "0000100" > tempwind.txt
+		cut --delimiter=";" --fields=1,4,5 file.txt >> tempwind.txt
+	fi
+
+	# Height : 
+
+	if [ $height -eq 1 ]
+	then
+		echo "0000010" > tempheight.txt
+		cut --delimiter=";" --fields=1,14 file.txt >> tempheight.txt
+	fi
+
+	# Moisture : 
+
+	if [ $moisture -eq 1 ]
+	then
+		echo "0000001" > tempmoisture.txt
+		cut --delimiter=";" --fields=1,6 file.txt >> tempmoisture.txt
+	fi
+
+else
+	# Temperature : 
+
+	if [ $temperature -eq 1 ]
+	then
+		if [ $temperaturemode -eq 1 ]
+		then
+			echo "1100000" > temptemperature.txt
+			cut --delimiter=";" --fields=1,11,12,13 temptimeandplace.txt >> temptemperature.txt
+		else
+			if [ $temperaturemode -eq 2 ]
+			then
+				echo "1200000" > temptemperature.txt
+				cut --delimiter=";" --fields=2,11 temptimeandplace.txt >> temptemperature.txt
+			else
+				echo "1300000" > temptemperature.txt
+				cut --delimiter=";" --fields=1,2,11 temptimeandplace.txt >> temptemperature.txt
+			fi
+		fi
+	fi
+
+	# Pressure : 
+
+	if [ $pressure -eq 1 ]
+	then
+		if [ $pressuremode -eq 1 ]
+		then
+			echo "0011000" > temppressure.txt
+			cut --delimiter=";" --fields=1,7 temptimeandplace.txt >> temppressure.txt
+		else
+			if [ $pressuremode -eq 2 ]
+			then
+				echo "0012000" > temppressure.txt
+				cut --delimiter=";" --fields=2,7 temptimeandplace.txt >> temppressure.txt
+			else
+				echo "0013000" > temppressure.txt
+				cut --delimiter=";" --fields=1,2,7 temptimeandplace.txt >> temppressure.txt
+			fi
+		fi
+	fi
+
+	# Wind : 
+
+	if [ $wind -eq 1 ]
+	then
+		echo "0000100" > tempwind.txt
+		cut --delimiter=";" --fields=1,4,5 temptimeandplace.txt >> tempwind.txt
+	fi
+
+	# Height : 
+
+	if [ $height -eq 1 ]
+	then
+		echo "0000010" > tempheight.txt
+		cut --delimiter=";" --fields=1,14 temptimeandplace.txt >> tempheight.txt
+	fi
+
+	# Moisture : 
+
+	if [ $moisture -eq 1 ]
+	then
+		echo "0000001" > tempmoisture.txt
+		cut --delimiter=";" --fields=1,6 temptimeandplace.txt >> tempmoisture.txt
+	fi
+fi
+
+
+# 4) CALLING C PROGRAMS
+
+
+# 5) USING GNUPLOT
+
 
 # If no error occured, then the program comes to its end with a 0 exit.
 echo "The program executed successfully."
