@@ -1,5 +1,7 @@
-#include "headercommun.h"
-
+#ifndef HEADCOMMUN
+	#define HEADCOMMUN
+	#include "headercommun.h"
+#endif
 
 void UTCtime(int* year,int* month, int* day, int* hour, int* timezone){
     // To begin this function, the hour is directly modified to match the timezone +00:00
@@ -340,7 +342,7 @@ NODE_T3* addNODE_T3(NODE_T3* l,int id,int year,int month, int day, int hour, flo
         printf("Error : addNODE_T3");
         exit(4);
     }
-    new->m.id=id
+    new->m.id=id;
     new->m.year=year;
     new->m.month=month;
     new->m.day=day;
@@ -733,7 +735,7 @@ NODE_P3* addNODE_P3(NODE_P3* l,int id,int year,int month, int day, int hour, flo
         printf("Error : addNODE_P3");
         exit(4);
     }
-    new->m.id=id
+    new->m.id=id;
     new->m.year=year;
     new->m.month=month;
     new->m.day=day;

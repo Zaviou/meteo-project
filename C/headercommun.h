@@ -1,9 +1,6 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tab.c"
 
 #define OPTION_T1 1100000
 #define OPTION_T2 1200000 
@@ -677,7 +674,7 @@ A function used to know if a particular date is in a list.
 * Returns 1 if the date is in the list, 0 if not.
 Specifically used when pressure with mode 2 was chosen.
 */
-int inlistNODE_P2(NODE_P2* l,int id) ;
+int inlistNODE_P2(NODE_P2* l,int year,int month, int day, int hour) ;
 
 
 /*
@@ -980,3 +977,4 @@ Format of the measures : "ID;moisture level"
 Specifically used when moisture was chosen.
 */
 NODE_M* linkedlist_M(FILE* f) ;
+
