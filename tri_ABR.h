@@ -1,5 +1,12 @@
+#ifndef HEADCOMMUN
+	#define HEADCOMMUN
+	#include "headercommun.h"
+#endif
 
-#include "headercommun.h"
+#ifndef COMMUN
+	#define COMMUN
+	#include "commun.c"
+#endif
 
 /*
 ------------------------------------------------------------
@@ -81,7 +88,7 @@ It is specifically used when pressure with mode 2 was chosen.
 */
 typedef struct NODE2_P2{
 
-	STATION_P2 t;
+	TIME_P2 t;
 	struct NODE2_P2* sl;
 	struct NODE2_P2* sr;
 
@@ -97,7 +104,7 @@ It is specifically used when pressure with mode 3 was chosen.
 */
 typedef struct NODE2_P3{
 
-	STATION_P3 m;
+	MEASURE_P3 m;
 	struct NODE2_P3* sl;
 	struct NODE2_P3* sr;
 
@@ -127,7 +134,7 @@ Each node contains informations about the station's measures.
 * sr : the son right (NODE2_H*).
 It is specifically used when height was chosen.
 */
-typedef struct NODE_H{
+typedef struct NODE2_H{
 
 	STATION_H s;
 	struct NODE2_H* sl;
