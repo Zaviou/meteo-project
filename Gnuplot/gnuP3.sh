@@ -14,5 +14,4 @@ set xdata time
 set timefmt '"%Y-%m-%d"'
 set format x "%d/%m/%Y"
 
-#Error : ne fonctionne pas : mauvaise légende (curseur coloré) !
 plot 'data/temp_P3.csv' using 1:3:4 with linespoints lc palette z title "Hours"
