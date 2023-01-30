@@ -5,7 +5,7 @@ set terminal png size 1800,1000
 set output "load_T1"
 
 # Putting a legend.
-set title "Error lines graph T1"
+set title "Temperature error bars"
 set xlabel ' Id sation'
 set ylabel ' Temperatures '
 
