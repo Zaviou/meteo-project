@@ -9,4 +9,4 @@ set title "Carte interpolée et colorée altitude"
 set xlabel ' Longitude '
 set ylabel ' Latitude '
 
-plot 'C/data/temp_H.csv' using 1:2:3 with circles fillstyle solid lc palette title "Height"
+plot 'data/temp_H.csv' using 1:2:3 with circles fillstyle solid lc palette title "Height"
