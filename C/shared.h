@@ -1,10 +1,6 @@
-
-// #  \   `   |  ~   []  {}
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 
 
 #define OPTION_T1 1100000
@@ -35,7 +31,7 @@ This structure represents a station and various temperature indicators.
 * maximal : the station's known maximal temperature value in °C (float).
 * minimal : the station's known minimal temperature value in °C (float).
 * average : the station's average temperature value in °C (float).
-* count : used to know how many times the station was encountered, to compute averages later (int).
+* count   : used to know how many times the station was encountered, to compute averages later (int).
 It is specifically used when temperature with mode 1 was chosen.
 */
 typedef struct STATION_T1{
@@ -88,7 +84,7 @@ typedef struct TIME_T2{
 /*
 This structure is used to build linked lists.
 Each node contains informations about temperature at a given time.
-* t : the time considered (TIME_T2).
+* t    : the time considered (TIME_T2).
 * next : the next node (NODE_T2*).
 It is specifically used when temperature with mode 2 was chosen.
 */
@@ -125,7 +121,7 @@ typedef struct MEASURE_T3{
 /*
 This structure is used to build linked lists.
 Each node contains informations about a temperature measure.
-* m : the station (MEASURE_T3).
+* m    : the station (MEASURE_T3).
 * next : the next node (NODE_T3*).
 It is specifically used when temperature with mode 3 was chosen.
 */
@@ -160,7 +156,7 @@ typedef struct STATION_P1{
 /*
 This structure is used to build linked lists.
 Each node contains informations about a station's pressure measures.
-* s : the station (STATION_P1).
+* s    : the station (STATION_P1).
 * next : the next node (NODE_P1*).
 It is specifically used when pressure with mode 1 was chosen.
 */
@@ -196,7 +192,7 @@ typedef struct TIME_P2{
 /*
 This structure is used to build linked lists.
 Each node contains informations about pressure at a given time.
-* t : the time (TIME_P2).
+* t    : the time (TIME_P2).
 * next : the next node (NODE_P2*).
 It is specifically used when pressure with mode 2 was chosen.
 */
@@ -233,7 +229,7 @@ typedef struct MEASURE_P3{
 /*
 This structure is used to build linked lists.
 Each node contains informations about a pressure measure.
-* m : the measure (MEASURE_P3).
+* m    : the measure (MEASURE_P3).
 * next : the next node (NODE_P3*).
 It is specifically used when pressure with mode 3 was chosen.
 */
@@ -266,7 +262,7 @@ typedef struct STATION_W{
 /*
 This structure is used to build linked lists.
 Each node contains informations about the station's wind measures.
-* s : the station (STATION_W).
+* s    : the station (STATION_W).
 * next : the next node (NODE_W*).
 It is specifically used when wind was chosen.
 */
@@ -295,7 +291,7 @@ typedef struct STATION_H{
 /*
 This structure is used to build linked lists.
 Each node contains the station's height.
-* s : the station (STATION_H).
+* s    : the station (STATION_H).
 * next : the next node (NODE_H*).
 It is specifically used when height was chosen.
 */
@@ -324,7 +320,7 @@ typedef struct STATION_M{
 /*
 This structure is used to build linked lists.
 Each node contains informations about the station's moisture measures.
-* s : the station (STATION_M).
+* s    : the station (STATION_M).
 * next : the next node (NODE_M*).
 It is specifically used when moisture was chosen.
 */
@@ -345,14 +341,22 @@ FUNCTIONS
 
 /*
 This function takes a given time and a timezone and changes the values of the pointers to match the Coordoned Universal Time (UTC).
-* year : year of the given time (int*).
-* month : month of the given time (int*).
-* day : day of the given time (int*).
-* hour : hour of the given time (int*).
+* year     : year of the given time (int*).
+* month    : month of the given time (int*).
+* day      : day of the given time (int*).
+* hour     : hour of the given time (int*).
 * timezone : positive number of hours representing the timezone (int*).
 Example : 2000-12-23 22:00:00 +05:00 becomes 2000-12-23 17:00:00 UTC(+00:00)
 */
 void UTCtime(int* year,int* month, int* day, int* hour, int* timezone) ;
+
+/*
+This function takes a given Id station and changes the values of the pointers to match the latitude and longitude of the station.
+* id  : station id given (int).
+* lat : latitude of the given station (int*).
+* lon : longitude of the given station (int*).
+*/
+void coordonate(int id, float* lat, float* lon) ;
 
 
 /*
@@ -379,7 +383,7 @@ void freeNODE_T1(NODE_T1* l) ;
 
 /*
 A function used to know if a particular station is in a list.
-* l : the linked list (NODE_T1*).
+* l  : the linked list (NODE_T1*).
 * id : the station's id (int).
 * Returns 1 if the station is in the list, 0 if not.
 Specifically used when temperature with mode 1 was chosen.
@@ -389,7 +393,7 @@ int inlistNODE_T1(NODE_T1* l,int id) ;
 
 /*
 When a station of ID 'id' is not in the linked list l, this function is called to add it as a node to l, together with temperature measures.
-* l : given linked list (NODE_T1*).
+* l  : given linked list (NODE_T1*).
 * id : the station's id (int).
 * temperature : the temperature measure the station was the first seen with (float).
 * minimaltemperature : the minimal temperature measure the station was the first seen with (float).
@@ -402,9 +406,9 @@ NODE_T1* addNODE_T1(NODE_T1* l,int id, float temperature, float minimaltemperatu
 
 /*
 When a station of ID 'id' is already in the linked list l, this function is called to compare a just seen measure with what was seen in the past and uptdate.
-* l : given linked list (NODE_T1*).
-* id : the station's id (int).
-* temperature : the temperature measure the station was just seen with (float).
+* l                  : given linked list (NODE_T1*).
+* id                 : the station's id (int).
+* temperature        : the temperature measure the station was just seen with (float).
 * minimaltemperature : the minimal temperature measure the station was just seen with (float).
 * maximaltemperature : the maximal temperature measure the station was just seen with (float).
 * Returns the list l with the station's node changed.
@@ -449,11 +453,11 @@ void freeNODE_T2(NODE_T2* l) ;
 
 /*
 A function used to know if a particular date is in a list.
-* l : the linked list (NODE_T2*).
-* year : year of the given date (int).
+* l     : the linked list (NODE_T2*).
+* year  : year of the given date (int).
 * month : month of the given date (int).
-* day : day of the given date (int).
-* hour : hour of the given date (int).
+* day   : day of the given date (int).
+* hour  : hour of the given date (int).
 * Returns 1 if the date is in the list, 0 if not.
 Specifically used when temperature with mode 2 was chosen.
 */
@@ -462,11 +466,11 @@ int inlistNODE_T2(NODE_T2* l,int year,int month, int day, int hour) ;
 
 /*
 When a given date is not in the linked list l, this function is called to add a new node containing the date to the list.
-* l : given linked list (NODE_T2*).
-* year : year of the given time (int).
-* month : month of the given time (int).
-* day : day of the given time (int).
-* hour : hour of the given time (int).
+* l           : given linked list (NODE_T2*).
+* year        : year of the given time (int).
+* month       : month of the given time (int).
+* day         : day of the given time (int).
+* hour        : hour of the given time (int).
 * temperature : the temperature measure just seen (float).
 * Returns the list l with the date's node added.
 Specifically used when temperature with mode 2 was chosen.
@@ -476,11 +480,11 @@ NODE_T2* addNODE_T2(NODE_T2* l,int year,int month, int day, int hour, float temp
 
 /*
 When a given date is already in the linked list l, this function is called to uptdate the to-be average temperature for this date.
-* l : given linked list (NODE_T2*).
-* year : year of the given time (int).
-* month : month of the given time (int).
-* day : day of the given time (int).
-* hour : hour of the given time (int).
+* l           : given linked list (NODE_T2*).
+* year        : year of the given time (int).
+* month       : month of the given time (int).
+* day         : day of the given time (int).
+* hour        : hour of the given time (int).
 * temperature : the temperature measure just seen (float).
 * Returns the list l with the date's node changed.
 Specifically used when temperature with mode 2 was chosen.
@@ -509,8 +513,8 @@ int chronologicalorder_T2(TIME_T2 d1,TIME_T2 d2) ;
 
 /*
 This function is used to write an average temperature for a date in the file o. 
-Format : "Time;average temperature"
-* o : output file (FILE*).
+Format : "Time("year-month-day hour:00:00") average_temperature"
+* o    : output file (FILE*).
 * date : structure containing the informations (TIME_T2).
 Specifically used when temperature with mode 2 was chosen.
 */
@@ -543,11 +547,11 @@ void freeNODE_T3(NODE_T3* l) ;
 
 /*
 This function is called to add a new node containing a temperature measure to the linked list l.
-* l : given linked list (NODE_T3*).
-* year : year of the given time (int).
-* month : month of the given time (int).
-* day : day of the given time (int).
-* hour : hour of the given time (int).
+* l           : given linked list (NODE_T3*).
+* year        : year of the given time (int).
+* month       : month of the given time (int).
+* day         : day of the given time (int).
+* hour        : hour of the given time (int).
 * temperature : the temperature measure (float).
 * Returns the list l with the measure's node added.
 Specifically used when temperature with mode 3 was chosen.
@@ -567,12 +571,13 @@ int chronologicalorder_T3(MEASURE_T3 d1,MEASURE_T3 d2) ;
 
 /*
 This function is used to write a temperature measure in the file o. 
-Format : "Time;ID;temperature"
-* o : output file (FILE*).
-* measure : structure containing the informations (MEASURE_T3).
+Format : "Time("year-month-day") ID temperature hour"
+* o           : output file (FILE*).
+* measure     : structure containing the informations (MEASURE_T3).
+* old_measure : structure containing the informations about the previous structure (MEASURE_T3).
 Specifically used when temperature with mode 3 was chosen.
 */
-void producestring_T3(FILE* o,MEASURE_T3 measure) ;
+void producestring_T3(FILE* o,MEASURE_T3 measure, MEASURE_T3 old_measure) ;
 
 
 /*
@@ -607,7 +612,7 @@ void freeNODE_P1(NODE_P1* l) ;
 
 /*
 A function used to know if a particular station is in a list.
-* l : the linked list (NODE_P1*).
+* l  : the linked list (NODE_P1*).
 * id : the station's id (int).
 * Returns 1 if the station is in the list, 0 if not.
 Specifically used when pressure with mode 1 was chosen.
@@ -617,7 +622,7 @@ int inlistNODE_P1(NODE_P1* l,int id) ;
 
 /*
 When a station of ID 'id' is not in the linked list l, this function is called to add it as a node to l, together with pressure measures.
-* id : the station's id (int).
+* id       : the station's id (int).
 * pressure : the pressure measure the station was the first seen with (float).
 * Returns the list l which is now starting with the newly added node (NODE_P1*)
 Specifically used when pressure with mode 1 was chosen.
@@ -627,8 +632,8 @@ NODE_P1* addNODE_P1(NODE_P1* l,int id, float pressure) ;
 
 /*
 When a station of ID 'id' is already in the linked list l, this function is called to compare a just seen measure with what was seen in the past and uptdate.
-* l : given linked list (NODE_P1*).
-* id : the station's id (int).
+* l        : given linked list (NODE_P1*).
+* id       : the station's id (int).
 * pressure : the pressure measure the station was just seen with (float).
 * Returns the list l with the station's node changed.
 Specifically used when pressure with mode 1 was chosen.
@@ -671,11 +676,11 @@ void freeNODE_P2(NODE_P2* l) ;
 
 /*
 A function used to know if a particular date is in a list.
-* l : the linked list (NODE_P2*).
-* year : year of the given date (int).
+* l     : the linked list (NODE_P2*).
+* year  : year of the given date (int).
 * month : month of the given date (int).
-* day : day of the given date (int).
-* hour : hour of the given date (int).
+* day   : day of the given date (int).
+* hour  : hour of the given date (int).
 * Returns 1 if the date is in the list, 0 if not.
 Specifically used when pressure with mode 2 was chosen.
 */
@@ -684,11 +689,11 @@ int inlistNODE_P2(NODE_P2* l,int year,int month, int day, int hour) ;
 
 /*
 When a given date is not in the linked list l, this function is called to add a new node containing the date to the list.
-* l : given linked list (NODE_P2*).
-* year : year of the given time (int).
-* month : month of the given time (int).
-* day : day of the given time (int).
-* hour : hour of the given time (int).
+* l        : given linked list (NODE_P2*).
+* year     : year of the given time (int).
+* month    : month of the given time (int).
+* day      : day of the given time (int).
+* hour     : hour of the given time (int).
 * pressure : the pressure measure just seen (float).
 * Returns the list l with the date's node added.
 Specifically used when pressure with mode 2 was chosen.
@@ -698,11 +703,11 @@ NODE_P2* addNODE_P2(NODE_P2* l,int year,int month, int day, int hour, float pres
 
 /*
 When a given date is already in the linked list l, this function is called to uptdate the to-be average pressure for this date.
-* l : given linked list (NODE_P2*).
-* year : year of the given time (int).
-* month : month of the given time (int).
-* day : day of the given time (int).
-* hour : hour of the given time (int).
+* l        : given linked list (NODE_P2*).
+* year     : year of the given time (int).
+* month    : month of the given time (int).
+* day      : day of the given time (int).
+* hour     : hour of the given time (int).
 * pressure : the pressure measure just seen (float).
 * Returns the list l with the date's node changed.
 Specifically used when pressure with mode 2 was chosen.
@@ -731,8 +736,8 @@ int chronologicalorder_P2(TIME_P2 d1,TIME_P2 d2) ;
 
 /*
 This function is used to write an average pressure for a date in the file o. 
-Format : "Time;average pressure"
-* o : output file (FILE*).
+Format : "Time("year-month-day hour:00:00") average_pressure"
+* o    : output file (FILE*).
 * date : structure containing the informations (TIME_P2).
 Specifically used when pressure with mode 2 was chosen.
 */
@@ -765,11 +770,11 @@ void freeNODE_P3(NODE_P3* l) ;
 
 /*
 This function is called to add a new node containing a pressure measure to the linked list l.
-* l : given linked list (NODE_P3*).
-* year : year of the given time (int).
-* month : month of the given time (int).
-* day : day of the given time (int).
-* hour : hour of the given time (int).
+* l        : given linked list (NODE_P3*).
+* year     : year of the given time (int).
+* month    : month of the given time (int).
+* day      : day of the given time (int).
+* hour     : hour of the given time (int).
 * pressure : the pressure measure (float).
 * Returns the list l with the measure's node added.
 Specifically used when pressure with mode 3 was chosen.
@@ -789,12 +794,13 @@ int chronologicalorder_P3(MEASURE_P3 d1,MEASURE_P3 d2) ;
 
 /*
 This function is used to write a pressure measure in the file o. 
-Format : "Time;ID;pressure"
-* o : output file (FILE*).
-* measure : structure containing the informations (MEASURE_P3).
+Format : "Time("year-month-day") ID temperature hour"
+* o           : output file (FILE*).
+* measure     : structure containing the informations (MEASURE_P3).
+* old_measure : structure containing the informations about the previous structure (MEASURE_P3).
 Specifically used when pressure with mode 3 was chosen.
 */
-void producestring_P3(FILE* o,MEASURE_P3 measure) ;
+void producestring_P3(FILE* o,MEASURE_P3 measure, MEASURE_P3 old_measure) ;
 
 
 /*
@@ -823,7 +829,7 @@ void freeNODE_W(NODE_W* l) ;
 
 /*
 A function used to know if a particular station is in a list.
-* l : the linked list (NODE_W*).
+* l  : the linked list (NODE_W*).
 * id : the station's id (int).
 * Returns 1 if the station is in the list, 0 if not (int).
 Specifically used when wind was chosen.
@@ -834,10 +840,10 @@ int inlistNODE_W(NODE_W* l,int id) ;
 /*
 This function is used to create a new node (containing a not encountered yet station) and add it to a linked list.
 The new node is added at the beginning of the list.
-* l : linked list to which add the node (NODE_W*).
-* id : ID of the station (int).
+* l           : linked list to which add the node (NODE_W*).
+* id          : ID of the station (int).
 * orientation : wind orientation for the encountered measure (int).
-* speed : wind speed for the encountered measure (float).
+* speed       : wind speed for the encountered measure (float).
 * Returns the new list (NODE_W*).
 Specifically used when wind was chosen.
 */
@@ -848,10 +854,10 @@ NODE_W* addNODE_W(NODE_W* l,int id, int orientation, float speed) ;
 A function used when a station was already encountered in the wind file. This particular station is then already in the linked list.
 It searches the position of the node containing the station, and adds the orientation and speed of the measure as well as one point to the 'count' variable.
 This allows to compute an average later.
-* l : the linked list (NODE_W*).
-* id : ID of the already encountered station (int).
+* l           : the linked list (NODE_W*).
+* id          : ID of the already encountered station (int).
 * orientation : wind orientation for the encountered measure (int).
-* speed : wind speed for the encountered measure (float).
+* speed       : wind speed for the encountered measure (float).
 * Returns the linked list l (NODE_W*).
 Specifically used when wind was chosen.
 */
@@ -895,7 +901,7 @@ void freeNODE_H(NODE_H* l) ;
 
 /*
 A function used to know if a particular station is in a list.
-* l : the linked list (NODE_H*).
+* l  : the linked list (NODE_H*).
 * id : the station's id (int).
 * Returns 1 if the station is in the list, 0 if not.
 Specifically used when height was chosen.
@@ -906,8 +912,8 @@ int inlistNODE_H(NODE_H* l,int id) ;
 /*
 This function is used to add to a linked list a node containing a station that has not been encountered before in the input file.
 The node is placed at the beginning of the list.
-* l : the considered linked list (NODE_H*).
-* id : ID of the new station (int).
+* l      : the considered linked list (NODE_H*).
+* id     : ID of the new station (int).
 * height : height value of the new station (int).
 * Returns the new linked list (NODE_H*).
 Specifically used when height was chosen.
@@ -942,7 +948,7 @@ void freeNODE_M(NODE_M* l) ;
 
 /*
 A function used to know if a particular station is in a list.
-* l : the linked list (NODE_M*).
+* l  : the linked list (NODE_M*).
 * id : the station's id (int).
 * Returns 1 if the station is in the list, 0 if not.
 Specifically used when moisture was chosen.
@@ -953,8 +959,8 @@ int inlistNODE_M(NODE_M* l,int id) ;
 /*
 This function is used to add to a linked list a node containing a station that has not been encountered before in the input file.
 The node is placed at the beginning of the list.
-* l : the considered linked list (NODE_M*).
-* id : ID of the new station (int).
+* l        : the considered linked list (NODE_M*).
+* id       : ID of the new station (int).
 * moisture : moisture value of the encountered measure (int).
 * Returns the new linked list (NODE_M*).
 Specifically used when moisture was chosen.
@@ -965,8 +971,8 @@ NODE_M* addNODE_M(NODE_M* l,int id, int moisture) ;
 /*
 This function is used when a measure read from the input file comes from a station that has already been encountered.
 It searches for the station's node, and modifies it if the read moisture value is greater than the one currently set (since we need to search for a maximal value). 
-* l : the considered linked list (NODE_M*).
-* id : ID of the station (int).
+* l        : the considered linked list (NODE_M*).
+* id       : ID of the station (int).
 * moisture : moisture value of the encountered measure (int).
 * Returns the linked list (NODE_M*).
 Specifically used when moisture was chosen.
