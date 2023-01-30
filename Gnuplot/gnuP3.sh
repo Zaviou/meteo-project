@@ -5,9 +5,9 @@ set terminal png size 1800,1000
 set output "load_P3"
 
 # Putting a legend.
-set title "Multiples lignes graph P3"
-set xlabel ' Station '
-set ylabel ' Pression '
+set title "Graph of pressure versus time"
+set xlabel ' Date '
+set ylabel ' Pressure '
 
 #Settings the format of date.
 set xdata time
