@@ -1,6 +1,3 @@
-
-// #  \   `   |  ~   []  {}
-
 #ifndef SHARED
 	#define SHARED 1
 	#include "shared.c"
@@ -10,7 +7,6 @@
 	#define HEADERTAB 1
 	#include "tab.h"
 #endif
-
 
 /*
 ------------------------------------------------------------
@@ -80,17 +76,11 @@ int tabT1sort1(FILE* o,NODE_T1* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "Station ID;minimal temperature;maximal temperature;average temperature"
-    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // Format : "Id minimal_temperature maximal_temperature average_temperature".
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"Station ID;minimal temperature;maximal temperature;average temperature\n");
-    for(i=0;i<lenght;i++){                                   
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
-        }
-        else{
-            fprintf(o,"%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
-        }  
+    fprintf(o,"# Id minimal_temperature maximal_temperature average_temperature\n");
+    for(i=0;i<lenght;i++){
+            fprintf(o,"%d %f %f %f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
     }
     free(list);
     return 0;
@@ -127,14 +117,9 @@ int tabT1sort2(FILE* o,NODE_T1* l){
         step-=1;
     }    
 
-    fprintf(o,"Station ID;minimal temperature;maximal temperature;average temperature\n");
-    for(i=0;i<lenght;i++){                                   
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
-        }
-        else{
-            fprintf(o,"%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
-        }  
+    fprintf(o,"# Id minimal_temperature maximal_temperature average_temperature\n");
+    for(i=0;i<lenght;i++){
+            fprintf(o,"%d %f %f %f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
     }
     free(list);
     return 0;
@@ -202,12 +187,12 @@ int tabT2sort1(FILE* o,NODE_T2* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "Time (UTC) ; average temperature (world)"
+    // Format : "date average_temperature".
     // A special function is used to write each line because writing dates and times with ints is lenghty.
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"Time;average temperature\n");
+    fprintf(o,"# Date average_temperature\n");
     for(i=0;i<lenght;i++){                                  
-        producestring_T2(o,*(list+i)); 
+        producestring_T2(o,*(list+i));
     }
     free(list);
     return 0;
@@ -244,7 +229,7 @@ int tabT2sort2(FILE* o,NODE_T2* l){
         step-=1;
     }    
 
-    fprintf(o,"Time;average temperature\n");
+    fprintf(o,"# Date average_temperature\n");
     for(i=0;i<lenght;i++){                                  
         producestring_T2(o,*(list+i)); 
     }
@@ -322,12 +307,13 @@ int tabT3sort1(FILE* o,NODE_T3* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "Time (UTC);ID;temperature"
+    // Format : "day ID temperature hours".
     // A special function is used to write each line because writing dates and times with ints is lenghty.
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"Time (UTC);ID;temperature\n");
-    for(i=0;i<lenght;i++){                                  
-        producestring_T3(o,*(list+i)); 
+    fprintf(o,"# Day ID temperature hours.\n");
+    for(i=0;i<lenght;i++){
+        if(i ==0) producestring_T3(o, *(list+i), addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
+        else producestring_T3(o, *(list+i), *(list+i-1));
     }
     free(list);
     return 0;
@@ -370,10 +356,11 @@ int tabT3sort2(FILE* o,NODE_T3* l){
             }
         }
         step-=1;
-    }    
-    fprintf(o,"Time (UTC);ID;temperature\n");
-    for(i=0;i<lenght;i++){                                  
-        producestring_T3(o,*(list+i)); 
+    }
+    fprintf(o,"# Day ID temperature hours.\n");
+    for(i=0;i<lenght;i++){
+        if(i ==0) producestring_T3(o, *(list+i), addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
+        else producestring_T3(o, *(list+i), *(list+i-1));
     }
     free(list);
     return 0;
@@ -448,17 +435,11 @@ int tabP1sort1(FILE* o,NODE_P1* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "Station ID;minimal pressure;maximal pressure;average pressure"
-    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // Format : "Id minimal_pressure maximal_pressure average_pressure".
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"Station ID;minimal pressure;maximal pressure;average pression\n");
-    for(i=0;i<lenght;i++){                                   
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
-        }
-        else{
-            fprintf(o,"%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
-        }  
+    fprintf(o,"# Id minimal_pressure maximal_pressure average_pressure\n");
+    for(i=0;i<lenght;i++){
+        fprintf(o,"%d %f %f %f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
     }
     free(list);
     return 0;
@@ -495,14 +476,9 @@ int tabP1sort2(FILE* o,NODE_P1* l){
         step-=1;
     }    
 
-    fprintf(o,"Station ID;minimal pressure;maximal pressure;average pression\n");
-    for(i=0;i<lenght;i++){                                   
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
-        }
-        else{
-            fprintf(o,"%d;%f;%f;%f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
-        }  
+    fprintf(o,"# Id minimal_pressure maximal_pressure average_pressure\n");
+    for(i=0;i<lenght;i++){
+        fprintf(o,"%d %f %f %f\n",(*(list+i)).id,(*(list+i)).minimal,(*(list+i)).maximal,(*(list+i)).average);
     }
     free(list);
     return 0;
@@ -570,10 +546,10 @@ int tabP2sort1(FILE* o,NODE_P2* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "Time (UTC) ; average pressure (world)"
+    // Format : "date average_pressure".
     // A special function is used to write each line because writing dates and times with ints is lenghty.
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"Time;average pressure\n");
+    fprintf(o,"# Date average_pressure\n");
     for(i=0;i<lenght;i++){                                  
         producestring_P2(o,*(list+i)); 
     }
@@ -612,7 +588,7 @@ int tabP2sort2(FILE* o,NODE_P2* l){
         step-=1;
     }    
 
-    fprintf(o,"Time;average pressure\n");
+    fprintf(o,"# Date average_pressure\n");
     for(i=0;i<lenght;i++){                                  
         producestring_P2(o,*(list+i)); 
     }
@@ -690,12 +666,13 @@ int tabP3sort1(FILE* o,NODE_P3* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "Time (UTC);ID;pressure"
+    // Format : "day ID pressure hours".
     // A special function is used to write each line because writing dates and times with ints is lenghty.
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"Time (UTC);ID;pressure\n");
-    for(i=0;i<lenght;i++){                                  
-        producestring_P3(o,*(list+i)); 
+    fprintf(o,"# Day ID pressure hours\n");
+    for(i=0;i<lenght;i++){
+        if(i ==0) producestring_P3(o, *(list+i), addNODE_P3(NULL, 0, 0, 0, 0, 0, 0)->m);
+        else producestring_P3(o, *(list+i), *(list+i-1));
     }
     free(list);
     return 0;
@@ -739,9 +716,10 @@ int tabP3sort2(FILE* o,NODE_P3* l){
         }
         step-=1;
     }   
-    fprintf(o,"Time (UTC);ID;pressure\n");
-    for(i=0;i<lenght;i++){                                  
-        producestring_P3(o,*(list+i)); 
+    fprintf(o,"# Day ID pressure hours\n");
+    for(i=0;i<lenght;i++){
+        if(i ==0) producestring_P3(o, *(list+i), addNODE_P3(NULL, 0, 0, 0, 0, 0, 0)->m);
+        else producestring_P3(o, *(list+i), *(list+i-1));
     }
     free(list);
     return 0;
@@ -809,17 +787,14 @@ int tabWsort1(FILE* o, NODE_W* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "ID;average wind orientation;average wind speed"
-    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // Format : "longitude latitude rayon degré".
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"ID;average wind orientation;average wind speed\n");
+    float lat;
+    float lon;
+    fprintf(o,"# Longitude latitude rayon degré\n");
     for(i=0;i<lenght;i++){
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%d;%f\n",(*(list+i)).id,(*(list+i)).orientation,(*(list+i)).speed);
-        }
-        else{
-            fprintf(o,"%d;%d;%f\n",(*(list+i)).id,(*(list+i)).orientation,(*(list+i)).speed);
-        }  
+    	coordonate((*(list+i)).id, &lat, &lon);
+        fprintf(o,"%f %f %d %f\n",lon,lat,(*(list+i)).orientation,(*(list+i)).speed);
     }
     free(list);
     return 0;
@@ -856,14 +831,12 @@ int tabWsort2(FILE* o, NODE_W* l){
         step-=1;
     }    
 
-    fprintf(o,"ID;average wind orientation;average wind speed\n");
+    float lat;
+    float lon;
+    fprintf(o,"# Longitude latitude rayon degré\n");
     for(i=0;i<lenght;i++){
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%d;%f\n",(*(list+i)).id,(*(list+i)).orientation,(*(list+i)).speed);
-        }
-        else{
-            fprintf(o,"%d;%d;%f\n",(*(list+i)).id,(*(list+i)).orientation,(*(list+i)).speed);
-        }  
+  	  coordonate((*(list+i)).id, &lat, &lon);
+        fprintf(o,"%f %f %d %f\n",lon,lat,(*(list+i)).orientation,(*(list+i)).speed);
     }
     free(list);
     return 0;
@@ -931,17 +904,14 @@ int tabHsort1(FILE* o,NODE_H* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "ID;height"
-    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // Format : "longitude latitude height".
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"ID;height(m)\n");
+    float lat;
+    float lon;
+    fprintf(o,"# Longitude latitude height\n");
     for(i=0;i<lenght;i++){
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%d\n",(*(list+i)).id,(*(list+i)).height);
-        }
-        else{
-            fprintf(o,"%d;%d\n",(*(list+i)).id,(*(list+i)).height);
-        }  
+        coordonate((*(list+i)).id, &lat, &lon);
+        fprintf(o,"%f %f %d\n",lon,lat,(*(list+i)).height);
     }
     free(list);
     return 0;
@@ -976,16 +946,14 @@ int tabHsort2(FILE* o,NODE_H* l){
             }
         }
         step-=1;
-    }    
-    // STEP 4 : Writing
-    fprintf(o,"ID;height(m)\n");
+    }
+
+    float lat;
+    float lon;
+    fprintf(o,"# Longitude latitude height\n");
     for(i=0;i<lenght;i++){
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%d\n",(*(list+i)).id,(*(list+i)).height);
-        }
-        else{
-            fprintf(o,"%d;%d\n",(*(list+i)).id,(*(list+i)).height);
-        }  
+        coordonate((*(list+i)).id, &lat, &lon);
+        fprintf(o,"%f %f %d\n",lon,lat,(*(list+i)).height);
     }
     free(list);
     return 0;
@@ -1053,17 +1021,14 @@ int tabMsort1(FILE* o,NODE_M* l){
     }    
     // STEP 3 : Writing the result in the output file.
     // Each element of the sorted list is then written in the output file.
-    // Format : "ID;maximal moisture level"
-    // Since the station ID is stored as an int, we need to add a 0 before the ID when it is lower than 9999, or else 09999 for example is going to be written 9999.
+    // Format : "longitude latitude moisture".
     // The static list is freed at the end of this operation and 0 is returned because the function executed successfully.
-    fprintf(o,"ID;maximal moisture level\n");
-    for(i=0;i<lenght;i++){                                   
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%d\n",(*(list+i)).id,(*(list+i)).maximal);
-        }
-        else{
-            fprintf(o,"%d;%d\n",(*(list+i)).id,(*(list+i)).maximal);
-        }  
+    float lat;
+    float lon;
+    fprintf(o,"# Longitude latitude moisture\n");
+    for(i=0;i<lenght;i++){
+        coordonate((*(list+i)).id, &lat, &lon);
+        fprintf(o,"%f %f %d\n",lon,lat,(*(list+i)).maximal);
     }
     free(list);
     return 0;
@@ -1100,14 +1065,12 @@ int tabMsort2(FILE* o,NODE_M* l){
         step-=1;
     }    
     
-    fprintf(o,"ID;maximal moisture level\n");
-    for(i=0;i<lenght;i++){                                  
-        if((*(list+i)).id <= 9999){
-            fprintf(o,"0%d;%d\n",(*(list+i)).id,(*(list+i)).maximal);
-        }
-        else{
-            fprintf(o,"%d;%d\n",(*(list+i)).id,(*(list+i)).maximal);
-        }  
+    float lat;
+    float lon;
+    fprintf(o,"# Longitude latitude moisture\n");
+    for(i=0;i<lenght;i++){
+        coordonate((*(list+i)).id, &lat, &lon);
+        fprintf(o,"%f %f %d\n",lon,lat,(*(list+i)).maximal);
     }
     free(list);
     return 0;
