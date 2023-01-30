@@ -5,7 +5,7 @@ set terminal png size 1800,1000
 set output "load_M"
 
 # Putting a legend.
-set title "Carte interpolée et colorée moisture"
+set title "Interpolated and colored mp of moisture"
 set xlabel ' Longitude '
 set ylabel ' Latitude '
 
