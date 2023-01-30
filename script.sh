@@ -613,10 +613,10 @@ else
 		else
 			if [ $temperaturemode -eq 2 ]
 			then
-				echo "1200000" > temptemperature.txt
+				echo "1200000" > ./C/data/temptemperature.txt
 				cut --delimiter=";" --fields=2,11 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 			else
-				echo "1300000" > temptemperature.txt
+				echo "1300000" > ./C/data/temptemperature.txt
 				cut --delimiter=";" --fields=1,2,11 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 			fi
 		fi
@@ -633,10 +633,10 @@ else
 		else
 			if [ $pressuremode -eq 2 ]
 			then
-				echo "0012000" > temppressure.txt
+				echo "0012000" > ./C/data/temppressure.txt
 				cut --delimiter=";" --fields=2,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 			else
-				echo "0013000" > temppressure.txt
+				echo "0013000" > ./C/data/temppressure.txt
 				cut --delimiter=";" --fields=1,2,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 			fi
 		fi
