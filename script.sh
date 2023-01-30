@@ -674,11 +674,6 @@ fi
 # We first compile the C code using make.
 make CY-METEO
 
-
-
-# 5) USING GNUPLOT
-# Gnuplot is then used on the sorted files to produce graphics
-
 # It first needs access to the data, that's why we move every temporary file in ./Gnuplot/data
 mv ./C/data/temp_T.csv ./Gnuplot/data
 mv ./C/data/temp_P.csv ./Gnuplot/data
@@ -686,6 +681,48 @@ mv ./C/data/temp_W.csv ./Gnuplot/data
 mv ./C/data/temp_H.csv ./Gnuplot/data
 mv ./C/data/temp_M.csv ./Gnuplot/data
 
+# 5) USING GNUPLOT
+# Gnuplot is then used on the sorted files to produce graphics
+if [ $temperature = "1" ];then
+	if [ $temperaturemode = "1" ];then
+				gnuplot "gnuT1.sh"
+				eog 'load_T1'
+	elif [ $temperaturemode = "2" ];then
+				gnuplot "gnuT2.sh"
+				eog 'load_T2'
+	elif [ $temperaturemode = "3" ];then
+				gnuplot "gnuT3.sh"
+				eog 'load_T3'
+	fi
+fi
+
+if [ $pressure = "1" ];then
+	if [ $pressuremode = "1" ];then
+				gnuplot "gnuP2.sh"
+				eog 'load_P1'
+	elif [ $pressuremode = "2" ];then
+				gnuplot "gnuP2.sh"
+				eog 'load_P2'
+	elif [ $pressuremode = "3" ];then
+				gnuplot "gnuP3.sh"
+				eog 'load_P3'
+	fi
+fi
+
+if [ $wind = "1" ];then
+	gnuplot "gnuW.sh"
+	eog 'load_W'
+fi
+
+if [ $height = "1" ];then
+	gnuplot "gnuH.sh"
+	eog 'load_H'
+fi
+
+if [ $moisture = "1" ];then
+	gnuplot "gnuM.sh"
+	eog 'load_M'
+fi
 
 # If no error occured, then the program comes to its end with a 0 exit.
 echo "The program executed successfully."
