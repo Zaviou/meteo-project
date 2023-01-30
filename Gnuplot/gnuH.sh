@@ -5,7 +5,7 @@ set terminal png size 1800,1000
 set output "load_H"
 
 # Putting a legend.
-set title "Carte interpolée et colorée altitude"
+set title "Interpolated and colored map of altitudes"
 set xlabel ' Longitude '
 set ylabel ' Latitude '
 
