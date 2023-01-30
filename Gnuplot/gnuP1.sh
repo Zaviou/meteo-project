@@ -5,7 +5,7 @@ set terminal png size 1800,1000
 set output "load_P1"
 
 # Putting a legend.
-set title "to complete"
+set title "Pressure error bars"
 set xlabel ' Id sation '
 set ylabel ' Pressure '
 
