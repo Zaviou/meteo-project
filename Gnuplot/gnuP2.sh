@@ -14,4 +14,4 @@ set xdata time
 set timefmt '"%Y-%m-%d %H:%M:%S"'
 set format x "day %d\n%Hh"
 
-plot 'C/data/temp_T2.csv' using 1:2 with linespoints title "Average pressure"
+plot 'data/temp_T2.csv' using 1:2 with linespoints title "Average pressure"
