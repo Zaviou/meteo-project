@@ -5,8 +5,8 @@ set terminal png size 1800,1000
 set output "load_P2"
 
 # Putting a legend.
-set title "Graph of temperatures versus date"
-set xlabel ' Date '
+set title "Graph of temperatures versus time"
+set xlabel ' Time '
 set ylabel ' Pressure '
 
 #Settings the format of date.
