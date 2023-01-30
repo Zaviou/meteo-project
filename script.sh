@@ -674,6 +674,184 @@ fi
 # We first compile the C code using make.
 make CY-METEO
 
+# descendingsort = 0 <==> -r will not be activated
+if [ $descendingsort -eq 0 ]
+then
+
+	if [ $temperature -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --avl
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --abr
+			else
+				./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --tab
+			fi
+		fi
+	fi
+		
+
+	# Pressure : 
+
+	if [ $pressure -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --avl
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --abr
+			else
+				./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --tab
+			fi
+		fi
+	fi
+
+	# Wind : 
+
+	if [ $wind -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --avl
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --abr
+			else
+				./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --tab
+			fi
+		fi
+	fi
+
+	# Height : 
+
+	if [ $height -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --avl
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --abr
+			else
+				./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --tab
+			fi
+		fi
+	fi
+
+	# Moisture : 
+
+	if [ $moisture -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --avl
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --abr
+			else
+				./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --tab
+			fi
+		fi
+	fi
+
+# descendingsort = 1 <==> -r will be activated
+else
+	if [ $temperature -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --avl -r
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --abr -r
+			else
+				./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --tab -r
+			fi
+		fi
+	fi
+		
+
+	# Pressure : 
+
+	if [ $pressure -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --avl -r
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --abr -r
+			else
+				./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --tab -r
+			fi
+		fi
+	fi
+
+	# Wind : 
+
+	if [ $wind -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --avl -r
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --abr -r
+			else
+				./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --tab -r
+			fi
+		fi
+	fi
+
+	# Height : 
+
+	if [ $height -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --avl -r
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --abr -r
+			else
+				./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --tab -r
+			fi
+		fi
+	fi
+
+	# Moisture : 
+	if [ $moisture -eq 1 ]
+	then
+		if [ $sort -eq 1 ]
+		then
+			./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --avl -r
+		else
+			if [ $sort -eq 2 ]
+			then
+				./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --abr -r
+			else
+				./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --tab -r
+			fi
+		fi
+	fi
+
+fi
+
+
+# 5) USING GNUPLOT
+
 # It first needs access to the data, that's why we move every temporary file in ./Gnuplot/data
 mv ./C/data/temp_T.csv ./Gnuplot/data
 mv ./C/data/temp_P.csv ./Gnuplot/data
@@ -681,7 +859,6 @@ mv ./C/data/temp_W.csv ./Gnuplot/data
 mv ./C/data/temp_H.csv ./Gnuplot/data
 mv ./C/data/temp_M.csv ./Gnuplot/data
 
-# 5) USING GNUPLOT
 # Gnuplot is then used on the sorted files to produce graphics
 if [ $temperature = "1" ];then
 	if [ $temperaturemode = "1" ];then
