@@ -9,4 +9,4 @@ set title "Carte interpolée et colorée moisture"
 set xlabel ' Longitude '
 set ylabel ' Latitude '
 
-plot 'C/data/temp_M.csv' using 1:2:3 with circles fillstyle solid lc palette title "Moisture"
+plot 'data/temp_M.csv' using 1:2:3 with circles fillstyle solid lc palette title "Moisture"
