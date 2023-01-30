@@ -322,7 +322,7 @@ fi
 echo "All options are correct."
 
 # We delete the first line of the data file.
-tail --lines=+2 $filename > file.txt
+tail --lines=+2 $filename > ./C/data/file.txt
 
 # 2) TIME AND PLACE OPTIONS
 # After having got all the options, the script changes the original file if the user selected a specific time interval or place. 
@@ -394,11 +394,11 @@ if [ $place -gt 0 ] || [ $dates -eq 1 ]
 then
 	tempfile=1
 	# Previous files are removed as a security measure.
-	rm tempplace.txt
-	rm temptimeandplace.txt
+	rm ./C/data/tempplace.txt
+	rm ./C/data/temptimeandplace.txt
 	# The script creates files which serve to filter separately the places and the dates.
-	touch tempplace.txt
-	touch temptimeandplace.txt
+	touch ./C/data/tempplace.txt
+	touch ./C/data/temptimeandplace.txt
 	
 	# First is the place filter
 	# If a place was selected, the script reads each line and includes the line depending on the value of the station ID.
@@ -415,7 +415,7 @@ then
 					# Line is transferred to tempplace.txt if the station ID is correct.
 					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
 				fi
-			done < file.txt
+			done < ./C/data/file.txt
 			# The input is file.txt, the data file without the first line.
 		fi
 
@@ -427,7 +427,7 @@ then
 				then
 					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
 				fi
-			done < file.txt
+			done < ./C/data/file.txt
 		fi
 
 		if [ $place -eq 3 ]
@@ -438,7 +438,7 @@ then
 				then
 					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
 				fi
-			done < file.txt
+			done < ./C/data/file.txt
 		fi
 
 		if [ $place -eq 4 ]
@@ -449,7 +449,7 @@ then
 				then
 					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
 				fi
-			done < file.txt
+			done < ./C/data/file.txt
 		fi
 
 		if [ $place -eq 5 ]
@@ -460,7 +460,7 @@ then
 				then
 					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
 				fi
-			done < file.txt
+			done < ./C/data/file.txt
 		fi
 
 		if [ $place -eq 6 ]
@@ -471,11 +471,11 @@ then
 				then
 					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
 				fi
-			done < file.txt
+			done < ./C/data/file.txt
 		fi
 	# If no place was selected, the file is simply copied because no filtering needs to be done.
 	else
-		cat file.txt >> tempplace.txt
+		cat ./C/data/file.txt >> ./C/data/tempplace.txt
 	fi
 
 	# If the user specified a time interval, the filtering is done the same as with places.
@@ -491,10 +491,10 @@ then
 			then
 				echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> temptimeandplace.txt
 			fi
-		done < tempplace.txt
+		done < ./C/data/tempplace.txt
 	# If the user didn't write dates, the first filtered file is just copied and becomes the second.
 	else
-		cat tempplace.txt >> temptimeandplace.txt
+		cat ./C/data/tempplace.txt >> ./C/data/temptimeandplace.txt
 	fi
 fi
 
@@ -505,11 +505,11 @@ fi
 # After having done the options and the filtering if needed, the program filters the data file depending on the needed fields for each option.
 
 # We create files for each possible choice. 
-echo "" > temptemperature.txt
-echo "" > temppressure.txt
-echo "" > tempwind.txt
-echo "" > tempheight.txt
-echo "" > tempmoisture.txt
+echo "" > ./C/data/temptemperature.csv
+echo "" > ./C/data/temppressure.csv
+echo "" > ./C/data/tempwind.csv
+echo "" > ./C/data/tempheight.csv
+echo "" > ./C/data/tempmoisture.csv
 
 # If dates or place were not selected, the script works directly on file.txt (data file without the fields' names)
 # A number is going to be the first line of each of these files. It will indicate to the C program what sort it needs to do.
@@ -532,20 +532,20 @@ then
 		if [ $temperaturemode -eq 1 ]
 		then
 			# This echo will serve the C program in the next step.
-			echo "1100000" > temptemperature.txt
+			echo "1100000" > ./C/data/temptemperature.csv
 			# We use cut to filter the needed fields
 			# Temperature mode 1 fields : ID,temperature,minimal temperature over 24hrs, maximal temperature over 24hrs
-			cut --delimiter=";" --fields=1,11,12,13 file.txt >> temptemperature.txt
+			cut --delimiter=";" --fields=1,11,12,13 ./C/data/file.txt >> ./C/data/temptemperature.csv
 		else
 			if [ $temperaturemode -eq 2 ]
 			then
-				echo "1200000" > temptemperature.txt
+				echo "1200000" > ./C/data/temptemperature.csv
 				# Temperature mode 2 fields : Time,temperature
-				cut --delimiter=";" --fields=2,11 file.txt >> temptemperature.txt
+				cut --delimiter=";" --fields=2,11 ./C/data/file.txt >> ./C/data/temptemperature.csv
 			else
-				echo "1300000" > temptemperature.txt
+				echo "1300000" > ./C/data/temptemperature.csv
 				# Temperature mode 3 fields : ID,time,temperature
-				cut --delimiter=";" --fields=1,2,11 file.txt >> temptemperature.txt
+				cut --delimiter=";" --fields=1,2,11 ./C/data/file.txt >> ./C/data/temptemperature.csv
 			fi
 		fi
 	fi
@@ -556,19 +556,19 @@ then
 	then
 		if [ $pressuremode -eq 1 ]
 		then
-			echo "0011000" > temppressure.txt
+			echo "0011000" > ./C/data/temppressure.csv
 			# Pressure mode 1 fields : ID,pressure
-			cut --delimiter=";" --fields=1,7 file.txt >> temppressure.txt
+			cut --delimiter=";" --fields=1,7 ./C/data/file.txt >> ./C/data/temppressure.csv
 		else
 			if [ $pressuremode -eq 2 ]
 			then
-				echo "0012000" > temppressure.txt
+				echo "0012000" > ./C/data/temppressure.csv
 				# Pressure mode 2 fields : Time,pressure
-				cut --delimiter=";" --fields=2,7 file.txt >> temppressure.txt
+				cut --delimiter=";" --fields=2,7 ./C/data/file.txt >> ./C/data/temppressure.csv
 			else
-				echo "0013000" > temppressure.txt
+				echo "0013000" > ./C/data/temppressure.txt
 				# Pressure mode 3 fields : ID,time,pressure,
-				cut --delimiter=";" --fields=1,2,7 file.txt >> temppressure.txt
+				cut --delimiter=";" --fields=1,2,7 ./C/data/file.txt >> ./C/data/temppressure.csv
 			fi
 		fi
 	fi
@@ -577,27 +577,27 @@ then
 
 	if [ $wind -eq 1 ]
 	then
-		echo "0000100" > tempwind.txt
+		echo "0000100" > ./C/data/tempwind.csv
 		# Wind fields : ID, average wind orientation over 10 min, average wind speed over 10 min
-		cut --delimiter=";" --fields=1,4,5 file.txt >> tempwind.txt
+		cut --delimiter=";" --fields=1,4,5 ./C/data/file.txt >> ./C/data/tempwind.csv
 	fi
 
 	# Height : 
 
 	if [ $height -eq 1 ]
 	then
-		echo "0000010" > tempheight.txt
+		echo "0000010" > ./C/data/tempheight.csv
 		# Height fields : ID, height
-		cut --delimiter=";" --fields=1,14 file.txt >> tempheight.txt
+		cut --delimiter=";" --fields=1,14 ./C/data/file.txt >> ./C/data/tempheight.csv
 	fi
 
 	# Moisture : 
 
 	if [ $moisture -eq 1 ]
 	then
-		echo "0000001" > tempmoisture.txt
+		echo "0000001" > ./C/data/tempmoisture.csv
 		# Moisture fields : ID,moisture
-		cut --delimiter=";" --fields=1,6 file.txt >> tempmoisture.txt
+		cut --delimiter=";" --fields=1,6 ./C/data/file.txt >> ./C/data/tempmoisture.csv
 	fi
 
 # If the user selected dates or a place, the same operations are done on the filtered file (temptimeandplace.txt) 
@@ -608,16 +608,16 @@ else
 	then
 		if [ $temperaturemode -eq 1 ]
 		then
-			echo "1100000" > temptemperature.txt
-			cut --delimiter=";" --fields=1,11,12,13 temptimeandplace.txt >> temptemperature.txt
+			echo "1100000" > ./C/data/temptemperature.csv
+			cut --delimiter=";" --fields=1,11,12,13 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 		else
 			if [ $temperaturemode -eq 2 ]
 			then
 				echo "1200000" > temptemperature.txt
-				cut --delimiter=";" --fields=2,11 temptimeandplace.txt >> temptemperature.txt
+				cut --delimiter=";" --fields=2,11 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 			else
 				echo "1300000" > temptemperature.txt
-				cut --delimiter=";" --fields=1,2,11 temptimeandplace.txt >> temptemperature.txt
+				cut --delimiter=";" --fields=1,2,11 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 			fi
 		fi
 	fi
@@ -628,16 +628,16 @@ else
 	then
 		if [ $pressuremode -eq 1 ]
 		then
-			echo "0011000" > temppressure.txt
-			cut --delimiter=";" --fields=1,7 temptimeandplace.txt >> temppressure.txt
+			echo "0011000" > ./C/data/temppressure.csv
+			cut --delimiter=";" --fields=1,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 		else
 			if [ $pressuremode -eq 2 ]
 			then
 				echo "0012000" > temppressure.txt
-				cut --delimiter=";" --fields=2,7 temptimeandplace.txt >> temppressure.txt
+				cut --delimiter=";" --fields=2,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 			else
 				echo "0013000" > temppressure.txt
-				cut --delimiter=";" --fields=1,2,7 temptimeandplace.txt >> temppressure.txt
+				cut --delimiter=";" --fields=1,2,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 			fi
 		fi
 	fi
@@ -646,24 +646,24 @@ else
 
 	if [ $wind -eq 1 ]
 	then
-		echo "0000100" > tempwind.txt
-		cut --delimiter=";" --fields=1,4,5 temptimeandplace.txt >> tempwind.txt
+		echo "0000100" > ./C/data/tempwind.csv
+		cut --delimiter=";" --fields=1,4,5 ./C/data/temptimeandplace.txt >> ./C/data/tempwind.csv
 	fi
 
 	# Height : 
 
 	if [ $height -eq 1 ]
 	then
-		echo "0000010" > tempheight.txt
-		cut --delimiter=";" --fields=1,14 temptimeandplace.txt >> tempheight.txt
+		echo "0000010" > ./C/data/tempheight.csv
+		cut --delimiter=";" --fields=1,14 ./C/data/temptimeandplace.txt >> ./C/data/tempheight.csv
 	fi
 
 	# Moisture : 
 
 	if [ $moisture -eq 1 ]
 	then
-		echo "0000001" > tempmoisture.txt
-		cut --delimiter=";" --fields=1,6 temptimeandplace.txt >> tempmoisture.txt
+		echo "0000001" > ./C/data/tempmoisture.csv
+		cut --delimiter=";" --fields=1,6 ./C/data/temptimeandplace.txt >> ./C/data/tempmoisture.csv
 	fi
 fi
 
