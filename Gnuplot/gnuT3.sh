@@ -5,8 +5,8 @@ set terminal png size 1800,1000
 set output "load_T3"
 
 # Putting a legend.
-set title "Multiples lignes graph T3"
-set xlabel ' Station '
+set title "Graph temprature versus time"
+set xlabel ' Time '
 set ylabel ' Temperatures '
 
 #Settings the format of date.
