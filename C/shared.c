@@ -1,12 +1,7 @@
-
-// #  \   `   |  ~   []  {}
-
 #ifndef HEADERSHARED
 	#define HEADERSHARED 1
 	#include "shared.h"
 #endif
-
-
 
 void UTCtime(int* year,int* month, int* day, int* hour, int* timezone){
     // To begin this function, the hour is directly modified to match the timezone +00:00
@@ -37,6 +32,195 @@ void UTCtime(int* year,int* month, int* day, int* hour, int* timezone){
     }
 }
 
+void coordonate(int id, float* lat, float* lon){
+	if (id ==7650) {
+		*lat=43.438;
+		*lon=5.216;
+	} else if (id ==81405) {
+		*lat=4.822;
+		*lon=-52.365;
+	} else if (id ==7222) {
+		*lat=47.15;
+		*lon=-1.609;
+	} else if (id ==7630) {
+		*lat=48.717;
+		*lon=1.379;
+	} else if (id ==7149) {
+		*lat=48.717;
+		*lon=2.384;
+	} else if (id ==7168) {
+		*lat=48.325;
+		*lon=4.02;
+	} else if (id ==7690) {
+		*lat=43.649;
+		*lon=7.209;
+	} else if (id ==7015) {
+		*lat=50.57;
+		*lon=3.098;
+	} else if (id ==7481) {
+		*lat=45.727;
+		*lon=5.078;
+	} else if (id ==7255) {
+		*lat=47.059;
+		*lon=2.360;
+	} else if (id ==7299) {
+		*lat=47.614;
+		*lon=7.51;
+	} else if (id ==7510) {
+		*lat=44.831;
+		*lon=-0.691;
+	} else if (id ==7761) {
+		*lat=41.918;
+		*lon=8.793;
+	} else if (id ==7434) {
+		*lat=45.861;
+		*lon=1.175;
+	} else if (id ==7335) {
+		*lat=46.594;
+		*lon=0.314;
+	} else if (id ==7790) {
+		*lat=42.541;
+		*lon=9.485;
+	} else if (id ==7747) {
+		*lat=42.737;
+		*lon=2.873;
+	} else if (id ==7577) {
+		*lat=44.581;
+		*lon=4.733;
+	} else if (id ==7130) {
+		*lat=48.069;
+		*lon=-1.734;
+	} else if (id ==07240) {
+		*lat=47.445;
+		*lon=0.727;
+	} else if (id ==7110) {
+		*lat=48.444;
+		*lon=-4.412;
+	} else if (id ==7037) {
+		*lat=49.383;
+		*lon=1.182;
+	} else if (id ==7207) {
+		*lat=47.294;
+		*lon=-3.218;
+	} else if (id ==7535) {
+		*lat=44.745;
+		*lon=1.397;
+	} else if (id ==7591) {
+		*lat=44.566;
+		*lon=6.502;
+	} else if (id ==7190) {
+		*lat=48.550;
+		*lon=7.640;
+	} else if (id ==7005) {
+		*lat=50.136;
+		*lon=1.834;
+	} else if (id ==7181) {
+		*lat=48.581;
+		*lon=5.960;
+	} else if (id ==7280) {
+		*lat=47.268;
+		*lon=5.088;
+	} else if (id ==7621) {
+		*lat=43.188;
+		*lon=0;
+	} else if (id ==7027) {
+		*lat=49.787;
+		*lon=-0.456;
+	} else if (id ==7460) {
+		*lat=45.787;
+		*lon=3.149;
+	} else if (id ==7627) {
+		*lat=43.005;
+		*lon=1.107;
+	} else if (id ==71805) {
+		*lat=46.766;
+		*lon=-56.179;
+	} else if (id ==7607) {
+		*lat=43.910;
+		*lon=-0.5;
+	} else if (id ==7643) {
+		*lat=43.577;
+		*lon=3.963;
+	} else if (id ==7139) {
+		*lat=48.446;
+		*lon=0.110;
+	} else if (id ==7117) {
+		*lat=48.826;
+		*lon=-3.473;
+	} else if (id ==78897) {
+		*lat=16.264;
+		*lon=-61.516;
+	} else if (id ==7558) {
+		*lat=44.119;
+		*lon=3.020;
+	} else if (id ==7471) {
+		*lat=45.075;
+		*lon=3.764;
+	} else if (id ==78925) {
+		*lat=14.595;
+		*lon=-60.996;
+	} else if (id ==7020) {
+		*lat=49.725;
+		*lon=-1.94;
+	} else if (id ==7661) {
+		*lat=43.079;
+		*lon=5.941;
+	} else if (id ==61998) {
+		*lat=-49.352;
+		*lon=70.243;
+	} else if (id ==61980) {
+		*lat=-20.893;
+		*lon=55.529;
+	} else if (id ==7314) {
+		*lat=46.047;
+		*lon=-1.412;
+	} else if (id ==61996) {
+		*lat=-37.795;
+		*lon=77.569;
+	} else if (id ==81401) {
+		*lat=5.486;
+		*lon=-5.032;
+	} else if (id ==89642) {
+		*lat=-66.663;
+		*lon=140.001;
+	} else if (id ==81408) {
+		*lat=3.891;
+		*lon=-51.805;
+	} else if (id ==61997) {
+		*lat=-46.433;
+		*lon=51.857;
+	} else if (id ==61976) {
+		*lat=-15.888;
+		*lon=54.521;
+	} else if (id ==81415) {
+		*lat=3.640;
+		*lon=-54.028;
+	} else if (id ==7072) {
+		*lat=49.21;
+		*lon=4.155;
+	} else if (id ==78922) {
+		*lat=14.225;
+		*lon=-60.875;
+	} else if (id ==61972) {
+		*lat=-22.344;
+		*lon=40.341;
+	} else if (id ==61968) {
+		*lat=-11.583;
+		*lon=47.29;
+	} else if (id ==67005) {
+		*lat=-12.806;
+		*lon=45.283;
+	} else if (id ==78890) {
+		*lat=16.335;
+		*lon=-61.004;
+	} else if (id ==6970) {
+		*lat=-17055;
+		*lon=42.712;
+	} else {
+		*lat=0;
+		*lon=0;
+	}
+}
 
 /*
 ------------------------------------------
@@ -50,7 +234,6 @@ TEMPERATURE FUNCTIONS
 MODE 1
 ------------------------------------------
 */
-
 
 void freeNODE_T1(NODE_T1* l){
     // Each node of the structure needs to be freed individually.
@@ -165,7 +348,6 @@ MODE 2
 ------------------------------------------
 */
 
-
 void freeNODE_T2(NODE_T2* l){
     // Each node of the structure needs to be freed individually.
     while(l!=NULL){
@@ -263,33 +445,14 @@ int chronologicalorder_T2(TIME_T2 d1,TIME_T2 d2){
     return 1;
 }
 
-
 void producestring_T2(FILE* o,TIME_T2 date){
-    // This function is used to always write the same format for a measure, inside the file o.
-    // Since most values are stored as integers, directly printing is sometimes not effective as some 0s may be missing.
-    // Checks are made to counter this and use the right fprintf each time.
-    fprintf(o,"%d-",date.year);
-    if(date.month < 10){
-        fprintf(o,"0%d-",date.month);
-    }
-    else{
-        fprintf(o,"%d-",date.month);
-    }
-    if(date.day < 10){
-        fprintf(o,"0%dT",date.day);
-    }
-    else{
-        fprintf(o,"%dT",date.day);
-    }
-    if(date.hour < 10){
-        fprintf(o,"0%d:00:00;",date.hour);
-    }
-    else{
-        fprintf(o,"%d:00:00;",date.hour);
-    }
-    fprintf(o,"%f\n",date.average);
+	// This function is used to always write the same format for a measure, inside the file o.
+	fprintf(o,"%d-",date.year);
+	fprintf(o,"%d-",date.month);
+	fprintf(o,"%d ",date.day);
+	fprintf(o,"%d:00:00 ",date.hour);
+	fprintf(o,"%f\n",date.average);
 }
-
 
 NODE_T2* linkedlist_T2(FILE* f){
     // Lines (measures) are read from the input file until its end.
@@ -328,7 +491,6 @@ NODE_T2* linkedlist_T2(FILE* f){
 MODE 3
 ------------------------------------------
 */
-
 
 void freeNODE_T3(NODE_T3* l){
     // Each node of the structure needs to be freed individually.
@@ -384,38 +546,17 @@ int chronologicalorder_T3(MEASURE_T3 d1,MEASURE_T3 d2){
     return 1;
 }
 
-
-void producestring_T3(FILE* o,MEASURE_T3 measure){
-    // This function is used to always write the same format for a measure, inside the file o.
-    // Since most values are stored as integers, directly printing is sometimes not effective as some 0s may be missing.
-    // Checks are made to counter this and use the right fprintf each time.
-    fprintf(o,"%d-",measure.year);
-    if(measure.month < 10){
-        fprintf(o,"0%d-",measure.month);
-    }
-    else{
+void producestring_T3(FILE* o,MEASURE_T3 measure, MEASURE_T3 old_measure){
+	// This function is used to always write the same format for a measure, inside the file o.
+	if(measure.year !=old_measure.year || measure.month !=old_measure.month || measure.day !=old_measure.day|| measure.hour !=old_measure.hour || measure.id !=old_measure.id){
+		fprintf(o,"\n");
+	}
+	fprintf(o,"\"%d-",measure.year);
         fprintf(o,"%d-",measure.month);
-    }
-    if(measure.day < 10){
-        fprintf(o,"0%dT",measure.day);
-    }
-    else{
-        fprintf(o,"%dT",measure.day);
-    }
-    if(measure.hour < 10){
-        fprintf(o,"0%d:00:00;",measure.hour);
-    }
-    else{
-        fprintf(o,"%d:00:00;",measure.hour);
-    }
-    if(measure.id <= 9999 ){
-        fprintf(o,"0%d;%f\n",measure.id,measure.temperature);
-    }
-    else{
-        fprintf(o,"%d;%f\n",measure.id,measure.temperature);
-    }
+        fprintf(o,"%d\" ",measure.day);
+        fprintf(o,"%d %f ",measure.id,measure.temperature);
+        fprintf(o,"%d\n",measure.hour);
 }
-
 
 NODE_T3* linkedlist_T3(FILE* f){
     // Lines (measures) are read from the input file until its end.
@@ -453,7 +594,6 @@ PRESSURE FUNCTIONS
 MODE 1
 ------------------------------------------
 */
-
 
 void freeNODE_P1(NODE_P1* l){
     // Each node of the structure needs to be freed individually.
@@ -566,7 +706,6 @@ MODE 2
 ------------------------------------------
 */
 
-
 void freeNODE_P2(NODE_P2* l){
     // Each node of the structure needs to be freed individually.
     while(l!=NULL){
@@ -664,33 +803,14 @@ int chronologicalorder_P2(TIME_P2 d1,TIME_P2 d2){
     return 1;
 }
 
-
 void producestring_P2(FILE* o,TIME_P2 date){
-    // This function is used to always write the same format for a measure, inside the file o.
-    // Since most values are stored as integers, directly printing is sometimes not effective as some 0s may be missing.
-    // Checks are made to counter this and use the right fprintf each time.
-    fprintf(o,"%d-",date.year);
-    if(date.month < 10){
-        fprintf(o,"0%d-",date.month);
-    }
-    else{
+	// This function is used to always write the same format for a measure, inside the file o.
+	fprintf(o,"\"%d-",date.year);
         fprintf(o,"%d-",date.month);
-    }
-    if(date.day < 10){
-        fprintf(o,"0%dT",date.day);
-    }
-    else{
-        fprintf(o,"%dT",date.day);
-    }
-    if(date.hour < 10){
-        fprintf(o,"0%d:00:00;",date.hour);
-    }
-    else{
-        fprintf(o,"%d:00:00;",date.hour);
-    }
-    fprintf(o,"%f\n",date.average);
+        fprintf(o,"%d ",date.day);
+        fprintf(o,"%d:00:00 ",date.hour);
+	fprintf(o,"%f\n",date.average);
 }
-
 
 NODE_P2* linkedlist_P2(FILE* f){
     // Lines (measures) are read from the input file until its end.
@@ -731,7 +851,6 @@ MODE 3
 ------------------------------------------
 */
 
-
 void freeNODE_P3(NODE_P3* l){
     // Each node of the structure needs to be freed individually.
     while(l!=NULL){
@@ -761,7 +880,6 @@ NODE_P3* addNODE_P3(NODE_P3* l,int id,int year,int month, int day, int hour, flo
     return new;
 }
 
-
 int chronologicalorder_P3(MEASURE_P3 d1,MEASURE_P3 d2){
     // Comparisons are made between the time values that are in the structures to know if the first date comes after the second.
     // When all the possibilities for that have been explored, 1 is returned because the dates are in the right order.
@@ -786,38 +904,17 @@ int chronologicalorder_P3(MEASURE_P3 d1,MEASURE_P3 d2){
     return 1;
 }
 
-
-void producestring_P3(FILE* o,MEASURE_P3 measure){
-    // This function is used to always write the same format for a measure, inside the file o.
-    // Since most values are stored as integers, directly printing is sometimes not effective as some 0s may be missing.
-    // Checks are made to counter this and use the right fprintf each time.
-    fprintf(o,"%d-",measure.year);
-    if(measure.month < 10){
-        fprintf(o,"0%d-",measure.month);
-    }
-    else{
+void producestring_P3(FILE* o,MEASURE_P3 measure, MEASURE_P3 old_measure){
+	// This function is used to always write the same format for a measure, inside the file o.
+	if(measure.year !=old_measure.year || measure.month !=old_measure.month || measure.day !=old_measure.day|| measure.hour !=old_measure.hour || measure.id !=old_measure.id){
+		fprintf(o,"\n");
+	}
+	fprintf(o,"\"%d-",measure.year);
         fprintf(o,"%d-",measure.month);
-    }
-    if(measure.day < 10){
-        fprintf(o,"0%dT",measure.day);
-    }
-    else{
-        fprintf(o,"%dT",measure.day);
-    }
-    if(measure.hour < 10){
-        fprintf(o,"0%d:00:00;",measure.hour);
-    }
-    else{
-        fprintf(o,"%d:00:00;",measure.hour);
-    }
-    if(measure.id <= 9999 ){
-        fprintf(o,"0%d;%f\n",measure.id,measure.pressure);
-    }
-    else{
-        fprintf(o,"%d;%f\n",measure.id,measure.pressure);
-    }
+        fprintf(o,"%d\" ",measure.day);
+        fprintf(o,"%d %f ",measure.id,measure.pressure);
+        fprintf(o,"%d\n",measure.hour);
 }
-
 
 NODE_P3* linkedlist_P3(FILE* f){
     // Lines (measures) are read from the input file until its end.
@@ -849,7 +946,6 @@ NODE_P3* linkedlist_P3(FILE* f){
 WIND FUNCTIONS
 ------------------------------------------
 */
-
 
 void freeNODE_W(NODE_W* l){
     // Each node of the structure needs to be freed individually.
@@ -957,7 +1053,6 @@ HEIGHT FUNCTIONS
 ------------------------------------------
 */
 
-
 void freeNODE_H(NODE_H* l){
     // Each node of the structure needs to be freed individually.
     while(l!=NULL){
@@ -1024,7 +1119,6 @@ NODE_H* linkedlist_H(FILE* f){
 MOISTURE FUNCTIONS
 ------------------------------------------
 */
-
 
 void freeNODE_M(NODE_M* l){
     // Each node of the structure needs to be freed individually.
@@ -1106,4 +1200,26 @@ NODE_M* linkedlist_M(FILE* f){
     return l;
 }
 
+/*
+int main(){
+/*
+    FILE* f=fopen("testtemperature.txt","r");
+    FILE* o=fopen("sortietemp.txt","w");
+    NODE_T1* l=NULL;
+    printf("1");
+    l=linkedlist_T1(f);
+    printf("2");
+    tabT1sort1(o,l);
+    printf("3");
+    fclose(f);
+    fclose(o);
+    return 0;
 
+	int lat;
+	int lon;
+
+	coordonate(89565, &lat, &lon);
+
+	printf("lat : %d\n", lat);
+	printf("lon : %d\n", lon);
+}*/
