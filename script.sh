@@ -862,43 +862,43 @@ mv ./C/data/temp_M.csv ./Gnuplot/data/temp_M.csv
 # Gnuplot is then used on the sorted files to produce graphics
 if [ $temperature = "1" ];then
 	if [ $temperaturemode = "1" ];then
-				gnuplot "gnuT1.sh"
-				eog 'load_T1'
+				gnuplot "./Gnuplot/gnuT1.sh"
+				eog './Gnuplot/data/load_T1'
 	elif [ $temperaturemode = "2" ];then
-				gnuplot "gnuT2.sh"
-				eog 'load_T2'
+				gnuplot "./Gnuplot/gnuT2.sh"
+				eog './Gnuplot/data/load_T2'
 	elif [ $temperaturemode = "3" ];then
-				gnuplot "gnuT3.sh"
-				eog 'load_T3'
+				gnuplot "./Gnuplot/gnuT3.sh"
+				eog './Gnuplot/data/load_T3'
 	fi
 fi
 
 if [ $pressure = "1" ];then
 	if [ $pressuremode = "1" ];then
-				gnuplot "gnuP2.sh"
-				eog 'load_P1'
+				gnuplot "./Gnuplot/gnuP2.sh"
+				eog './Gnuplot/data/load_P1'
 	elif [ $pressuremode = "2" ];then
-				gnuplot "gnuP2.sh"
-				eog 'load_P2'
+				gnuplot "./Gnuplot/gnuP2.sh"
+				eog './Gnuplot/data/load_P2'
 	elif [ $pressuremode = "3" ];then
-				gnuplot "gnuP3.sh"
-				eog 'load_P3'
+				gnuplot "./Gnuplot/gnuP3.sh"
+				eog './Gnuplot/data/load_P3'
 	fi
 fi
 
 if [ $wind = "1" ];then
-	gnuplot "gnuW.sh"
-	eog 'load_W'
+	gnuplot "./Gnuplot/gnuW.sh"
+	eog './Gnuplot/data/load_W'
 fi
 
 if [ $height = "1" ];then
-	gnuplot "gnuH.sh"
-	eog 'load_H'
+	gnuplot "./Gnuplot/gnuH.sh"
+	eog './Gnuplot/data/load_H'
 fi
 
 if [ $moisture = "1" ];then
-	gnuplot "gnuM.sh"
-	eog 'load_M'
+	gnuplot "./Gnuplot/gnuM.sh"
+	eog './Gnuplot/data/load_M'
 fi
 
 # If no error occured, then the program comes to its end with a 0 exit.
