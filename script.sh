@@ -413,7 +413,7 @@ then
 				if [ $f1 -le 40349 ]
 				then
 					# Line is transferred to tempplace.txt if the station ID is correct.
-					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> ./C/data/tempplace.txt
 				fi
 			done < ./C/data/file.txt
 			# The input is file.txt, the data file without the first line.
@@ -425,7 +425,7 @@ then
 			do
 				if [ $f1 -gt 80000 ] && [ $f1 -lt 88999 ]
 				then
-					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> ./C/data/tempplace.txt
 				fi
 			done < ./C/data/file.txt
 		fi
@@ -436,7 +436,7 @@ then
 			do
 				if [ $f1 -eq 71805 ]
 				then
-					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> ./C/data/tempplace.txt
 				fi
 			done < ./C/data/file.txt
 		fi
@@ -447,7 +447,7 @@ then
 			do
 				if [ $f1 -gt 78000 ] && [ $f1 -lt 79000 ]
 				then
-					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> ./C/data/tempplace.txt
 				fi
 			done < ./C/data/file.txt
 		fi
@@ -458,7 +458,7 @@ then
 			do
 				if [ $f1 -gt 61000 ] && [ $f1 -lt 67006 ]
 				then
-					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> ./C/data/tempplace.txt
 				fi
 			done < ./C/data/file.txt
 		fi
@@ -469,7 +469,7 @@ then
 			do
 				if [ $f1 -eq 89642 ]
 				then
-					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> tempplace.txt
+					echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> ./C/data/tempplace.txt
 				fi
 			done < ./C/data/file.txt
 		fi
@@ -489,7 +489,7 @@ then
 			b=$?
 			if [ $b -eq 1 ]
 			then
-				echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> temptimeandplace.txt
+				echo "$f1;$f2;$f3;$f4;$f5;$f6;$f7;$f8;$f9;$f10;$f11;$f12;$f13;$f14;$f15" >> ./C/data/temptimeandplace.txt
 			fi
 		done < ./C/data/tempplace.txt
 	# If the user didn't write dates, the first filtered file is just copied and becomes the second.
