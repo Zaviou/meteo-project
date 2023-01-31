@@ -19,6 +19,7 @@
 #endif
 
 int main(int number_of_arguments , char** list_of_arguments){
+	printf("on est dans le main\n");
 	/*
 	This function takes as arguments the number of arguments sent by the shell code and the list of these arguments.
 	This function returns 0 if everything works well.
@@ -52,20 +53,20 @@ int main(int number_of_arguments , char** list_of_arguments){
 		if(strcmp(list_of_arguments[i],"-f")==0){
 			file_f=1;
 			i++;
-			name_of_file_f=list_of_arguments[i];
+			  name_of_file_f=list_of_arguments[i];
 		}
 		else if(strcmp(list_of_arguments[i],"-o")==0){
 			file_o=1;
 			i++;
-			name_of_file_o=list_of_arguments[i];
+			  name_of_file_o=list_of_arguments[i];
 		}
-		else if(strcmp(list_of_arguments[i],"-avl")==0){ 
+		else if(strcmp(list_of_arguments[i],"--avl")==0){ 
 			sort=0;
 		}
-		else if(strcmp(list_of_arguments[i],"-abr")==0){ 
+		else if(strcmp(list_of_arguments[i],"--abr")==0){ 
 			sort=1;
 		}
-		else if(strcmp(list_of_arguments[i],"-list")==0){ 
+		else if(strcmp(list_of_arguments[i],"--tab")==0){ 
 			sort=2;
 		}
 		else if(strcmp(list_of_arguments[i],"-r")==0){ 
@@ -118,31 +119,31 @@ int main(int number_of_arguments , char** list_of_arguments){
 	if(reverse==0){
 		if(sort==0){
 			if(height==1){
-				sort_H(name_of_file_f, name_of_file_o, 1);
+				sort_H(f, o, 1);
 			}
 			else if(wind==1){
-				sort_W(name_of_file_f, name_of_file_o, 1);
+				sort_W(f, o, 1);
 			}
 			else if(moisture==1){
-				sort_W(name_of_file_f, name_of_file_o, 1);
+				sort_W(f, o, 1);
 			}
 			else if(pressure_1==1){
-				sort_P1(name_of_file_f, name_of_file_o, 1);
+				sort_P1(f, o, 1);
 			}
 			else if(pressure_2==1){
-				sort_P2(name_of_file_f, name_of_file_o, 1);
+				sort_P2(f, o, 1);
 			}
 			else if(pressure_3==1){
-				sort_P3(name_of_file_f, name_of_file_o, 1);
+				sort_P3(f, o, 1);
 			}
 			else if(temperature_1==1){
-				sort_T1(name_of_file_f, name_of_file_o, 1);
+				sort_T1(f, o, 1);
 			}
 			else if(temperature_2==1){
-				sort_T2(name_of_file_f, name_of_file_o, 1);
+				sort_T2(f, o, 1);
 			}
 			else if(temperature_3==1){
-				sort_T3(name_of_file_f, name_of_file_o, 1);
+				sort_T3(f, o, 1);
 			}		
 		}
 		else if(sort==1){
@@ -150,62 +151,62 @@ int main(int number_of_arguments , char** list_of_arguments){
 		}
 		else if(sort==2){
 			if(height==1){
-				tabHsort1(name_of_file_o,linkedlist_H(name_of_file_f));
+				tabHsort1(o,linkedlist_H(f));
 			}
 			else if(wind==1){
-				tabWsort1(name_of_file_o, linkedlist_W(name_of_file_f));
+				tabWsort1(o, linkedlist_W(f));
 			}
 			else if(moisture==1){
-				tabMsort1(name_of_file_o,linkedlist_M(name_of_file_f));
+				tabMsort1(o,linkedlist_M(f));
 			}
 			else if(pressure_1==1){
-				tabP1sort1(name_of_file_o,linkedlist_P1(name_of_file_f));
+				tabP1sort1(o,linkedlist_P1(f));
 			}
 			else if(pressure_2==1){
-				tabP2sort1(name_of_file_o,linkedlist_P2(name_of_file_f));
+				tabP2sort1(o,linkedlist_P2(f));
 			}
 			else if(pressure_3==1){
-				tabP3sort1(name_of_file_o,linkedlist_P3(name_of_file_f));
+				tabP3sort1(o,linkedlist_P3(f));
 			}
 			else if(temperature_1==1){
-				tabT1sort1(name_of_file_o,linkedlist_T1(name_of_file_f));
+				tabT1sort1(o,linkedlist_T1(f));
 			}
 			else if(temperature_2==1){
-				tabT2sort1(name_of_file_o,linkedlist_T2(name_of_file_f));
+				tabT2sort1(o,linkedlist_T2(f));
 			}
 			else if(temperature_3==1){
-				tabT3sort1(name_of_file_o,linkedlist_T3(name_of_file_f));
+				tabT3sort1(o,linkedlist_T3(f));
 			}
 		}		
 	}
 	else if(reverse==1){
 		if(sort==0){
 			if(height==1){
-				sort_H(name_of_file_f, name_of_file_o, -1);
+				sort_H(  f,   o, -1);
 			}
 			else if(wind==1){
-				sort_W(name_of_file_f, name_of_file_o, -1);
+				sort_W(  f,   o, -1);
 			}
 			else if(moisture==1){
-				sort_W(name_of_file_f, name_of_file_o, -1);
+				sort_W(  f,   o, -1);
 			}
 			else if(pressure_1==1){
-				sort_P1(name_of_file_f, name_of_file_o, -1);
+				sort_P1(  f,   o, -1);
 			}
 			else if(pressure_2==1){
-				sort_P2(name_of_file_f, name_of_file_o, -1);
+				sort_P2(  f,   o, -1);
 			}
 			else if(pressure_3==1){
-				sort_P3(name_of_file_f, name_of_file_o, -1);
+				sort_P3(  f,   o, -1);
 			}
 			else if(temperature_1==1){
-				sort_T1(name_of_file_f, name_of_file_o, -1);
+				sort_T1(  f,   o, -1);
 			}
 			else if(temperature_2==1){
-				sort_T2(name_of_file_f, name_of_file_o, -1);
+				sort_T2(  f,   o, -1);
 			}
 			else if(temperature_3==1){
-				sort_T3(name_of_file_f, name_of_file_o, -1);
+				sort_T3(  f,   o, -1);
 			}		
 		}
 		else if(sort==1){
@@ -213,31 +214,31 @@ int main(int number_of_arguments , char** list_of_arguments){
 		}
 		else if(sort==2){
 			if(height==1){
-				tabHsort2(name_of_file_o,linkedlist_H(name_of_file_f));
+				tabHsort2(  o,linkedlist_H(  f));
 			}
 			else if(wind==1){
-				tabWsort2(name_of_file_o, linkedlist_W(name_of_file_f));
+				tabWsort2(  o, linkedlist_W(  f));
 			}
 			else if(moisture==1){
-				tabMsort2(name_of_file_o,linkedlist_M(name_of_file_f));
+				tabMsort2(  o,linkedlist_M(  f));
 			}
 			else if(pressure_1==1){
-				tabP1sort2(name_of_file_o,linkedlist_P1(name_of_file_f));
+				tabP1sort2(  o,linkedlist_P1(  f));
 			}
 			else if(pressure_2==1){
-				tabP2sort2(name_of_file_o,linkedlist_P2(name_of_file_f));
+				tabP2sort2(  o,linkedlist_P2(  f));
 			}
 			else if(pressure_3==1){
-				tabP3sort2(name_of_file_o,linkedlist_P3(name_of_file_f));
+				tabP3sort2(  o,linkedlist_P3(  f));
 			}
 			else if(temperature_1==1){
-				tabT1sort2(name_of_file_o,linkedlist_T1(name_of_file_f));
+				tabT1sort2(  o,linkedlist_T1(  f));
 			}
 			else if(temperature_2==1){
-				tabT2sort2(name_of_file_o,linkedlist_T2(name_of_file_f));
+				tabT2sort2(  o,linkedlist_T2(  f));
 			}
 			else if(temperature_3==1){
-				tabT3sort2(name_of_file_o,linkedlist_T3(name_of_file_f));
+				tabT3sort2(  o,linkedlist_T3(  f));
 			}
 		}		
 	}
