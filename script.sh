@@ -863,42 +863,42 @@ mv ./C/data/temp_M.csv ./Gnuplot/data/temp_M.csv
 if [ $temperature = "1" ];then
 	if [ $temperaturemode = "1" ];then
 				gnuplot "./Gnuplot/gnuT1.sh"
-				eog './Gnuplot/data/load_T1'
+				eog 'load_T1'
 	elif [ $temperaturemode = "2" ];then
 				gnuplot "./Gnuplot/gnuT2.sh"
-				eog './Gnuplot/data/load_T2'
+				eog 'load_T2'
 	elif [ $temperaturemode = "3" ];then
 				gnuplot "./Gnuplot/gnuT3.sh"
-				eog './Gnuplot/data/load_T3'
+				eog 'load_T3'
 	fi
 fi
 
 if [ $pressure = "1" ];then
 	if [ $pressuremode = "1" ];then
 				gnuplot "./Gnuplot/gnuP2.sh"
-				eog './Gnuplot/data/load_P1'
+				eog 'load_P1'
 	elif [ $pressuremode = "2" ];then
 				gnuplot "./Gnuplot/gnuP2.sh"
-				eog './Gnuplot/data/load_P2'
+				eog 'load_P2'
 	elif [ $pressuremode = "3" ];then
 				gnuplot "./Gnuplot/gnuP3.sh"
-				eog './Gnuplot/data/load_P3'
+				eog 'load_P3'
 	fi
 fi
 
 if [ $wind = "1" ];then
 	gnuplot "./Gnuplot/gnuW.sh"
-	eog './Gnuplot/data/load_W'
+	eog 'load_W'
 fi
 
 if [ $height = "1" ];then
 	gnuplot "./Gnuplot/gnuH.sh"
-	eog './Gnuplot/data/load_H'
+	eog 'load_H'
 fi
 
 if [ $moisture = "1" ];then
 	gnuplot "./Gnuplot/gnuM.sh"
-	eog './Gnuplot/data/load_M'
+	eog 'load_M'
 fi
 
 # If no error occured, then the program comes to its end with a 0 exit.
