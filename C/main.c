@@ -7,19 +7,18 @@
 	#define TAB 1
 	#include "tab.c"
 #endif
-
+/*
 #ifndef ABR
 	#define ABR 1
 	#include "abr.c"
 #endif
-
+*/
 #ifndef AVL
 	#define AVL 1
 	#include "avl.c"
 #endif
 
 int main(int number_of_arguments , char** list_of_arguments){
-	printf("on est dans le main\n");
 	/*
 	This function takes as arguments the number of arguments sent by the shell code and the list of these arguments.
 	This function returns 0 if everything works well.
@@ -28,6 +27,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 	It returns 4 if one of the arguments sent by the shell code isn't compatible with what was planned for this function. 
 	*/
 	int i;
+	long check;
 	/*
 	Each option that the user can choose is represented by a variable which is equal to 0 in the beginning. 
 	If the option is chosen the value of the variable will be changed to 1.
@@ -49,11 +49,11 @@ int main(int number_of_arguments , char** list_of_arguments){
 	char* name_of_file_f;
 	char* name_of_file_o;
 	
-	for(i=2;i<number_of_arguments;i++){
+	for(i=1;i<number_of_arguments;i++){
 		if(strcmp(list_of_arguments[i],"-f")==0){
 			file_f=1;
 			i++;
-			  name_of_file_f=list_of_arguments[i];
+			name_of_file_f=list_of_arguments[i];
 		}
 		else if(strcmp(list_of_arguments[i],"-o")==0){
 			file_o=1;
@@ -72,33 +72,6 @@ int main(int number_of_arguments , char** list_of_arguments){
 		else if(strcmp(list_of_arguments[i],"-r")==0){ 
 			reverse=1;
 		}
-		else if(strcmp(list_of_arguments[i],"-h")==0){ 
-			height=1;
-		}
-		else if(strcmp(list_of_arguments[i],"-p1")==0){ 
-			pressure_1=1;
-		}
-		else if(strcmp(list_of_arguments[i],"-p2")==0){ 
-			pressure_2=1;
-		}
-		else if(strcmp(list_of_arguments[i],"-p3")==0){ 
-			pressure_3=1;
-		}
-		else if(strcmp(list_of_arguments[i],"-t1")==0){ 
-			temperature_1=1;
-		}
-		else if(strcmp(list_of_arguments[i],"-t2")==0){ 
-			temperature_2=1;
-		}
-		else if(strcmp(list_of_arguments[i],"-t3")==0){ 
-			temperature_3=1;
-		}
-		else if(strcmp(list_of_arguments[i],"-w")==0){ 
-			wind=1;
-		}
-		else if(strcmp(list_of_arguments[i],"-m")==0){ 
-			moisture=1;
-		}
 		else{
 			exit(4);
 		}
@@ -108,6 +81,36 @@ int main(int number_of_arguments , char** list_of_arguments){
 	if(f==NULL){
 		exit(2);
 	}
+
+	fscanf(f, "%ld", &check);
+	if(check==OPTION_T1){
+		temperature_1=1;
+	} 
+	else if(check==OPTION_T2){
+		temperature_2=1;
+	} 
+	else if(check==OPTION_T3){
+		temperature_3=1;
+	} 
+	else if(check==OPTION_P1){
+		pressure_1=1;
+	} 
+	else if(check==OPTION_P2){
+		pressure_2=1;
+	} 
+	else if(check==OPTION_P3){
+		pressure_3=1;
+	} 
+	else if(check==OPTION_W){
+		wind=1;
+	} 
+	else if(check==OPTION_H){
+		height=1;
+	} 
+	else if(check==OPTION_M){
+		moisture=1;
+	} 	
+
 	FILE* o=fopen(name_of_file_o, "w");
 	if(o==NULL){
 		exit(3);
