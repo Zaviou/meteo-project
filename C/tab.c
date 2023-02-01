@@ -40,6 +40,7 @@ int getlenghtNODE_T1(NODE_T1* l){
 
 
 int tabT1sort1(FILE* o,NODE_T1* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -88,6 +89,7 @@ int tabT1sort1(FILE* o,NODE_T1* l){
 
 
 int tabT1sort2(FILE* o,NODE_T1* l){
+    printf("\nSorting data...");
     // This function works the same as tabT1sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_T1(l);
@@ -151,6 +153,7 @@ int getlenghtNODE_T2(NODE_T2* l){
 
 
 int tabT2sort1(FILE* o,NODE_T2* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -200,6 +203,7 @@ int tabT2sort1(FILE* o,NODE_T2* l){
 
 
 int tabT2sort2(FILE* o,NODE_T2* l){
+    printf("\nSorting data...");
     // This function works the same as tabT2sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_T2(l);
@@ -263,6 +267,7 @@ int getlenghtNODE_T3(NODE_T3* l){
 
 
 int tabT3sort1(FILE* o,NODE_T3* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -321,6 +326,7 @@ int tabT3sort1(FILE* o,NODE_T3* l){
 
 
 int tabT3sort2(FILE* o,NODE_T3* l){
+    printf("\nSorting data...");
     // This function works the same as tabT3sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_T3(l);
@@ -399,6 +405,7 @@ int getlenghtNODE_P1(NODE_P1* l){
 
 
 int tabP1sort1(FILE* o,NODE_P1* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -447,6 +454,7 @@ int tabP1sort1(FILE* o,NODE_P1* l){
 
 
 int tabP1sort2(FILE* o,NODE_P1* l){
+    printf("\nSorting data...");
     // This function works the same as tabP1sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_P1(l);
@@ -510,6 +518,7 @@ int getlenghtNODE_P2(NODE_P2* l){
 
 
 int tabP2sort1(FILE* o,NODE_P2* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -559,6 +568,7 @@ int tabP2sort1(FILE* o,NODE_P2* l){
 
 
 int tabP2sort2(FILE* o,NODE_P2* l){
+    printf("\nSorting data...");
     // This function works the same as tabP2sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_P2(l);
@@ -622,6 +632,7 @@ int getlenghtNODE_P3(NODE_P3* l){
 
 
 int tabP3sort1(FILE* o,NODE_P3* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -680,6 +691,7 @@ int tabP3sort1(FILE* o,NODE_P3* l){
 
 
 int tabP3sort2(FILE* o,NODE_P3* l){
+    printf("\nSorting data...");
     // This function works the same as tabP3sort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_P3(l);
@@ -751,6 +763,7 @@ int getlenghtNODE_W(NODE_W* l){
 
 
 int tabWsort1(FILE* o, NODE_W* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -802,6 +815,7 @@ int tabWsort1(FILE* o, NODE_W* l){
 
 
 int tabWsort2(FILE* o, NODE_W* l){
+    printf("\nSorting data...");
     // This function works the same as tabWsort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_W(l);
@@ -868,6 +882,7 @@ int getlenghtNODE_H(NODE_H* l){
 
 
 int tabHsort1(FILE* o,NODE_H* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -919,6 +934,7 @@ int tabHsort1(FILE* o,NODE_H* l){
 
 
 int tabHsort2(FILE* o,NODE_H* l){
+    printf("\nSorting data...");
     // This function works the same as tabHsort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_H(l);
@@ -985,6 +1001,7 @@ int getlenghtNODE_M(NODE_M* l){
 
 
 int tabMsort1(FILE* o,NODE_M* l){
+    printf("\nSorting data...");
     // STEP 1 : Transfering the linked list's elements to a static list.
     // To make the sort easier, we transform the linked list into a static list. We can get the lenght of the linked list and create an array.
     // We make sure to keep the original linked list in a variable to be able to free it later. 
@@ -1036,6 +1053,7 @@ int tabMsort1(FILE* o,NODE_M* l){
 
 
 int tabMsort2(FILE* o,NODE_M* l){
+    printf("\nSorting data...");
     // This function works the same as tabMsort1(). The only difference is the inversion of sorting order.
     int i;
     int lenght=getlenghtNODE_M(l);
