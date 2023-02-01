@@ -671,6 +671,14 @@ fi
 # 4) CALLING C PROGRAMS
 # With the files created, the C programs are called to sort all the files, depending on the sorting mode selected.
 
+check_C(){
+	# The programs has to stop if the C code return something else than 0 (means an error has occured).
+	if [ $? -ne 0 ]
+	then
+		exit $?
+	fi
+}
+
 # We first compile the C code using make.
 make CY-METEO
 
@@ -683,12 +691,15 @@ then
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --avl
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --abr
+				check_C
 			else
 				./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --tab
+				check_C
 			fi
 		fi
 	fi
@@ -701,12 +712,15 @@ then
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --avl
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --abr
+				check_C
 			else
 				./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --tab
+				check_C
 			fi
 		fi
 	fi
@@ -718,12 +732,15 @@ then
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --avl
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --abr
+				check_C
 			else
 				./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --tab
+				check_C
 			fi
 		fi
 	fi
@@ -735,12 +752,15 @@ then
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --avl
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --abr
+				check_C
 			else
 				./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --tab
+				check_C
 			fi
 		fi
 	fi
@@ -752,12 +772,16 @@ then
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --avl
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --abr
+				check_C
+				
 			else
 				./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --tab
+				check_C
 			fi
 		fi
 	fi
@@ -769,12 +793,15 @@ else
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --avl -r
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --abr -r
+				check_C
 			else
 				./C/CY-METEO -f "./data/temptemperature.csv" -o "./data/temp_T.csv" --tab -r
+				check_C
 			fi
 		fi
 	fi
@@ -787,12 +814,15 @@ else
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --avl -r
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --abr -r
+				check_C
 			else
 				./C/CY-METEO -f "./data/temppressure.csv" -o "./data/temp_P.csv" --tab -r
+				check_C
 			fi
 		fi
 	fi
@@ -804,12 +834,15 @@ else
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --avl -r
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --abr -r
+				check_C
 			else
 				./C/CY-METEO -f "./data/tempwind.csv" -o "./data/temp_W.csv" --tab -r
+				check_C
 			fi
 		fi
 	fi
@@ -821,12 +854,15 @@ else
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --avl -r
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --abr -r
+				check_C
 			else
 				./C/CY-METEO -f "./data/tempheight.csv" -o "./data/temp_H.csv" --tab -r
+				check_C
 			fi
 		fi
 	fi
@@ -837,12 +873,15 @@ else
 		if [ $sort -eq 1 ]
 		then
 			./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --avl -r
+			check_C
 		else
 			if [ $sort -eq 2 ]
 			then
 				./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --abr -r
+				check_C
 			else
 				./C/CY-METEO -f "./data/tempmoisture.csv" -o "./data/temp_M.csv" --tab -r
+				check_C
 			fi
 		fi
 	fi
