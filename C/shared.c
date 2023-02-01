@@ -3,6 +3,22 @@
 	#include "shared.h"
 #endif
 
+// Special function that is identical to the usual strsep.
+// We simply had an issue where strsep wasn't found in string.h, so we searched online to implement it directly
+char* personnalstrsep(char** stringp,const char *delim){
+    char* rv=*stringp;
+    if(rv){
+        *stringp+=strcspn(*stringp,delim);
+        if(**stringp){
+            *(*stringp)++ = '\0';
+        }   
+        else{
+            *stringp=0; 
+        }   
+    return rv;
+    }
+}
+
 void UTCtime(int* year,int* month, int* day, int* hour, int* timezone){
     // To begin this function, the hour is directly modified to match the timezone +00:00
     // If other adjustements need to be done (the hour is now at an impossible value), year, month and day can be modified.
@@ -327,19 +343,44 @@ NODE_T1* linkedlist_T1(FILE* f){
     float temperature;
     float minimaltemperature;
     float maximaltemperature;
-    while(feof(f)==0){
-		if(fscanf(f,"%d;%f;%f;%f",&id,&temperature,&minimaltemperature,&maximaltemperature)==4){
-		        if(inlistNODE_T1(l,id)==0){                               
-            		l = addNODE_T1(l,id,temperature,minimaltemperature,maximaltemperature);
-        		}
-        		else{                                                        
-            		l = searchandchangevaluesNODE_T1(l,id,temperature,minimaltemperature,maximaltemperature);
-        		}
-		}
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+        field=personnalstrsep(&line,";");
+        id=atoi(field);
+        field=personnalstrsep(&line,";");
+        temperature= (float) atof(field);
+        if(strcmp(field,"")==0){
+            ignore=1;
+        }
+        field=personnalstrsep(&line,";");
+        minimaltemperature= (float) atof(field);
+        if(strcmp(field,"")==0){
+            ignore=1;
+        }
+        field=personnalstrsep(&line,";");
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }
+        maximaltemperature= (float) atof(field);
+        if(ignore==0){
+            if(inlistNODE_T1(l,id)==0){                               
+                l = addNODE_T1(l,id,temperature,minimaltemperature,maximaltemperature);
+            }
+            else{                                                        
+                l = searchandchangevaluesNODE_T1(l,id,temperature,minimaltemperature,maximaltemperature);
+            }
+        }
+        ignore=0;
     }
+    free(buffer);
     l=averagingNODE_T1(l);
     return l;
 }
+
 
 
 /*
@@ -470,17 +511,33 @@ NODE_T2* linkedlist_T2(FILE* f){
     int hour;
     int timezone;
     float temperature;
-    while(feof(f)==0){
-		if(fscanf(f,"%d-%d-%dT%d:00:00+%d:00;%f\n",&year,&month,&day,&hour,&timezone,&temperature)==6){
-			    UTCtime(&year,&month,&day,&hour,&timezone);                       
-        		if(inlistNODE_T2(l,year,month,day,hour)==0){                               
-           			l = addNODE_T2(l,year,month,day,hour,temperature);
-        		}
-        		else{                                                     
-            		l = searchandchangevaluesNODE_T2(l,year,month,day,hour,temperature);
-        		}
-		}                                           
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+
+        field=personnalstrsep(&line,";");
+        sscanf(field,"%d-%d-%dT%d:00:00+%d:00",&year,&month,&day,&hour,&timezone);
+        
+        field=personnalstrsep(&line,";");
+        temperature = (float) atof(field);
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }
+        if(ignore==0){
+            UTCtime(&year,&month,&day,&hour,&timezone);                    
+            if(inlistNODE_T2(l,year,month,day,hour)==0){                              
+                l = addNODE_T2(l,year,month,day,hour,temperature);
+            }
+            else{                                                    
+                l = searchandchangevaluesNODE_T2(l,year,month,day,hour,temperature);
+            }
+        }
+        ignore=0;
     }
+    free(buffer);
     l=averagingNODE_T2(l);
     return l;
 }
@@ -572,12 +629,31 @@ NODE_T3* linkedlist_T3(FILE* f){
     int hour;
     int timezone;
     float temperature;
-    while(feof(f)==0){
-		if(fscanf(f,"%d;%d-%d-%dT%d:00:00+%d:00;%f\n",&id,&year,&month,&day,&hour,&timezone,&temperature)==7){
-			UTCtime(&year,&month,&day,&hour,&timezone);                       
-       	 	l=addNODE_T3(l,id,year,month,day,hour,temperature);
-		}                                            
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+        
+        field=personnalstrsep(&line,";");
+        id=atoi(field);
+
+        field=personnalstrsep(&line,";");
+        sscanf(field,"%d-%d-%dT%d:00:00+%d:00",&year,&month,&day,&hour,&timezone);
+        
+        field=personnalstrsep(&line,";");
+        temperature = (float) atof(field);
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }
+        if(ignore==0){
+            UTCtime(&year,&month,&day,&hour,&timezone);                       
+            l=addNODE_T3(l,id,year,month,day,hour,temperature);
+        }
+        ignore=0;
     }
+    free(buffer);
     return l;
 }
 
@@ -685,16 +761,30 @@ NODE_P1* linkedlist_P1(FILE* f){
     NODE_P1* l = NULL;
     int id;
     float pressure;
-    while(feof(f)==0){
-		if(fscanf(f,"%d;%f",&id,&pressure)==2){
-			if(inlistNODE_P1(l,id)==0){                            
-            	l = addNODE_P1(l,id,pressure);
-        	}
-        	else{                 
-            	l = searchandchangevaluesNODE_P1(l,id,pressure);
-        	}
-		}                                            
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+        field=personnalstrsep(&line,";");
+        id=atoi(field);
+        field=personnalstrsep(&line,";");
+        pressure = (float) atof(field);
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }  
+        if(ignore==0){
+            if(inlistNODE_P1(l,id)==0){                            
+                l = addNODE_P1(l,id,pressure);
+            }
+            else{                 
+                l = searchandchangevaluesNODE_P1(l,id,pressure);
+            }
+        }  
+        ignore=0;              
     }
+    free(buffer);
     l=averagingNODE_P1(l);
     return l;
 }
@@ -828,17 +918,33 @@ NODE_P2* linkedlist_P2(FILE* f){
     int hour;
     int timezone;
     float pressure;
-    while(feof(f)==0){
-		if(fscanf(f,"%d-%d-%dT%d:00:00+%d:00;%f\n",&year,&month,&day,&hour,&timezone,&pressure)==6){
-			UTCtime(&year,&month,&day,&hour,&timezone);                       
-        	if(inlistNODE_P2(l,year,month,day,hour)==0){                               
-            	l = addNODE_P2(l,year,month,day,hour,pressure);
-        	}
-        	else{                                                     
-            	l = searchandchangevaluesNODE_P2(l,year,month,day,hour,pressure);
-        	}
-		}                                                     
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+
+        field=personnalstrsep(&line,";");
+        sscanf(field,"%d-%d-%dT%d:00:00+%d:00",&year,&month,&day,&hour,&timezone);
+        
+        field=personnalstrsep(&line,";");
+        pressure = (float) atof(field);
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }
+        if(ignore==0){
+            UTCtime(&year,&month,&day,&hour,&timezone);                       
+            if(inlistNODE_P2(l,year,month,day,hour)==0){                               
+                l = addNODE_P2(l,year,month,day,hour,pressure);
+            }
+            else{                                                     
+                l = searchandchangevaluesNODE_P2(l,year,month,day,hour,pressure);
+            }
+        }
+        ignore=0;
     }
+    free(buffer);
     l=averagingNODE_P2(l);
     return l;
 }
@@ -930,12 +1036,32 @@ NODE_P3* linkedlist_P3(FILE* f){
     int hour;
     int timezone;
     float pressure;
-    while(feof(f)==0){
-		if(fscanf(f,"%d;%d-%d-%dT%d:00:00+%d:00;%f\n",&id,&year,&month,&day,&hour,&timezone,&pressure)==7){
-			UTCtime(&year,&month,&day,&hour,&timezone);                       
-        	l=addNODE_P3(l,id,year,month,day,hour,pressure);
-		}                                             
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+        
+        field=personnalstrsep(&line,";");
+        id=atoi(field);
+
+        field=personnalstrsep(&line,";");
+        sscanf(field,"%d-%d-%dT%d:00:00+%d:00",&year,&month,&day,&hour,&timezone);
+        
+        field=personnalstrsep(&line,";");
+        pressure = (float) atof(field);
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }
+        if(ignore==0){
+            UTCtime(&year,&month,&day,&hour,&timezone);                       
+            l=addNODE_P3(l,id,year,month,day,hour,pressure);
+        }
+        ignore=0;
+        
     }
+    free(buffer);
     return l;
 }
 
@@ -1032,16 +1158,35 @@ NODE_W* linkedlist_W(FILE* f){
     int id;
     int orientation;
     float speed;
-    while(feof(f)==0){
-		if(fscanf(f,"%d;%d;%f",&id,&orientation,&speed)==3){
-			if(inlistNODE_W(l,id)==0){
-            	l = addNODE_W(l,id,orientation,speed);
-        	}
-        	else{
-            	l = searchandaddNODE_W(l,id,orientation,speed);
-        	}
-		} 
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+        field=personnalstrsep(&line,";");
+        id=atoi(field);
+        field=personnalstrsep(&line,";");
+        orientation = (float) atof(field);
+        if(strcmp(field,"")==0){
+            ignore=1;
+        }
+        field=personnalstrsep(&line,";");
+        speed = (float) atof(field);
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }
+        if(ignore==0){
+            if(inlistNODE_W(l,id)==0){
+                l = addNODE_W(l,id,orientation,speed);
+            }
+            else{
+                l = searchandaddNODE_W(l,id,orientation,speed);
+            }
+        }
+        ignore=0; 
     }
+    free(buffer);
     l = averagingNODE_W(l);
     return l;
 }
@@ -1103,13 +1248,27 @@ NODE_H* linkedlist_H(FILE* f){
     NODE_H* l = NULL;
     int id;
     int height;
-    while(feof(f)==0){
-		if(fscanf(f,"%d;%d",&id,&height)==2){
-			if(inlistNODE_H(l,id)==0){
-        		l = addNODE_H(l,id,height);
-        	}
-		}
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+        field=personnalstrsep(&line,";");
+        id=atoi(field);
+        field=personnalstrsep(&line,";");
+        height = atoi(field);
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }
+        if(ignore==0){
+            if(inlistNODE_H(l,id)==0){
+                l = addNODE_H(l,id,height);
+            }
+        }
+        ignore=0;
     }
+    free(buffer);
     return l;
 }
 
@@ -1187,16 +1346,30 @@ NODE_M* linkedlist_M(FILE* f){
     NODE_M* l = NULL;
     int id;
     int moisture;
-    while(feof(f)==0){
-		if(fscanf(f,"%d;%d",&id,&moisture)==2){
-			if(inlistNODE_M(l,id)==0){
-	            l = addNODE_M(l,id,moisture);
-       		}
-        	else{
-        		l = searchandmaybereplaceNODE_M(l,id,moisture);
-        	}
-		}
+    int buffersize=200;
+    char* buffer=malloc(buffersize*sizeof(char));
+    int ignore=0;
+    while(fgets(buffer,buffersize-1,f)!=NULL){ 
+        char* line=buffer;
+        char* field;  
+        field=personnalstrsep(&line,";");
+        id=atoi(field);
+        field=personnalstrsep(&line,";");
+        moisture = atoi(field);
+        if(strcmp(field,"\n")==0){
+            ignore=1;
+        }
+        if(ignore==0){
+            if(inlistNODE_M(l,id)==0){
+                l = addNODE_M(l,id,moisture);
+            }
+            else{
+                l = searchandmaybereplaceNODE_M(l,id,moisture);
+            }
+        }
+        ignore=0; 
     }
+    free(buffer);
     return l;
 }
 
