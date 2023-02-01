@@ -74,7 +74,10 @@ Please note that :
 Using -f is mandatory to allow the program to get the path to the data file.  
 Using at least one option between -t -p -w -h -m is mandatory.  
 A mode always needs to be specified with -t and -p.  
+You can't use two modes of the same option in one command.  
 Using two options or more for the place is not possible (-F -G -A -S -Q -O).  
+
+Also, since during testing we have found the program to take quite a long time to execute with the original meteorological file, we have put a shortened version of this file containing the first 50 000 lines in ./C/data/  
 
 #### **--INPUT FILE--**  
 
