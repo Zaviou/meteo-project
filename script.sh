@@ -892,11 +892,30 @@ fi
 # 5) USING GNUPLOT
 
 # It first needs access to the data, that's why we move every temporary file in ./Gnuplot/data
-mv ./C/data/temp_T.csv ./Gnuplot/data/temp_T.csv
-mv ./C/data/temp_P.csv ./Gnuplot/data/temp_P.csv
-mv ./C/data/temp_W.csv ./Gnuplot/data/temp_W.csv
-mv ./C/data/temp_H.csv ./Gnuplot/data/temp_H.csv
-mv ./C/data/temp_M.csv ./Gnuplot/data/temp_M.csv
+if [ -e "./C/data/temp_T.csv" ]
+then
+	mv ./C/data/temp_T.csv ./Gnuplot/data/temp_T.csv
+fi
+
+if [ -e "./C/data/temp_P.csv" ]
+then
+	mv ./C/data/temp_P.csv ./Gnuplot/data/temp_P.csv
+fi
+
+if [ -e "./C/data/temp_W.csv" ]
+then
+	mv ./C/data/temp_W.csv ./Gnuplot/data/temp_W.csv
+fi
+
+if [ -e "./C/data/temp_H.csv" ]
+then
+	mv ./C/data/temp_H.csv ./Gnuplot/data/temp_H.csv
+fi
+
+if [ -e "./C/data/temp_M.csv" ]
+then
+	mv ./C/data/temp_M.csv ./Gnuplot/data/temp_M.csv
+fi
 
 # Gnuplot is then used on the sorted files to produce graphics
 if [ $temperature = "1" ];then
