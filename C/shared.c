@@ -347,10 +347,10 @@ NODE_T1* linkedlist_T1(FILE* f){
     float maximaltemperature;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
+	char* field;
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -378,6 +378,7 @@ NODE_T1* linkedlist_T1(FILE* f){
         }
         ignore=0;
     }
+    free(buffer);
     l=averagingNODE_T1(l);
     return l;
 }
@@ -516,10 +517,10 @@ NODE_T2* linkedlist_T2(FILE* f){
     float temperature;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer; 
+	char* field;
 
         field=personnalstrsep(&line,";");
         sscanf(field,"%d-%d-%dT%d:00:00+%d:00",&year,&month,&day,&hour,&timezone);
@@ -540,6 +541,7 @@ NODE_T2* linkedlist_T2(FILE* f){
         }
         ignore=0;
     }
+    free(buffer);
     l=averagingNODE_T2(l);
     return l;
 }
@@ -635,10 +637,10 @@ NODE_T3* linkedlist_T3(FILE* f){
     float temperature;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
+	char* field;
         
         field=personnalstrsep(&line,";");
         id=atoi(field);
@@ -657,6 +659,7 @@ NODE_T3* linkedlist_T3(FILE* f){
         }
         ignore=0;
     }
+    free(buffer);
     return l;
 }
 
@@ -768,10 +771,10 @@ NODE_P1* linkedlist_P1(FILE* f){
     float pressure;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
+	char* field;
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -789,6 +792,7 @@ NODE_P1* linkedlist_P1(FILE* f){
         }  
         ignore=0;              
     }
+    free(buffer);
     l=averagingNODE_P1(l);
     return l;
 }
@@ -926,10 +930,10 @@ NODE_P2* linkedlist_P2(FILE* f){
     float pressure;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
+	char* field;
 
         field=personnalstrsep(&line,";");
         sscanf(field,"%d-%d-%dT%d:00:00+%d:00",&year,&month,&day,&hour,&timezone);
@@ -950,6 +954,7 @@ NODE_P2* linkedlist_P2(FILE* f){
         }
         ignore=0;
     }
+    free(buffer);
     l=averagingNODE_P2(l);
     return l;
 }
@@ -1045,10 +1050,10 @@ NODE_P3* linkedlist_P3(FILE* f){
     float pressure;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
+	char* field;
         field=personnalstrsep(&line,";");
         id=atoi(field);
 
@@ -1067,6 +1072,7 @@ NODE_P3* linkedlist_P3(FILE* f){
         ignore=0;
         
     }
+    free(buffer);
     return l;
 }
 
@@ -1167,10 +1173,10 @@ NODE_W* linkedlist_W(FILE* f){
     float speed;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
-        char* line=buffer;  
+        char* line=buffer; 
+	char* field;
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -1193,6 +1199,7 @@ NODE_W* linkedlist_W(FILE* f){
         }
         ignore=0; 
     }
+    free(buffer);
     l = averagingNODE_W(l);
     return l;
 }
@@ -1258,11 +1265,10 @@ NODE_H* linkedlist_H(FILE* f){
     int height;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
-
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
+	char* field;
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -1277,6 +1283,7 @@ NODE_H* linkedlist_H(FILE* f){
         }
         ignore=0;
     }
+    free(buffer);
     return l;
 }
 
@@ -1358,10 +1365,10 @@ NODE_M* linkedlist_M(FILE* f){
     int moisture;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
-    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer; 
+	char* field;
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -1379,29 +1386,6 @@ NODE_M* linkedlist_M(FILE* f){
         }
         ignore=0; 
     }
+    free(buffer);
     return l;
 }
-
-/*
-int main(){
-/*
-    FILE* f=fopen("testtemperature.txt","r");
-    FILE* o=fopen("sortietemp.txt","w");
-    NODE_T1* l=NULL;
-    printf("1");
-    l=linkedlist_T1(f);
-    printf("2");
-    tabT1sort1(o,l);
-    printf("3");
-    fclose(f);
-    fclose(o);
-    return 0;
-
-	int lat;
-	int lon;
-
-	coordonate(89565, &lat, &lon);
-
-	printf("lat : %d\n", lat);
-	printf("lon : %d\n", lon);
-}*/
