@@ -5,7 +5,7 @@
 
 #ifndef HEADERABR
 	#define HEADERABR 1
-	#include "tri_ABR.h"
+	#include "abr.h"
 #endif
 
 /*
@@ -814,67 +814,3 @@ int sort_M(FILE* f, FILE* o, int r){
 
 	return 0;
 }
-
-/*
-------------------------------------------
-POUR XAVIER
-------------------------------------------
-*/
-
-/*
-ABR_NODE2_T3* addABR_NODE2_T3(ABR_NODE2_T3* t, MEASURE_T3 m3, int r){
-	//A new node is added to the tree, and sorted.
-	if(t==NULL){
-		return createABR_NODE2_T3(m3);
-	}else{
-		if((chronologicalorder_T3(m3, t->m) ==1 && r==1) || (chronologicalorder_T3(m3, t->t) ==0 && r==-1)){
-			if (t->sl !=NULL) t->sl =addABR_NODE2_T3(t->sl, m3, r);
-			else t->sl =createABR_NODE2_T3(m3);
-		} else if((chronologicalorder_T3(t->m, m3) ==1 && r==1) || (chronologicalorder_T3(t->m, m3) ==0 && r==-1)){
-			if (t->sr !=NULL) t->sr =addABR_NODE2_T3(t->sr, m3, r);
-			else t->sr =createABR_NODE2_T3(m3);
-		} else {
-			if(r* (t->s.id) > r*(m3.id)){
-				if (t->sl !=NULL) t->sl =addABR_NODE2_T3(t->sl, m3, r);
-				else t->sl =createABR_NODE2_T3(m3);
-			} else if(r* (t->m.id) < r*(m3.id)) {
-				if (t->sr !=NULL) t->sr =addABR_NODE2_T3(t->sr, m3, r);
-				else t->sr =createABR_NODE2_T3(m3);
-			} else {
-				return t;
-			}
-		}
-	}
-	
-	return t;
-}
-*/
-
-/*
-ABR_NODE2_P3* addABR_NODE2_P3(ABR_NODE2_P3* t, MEASURE_P3 m3, int r){
-	//A new node is added to the tree, and sorted.
-	if(t==NULL){
-		return createABR_NODE2_P3(m3);
-	}else{
-		if((chronologicalorder_P3(m3, t->m) ==1 && r==1) || (chronologicalorder_P3(m3, t->m) ==0 && r==-1)){
-			if (t->sl !=NULL) t->sl =addABR_NODE2_P3(t->sl, m3, r);
-			else t->sl =createABR_NODE2_P3(m3);
-		} else if((chronologicalorder_P3(t->m, m3) ==1 && r==1) || (chronologicalorder_P3(t->m, m3) ==0 && r==-1)){
-			if (t->sr !=NULL) t->sr =addABR_NODE2_P3(t->sr, m3, r);
-			else t->sr =createABR_NODE2_P3(m3);
-		} else {
-			if(r* (t->m.id) > r*(m3.id)){
-				if (t->sl !=NULL) t->sl =addABR_NODE2_P3(t->sl, m3, r);
-				else t->sl =createABR_NODE2_P3(m3);
-			} else if(r* (t->m.id) < r*(m3.id)) {
-				if (t->sr !=NULL) t->sr =addABR_NODE2_P3(t->sr, m3, r);
-				else t->sr =createABR_NODE2_P3(m3);
-			} else {
-				return t;
-			}
-		}
-	}
-	
-	return t;
-}
-*/
