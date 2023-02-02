@@ -932,6 +932,16 @@ NODE2_P3* fillNODE2_P3withNODE_P3(NODE2_P3* t, NODE_P3* l, int r){
 	return t;
 }
 
+NODE2_P3* getthegreatestvalue(NODE2_P3* t){
+	if (t!=0){
+		if(t->sr!=NULL){
+			return getthegreatestvalue(t->sr);
+		}
+		else return t;
+	}
+	return createNODE2_P3(addNODE_P3(NULL, 0, 0, 0, 0, 0, 0)->m);
+}
+
 void writeinfileNODE2_P3(FILE* o, NODE2_P3* t, MEASURE_P3 old_m){
 	// Each element of the tree is written in the output file.
 	// Format : "day ID pressure hours".

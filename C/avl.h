@@ -394,66 +394,88 @@ MODE 3
 A function used to free all the nodes of a given tree.
 * t : the tree to be freed (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
+*/
 void freetreeNODE2_T3(NODE2_T3* t) ;
 
+/*
 This function is called to create a node using malloc.
 * t : given tree (NODE2_T3*).
 * t3 : (MEASURE_T3 ).
 Specifically used when temprature with mode 3 was chosen.
+*/
 NODE2_T3* createNODE2_T3(MEASURE_T3  t3) ;
 
+/*
 This function is called to modificate the order of nodes in the tree to make it balanced.
 * t : given tree (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
+*/
 NODE2_T3* rotateleftNODE2_T3(NODE2_T3* t);
 
+/*
 This function is called to modificate the place of nodes in the tree to make it balanced.
 * t : given tree (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
-NODE2_T3* rotaterightNODE2_T3(NODE2_T2* t);
+*/
+NODE2_T3* rotaterightNODE2_T3(NODE2_T3* t);
 
+/*
 This function is called to modificate the order of nodes in the tree to make it balanced.
 * t : given tree (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
-NODE2_T3 doublerotateleftNODE2_T3(NODE2_T3* t);
+*/
+NODE2_T3* doublerotateleftNODE2_T3(NODE2_T3* t);
 
+/*
 This function is called to modificate the order of nodes in the tree to make it balanced.
 * t : given tree (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
+*/
 NODE2_T3* doublerotaterightNODE2_T3(NODE2_T3* t);
 
+/*
 This function is called to chose which modification of a tree to do to make it balanced.
 * t : given tree (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
+*/
 NODE2_T3* rebalanceNODE2_T3 (NODE2_T3* t);
 
+/*
 This function is called to add it as a node to t, together with pressure measures.
 * t : given tree (NODE2_T3*).
 * t3 : (MEASURE_T3 ).
 * h : (int*).
 * r : (int).
 Specifically used when temprature with mode 3 was chosen.
+*/
 NODE2_T3* addNODE2_T3(NODE2_T3* t, MEASURE_T3  t2, int* h, int r);
 
+/*
 This function is called to fill a tree with the linked list created in the asked order.
 * t : given tree (NODE2_T3*).
 * l : given linked list (NODE_T3*).
 * r : integer representing the asked order (1 means the ascending order, -1 means the descending order) (int).
 Specifically used when temprature with mode 3 was chosen.
+*/
 NODE2_T3* fillNODE2_T3withNODE_T3(NODE2_T3* t, NODE_T3* l, int r);
 
 /*
 This function is called to get te greatest value of a tree.
 * t : given tree (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
+*/
 NODE2_T3* getthegreatestvalue(NODE2_T3* t);
 
+/*
 This function is called to add it as a node to t, together with pressure measures.
-* o : the way to the file to write the new data in (FILE*).
-* t : given tree (NODE2_T3*).
+* o     : the way to the file to write the new data in (FILE*).
+* t     : given tree (NODE2_T3*).
+* old_m : structure containing the informations about the previous structure (MEASURE_T3).
 Specifically used when temprature with mode 3 was chosen.
-void writeinfileNODE2_T3(FILE* o, NODE2_T3* t, MEASURE_P3 old_m) ;
+*/
+ void writeinfileNODE2_T3(FILE* o, NODE2_T3* t, MEASURE_T3 old_m) ;
 
+/*
 A sorting function used to produce the output file when temperature with mode 3 was chosen.
 * f : given file, which is to be sorted.
 * o : output file used to store the new data.
@@ -461,8 +483,8 @@ A sorting function used to produce the output file when temperature with mode 3 
 * Returns 0 if it executes correctly, something else if not.
 It is used to sort a given temperature file.
 The produced temperature file contains the temperature values sorted in chronological order. For the same day and hour, station IDs are sorted from lowest to highest number.
-int sort_T3(FILE* f, FILE* o, int r) ;
 */
+int sort_T3(FILE* f, FILE* o, int r) ;
 
 /*
 ------------------------------------------
@@ -663,64 +685,92 @@ int sort_P2(FILE* f, FILE* o, int r) ;
 MODE 3
 ------------------------------------------
 */
+
 /*
 A function used to free all the nodes of a given tree.
 * t : the tree to be freed (NODE2_P3*).
 Specifically used when pressure with mode 3 was chosen.
+*/
 void freetreeNODE2_P3(NODE2_P3* t) ;
 
+/*
 This function is called to create a node using malloc.
 * t : given tree (NODE2_P3*).
 * p3 : (MEASURE_P3 ).
 Specifically used when pressure with mode 3 was chosen.
+*/
 NODE2_P3* createNODE2_P3(MEASURE_P3  p3) ;
 
+/*
 This function is called to modificate the order of nodes in the tree to make it balanced.
 * t : given tree (NODE2_P3*).
 Specifically used when pressure with mode 3 was chosen.
+*/
 NODE2_P3* rotateleftNODE2_P3(NODE2_P3* t);
 
+/*
 This function is called to modificate the place of nodes in the tree to make it balanced.
 * t : given tree (NODE2_P3*).
 Specifically used when pressure with mode 3 was chosen.
+*/
 NODE2_P3* rotaterightNODE2_P3(NODE2_P3* t);
 
+/*
 This function is called to modificate the order of nodes in the tree to make it balanced.
 * t : given tree (NODE2_P3*).
 Specifically used when pressure with mode 3 was chosen.
+*/
 NODE2_P3* doublerotateleftNODE2_P3(NODE2_P3* t);
 
+/*
 This function is called to modificate the order of nodes in the tree to make it balanced.
 * t : given tree (NODE2_P3*).
 Specifically used when pressure with mode 3 was chosen.
+*/
 NODE2_P3* doublerotaterightNODE2_P3(NODE2_P3* t);
 
+/*
 This function is called to chose which modification of a tree to do to make it balanced.
 * t : given tree (NODE2_P3*).
 Specifically used when pressure with mode 3 was chosen.
+*/
 NODE2_P3* rebalanceNODE2_P3(NODE2_P3* t);
 
+/*
 This function is called to add it as a node to t, together with pressure measures.
 * t : given tree (NODE2_P3*).
 * p3 : (MEASURE_P3 ).
 * h : (int*).
 * r : (int).
 Specifically used when pressure with mode 3 was chosen.
+*/
 NODE2_P3* addNODE2_P3(NODE2_P3* t, MEASURE_P3  p3, int* h, int r);
 
+/*
 This function is called to fill a tree with the linked list created in the asked order.
 * t : given tree (NODE2_P3*).
 * l : given linked list (NODE_P3*).
 * r : integer representing the asked order (1 means the ascending order, -1 means the descending order) (int).
 Specifically used when pressure with mode 3 was chosen.
+*/
 NODE2_P3* fillNODE2_P3withNODE_P3(NODE2_P3* t, NODE_P3* l, int r);
 
+/*
+This function is called to get te greatest value of a tree.
+* t : given tree (NODE2_T3*).
+Specifically used when temprature with mode 3 was chosen.
+*/
+NODE2_P3* getthegreatestvalue(NODE2_P3* t);
+
+/*
 This function is called to add it as a node to t, together with pressure measures.
 * o : the way to the file to write the new data in (FILE*).
 * t : given tree (NODE2_P3*).
 Specifically used when pressure with mode 3 was chosen.
+*/
 void writeinfileNODE2_P3(FILE* o, NODE2_P3* t, MEASURE_P3 old_m) ;
 
+/*
 A sorting function used to produce the output file when pressure with mode 3 was chosen.
 * f : given file, which is to be sorted.
 * o : output file used to store the new data.
@@ -728,8 +778,9 @@ A sorting function used to produce the output file when pressure with mode 3 was
 * Returns 0 if it executes correctly, something else if not.
 It is used to sort a given pressure file.
 The produced pressure file contains the pressure values sorted in reverse-chronological order. For the same day and hour, station IDs are sorted from lowest to highest number.
-int sort_P3(FILE* f, FILE* o, int r) ;
 */
+int sort_P3(FILE* f, FILE* o, int r) ;
+
 /*
 ------------------------------------------
 WIND FUNCTIONS
