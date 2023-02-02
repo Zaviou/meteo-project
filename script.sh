@@ -394,8 +394,14 @@ if [ $place -gt 0 ] || [ $dates -eq 1 ]
 then
 	tempfile=1
 	# Previous files are removed as a security measure.
-	rm ./C/data/tempplace.txt
-	rm ./C/data/temptimeandplace.txt
+	if [ -e ./C/data/tempplace.txt ]
+	then
+		rm ./C/data/tempplace.txt
+	fi
+	if [ -e ./C/data/temptimeandplace.txt ]
+	then
+		rm ./C/data/temptimeandplace.txt
+	fi
 	# The script creates files which serve to filter separately the places and the dates.
 	touch ./C/data/tempplace.txt
 	touch ./C/data/temptimeandplace.txt
@@ -613,10 +619,10 @@ else
 		else
 			if [ $temperaturemode -eq 2 ]
 			then
-				echo "1200000" > ./C/data/temptemperature.txt
+				echo "1200000" > ./C/data/temptemperature.csv
 				cut --delimiter=";" --fields=2,11 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 			else
-				echo "1300000" > ./C/data/temptemperature.txt
+				echo "1300000" > ./C/data/temptemperature.csv
 				cut --delimiter=";" --fields=1,2,11 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 			fi
 		fi
@@ -633,10 +639,10 @@ else
 		else
 			if [ $pressuremode -eq 2 ]
 			then
-				echo "0012000" > ./C/data/temppressure.txt
+				echo "0012000" > ./C/data/temppressure.csv
 				cut --delimiter=";" --fields=2,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 			else
-				echo "0013000" > ./C/data/temppressure.txt
+				echo "0013000" > ./C/data/temppressure.csv
 				cut --delimiter=";" --fields=1,2,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 			fi
 		fi
