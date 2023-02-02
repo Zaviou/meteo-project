@@ -9,4 +9,4 @@ set title "Graph in vectors of wind"
 set xlabel ' Latitude '
 set ylabel ' Longitude '
 
-plot 'data/temp_W.csv' using 1:2:($3*cos($4/180*pi)):($3*sin($4/180*pi)) with vectors head filled lt 2 title "Direction of wind"
+plot 'Gnuplot/data/temp_W.csv' using 1:2:($3*cos($4/180*pi)):($3*sin($4/180*pi)) with vectors head filled lt 2 title "Direction of wind"
