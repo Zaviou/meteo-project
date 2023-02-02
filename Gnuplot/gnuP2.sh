@@ -12,6 +12,6 @@ set ylabel ' Pressure '
 #Settings the format of date.
 set xdata time
 set timefmt '"%Y-%m-%d %H:%M:%S"'
-set format x "day %d\n%Hh"
+set format x "day %d/%m/%Y\n%Hh"
 
 plot 'Gnuplot/data/temp_P.csv' using 1:2 with linespoints title "Average pressure"
