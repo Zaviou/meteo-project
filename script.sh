@@ -915,11 +915,20 @@ if [ $temperature = "1" ];then
 				eog 'load_T1'
 	elif [ $temperaturemode = "2" ];then
 				# Last minute bug fix for T2 (and P2)
-				tail --lines=+3 ./Gnuplot/data/temp_T.csv > ./Gnuplot/data/temppp.csv
-				rm -rf ./Gnuplot/data/temp_T.csv
-				mv ./Gnuplot/data/temppp.csv ./Gnuplot/data/temp_T.csv
-				gnuplot "./Gnuplot/gnuT2.sh"
-				eog 'load_T2'
+				if [ $descendingsort -eq 0 ]
+				then
+					tail --lines=+3 ./Gnuplot/data/temp_T.csv > ./Gnuplot/data/temppp.csv
+					rm -rf ./Gnuplot/data/temp_T.csv
+					mv ./Gnuplot/data/temppp.csv ./Gnuplot/data/temp_T.csv
+					gnuplot "./Gnuplot/gnuT2.sh"
+					eog 'load_T2'
+				else
+					head --lines=-2 ./Gnuplot/data/temp_T.csv > ./Gnuplot/data/temppp.csv
+					rm -rf ./Gnuplot/data/temp_T.csv
+					mv ./Gnuplot/data/temppp.csv ./Gnuplot/data/temp_T.csv
+					gnuplot "./Gnuplot/gnuT2.sh"
+					eog 'load_T2'
+				fi
 	elif [ $temperaturemode = "3" ];then
 				gnuplot "./Gnuplot/gnuT3.sh"
 				eog 'load_T3'
@@ -931,11 +940,21 @@ if [ $pressure = "1" ];then
 				gnuplot "./Gnuplot/gnuP1.sh"
 				eog 'load_P1'
 	elif [ $pressuremode = "2" ];then
-				tail --lines=+3 ./Gnuplot/data/temp_P.csv > ./Gnuplot/data/temppp.csv
-				rm -rf ./Gnuplot/data/temp_P.csv
-				mv ./Gnuplot/data/temppp.csv ./Gnuplot/data/temp_P.csv
-				gnuplot "./Gnuplot/gnuP2.sh"
-				eog 'load_P2'
+				if [ $descendingsort -eq 0 ]
+				then
+					tail --lines=+3 ./Gnuplot/data/temp_P.csv > ./Gnuplot/data/temppp.csv
+					rm -rf ./Gnuplot/data/temp_P.csv
+					mv ./Gnuplot/data/temppp.csv ./Gnuplot/data/temp_P.csv
+					gnuplot "./Gnuplot/gnuP2.sh"
+					eog 'load_P2'
+				else
+					head --lines=-2 ./Gnuplot/data/temp_P.csv > ./Gnuplot/data/temppp.csv
+					rm -rf ./Gnuplot/data/temp_P.csv
+					mv ./Gnuplot/data/temppp.csv ./Gnuplot/data/temp_P.csv
+					gnuplot "./Gnuplot/gnuP2.sh"
+					eog 'load_P2'
+				fi
+				
 	elif [ $pressuremode = "3" ];then
 				gnuplot "./Gnuplot/gnuP3.sh"
 				eog 'load_P3'
