@@ -924,7 +924,7 @@ fi
 
 if [ $pressure = "1" ];then
 	if [ $pressuremode = "1" ];then
-				gnuplot "./Gnuplot/gnuP2.sh"
+				gnuplot "./Gnuplot/gnuP1.sh"
 				eog 'load_P1'
 	elif [ $pressuremode = "2" ];then
 				gnuplot "./Gnuplot/gnuP2.sh"
