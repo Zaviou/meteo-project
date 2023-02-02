@@ -101,15 +101,16 @@ int main(int number_of_arguments , char** list_of_arguments){
 	else if(check==OPTION_P3){
 		pressure_3=1;
 	} 
-	else if(check==OPTION_W){
+	else if(check==100){
 		wind=1;
 	} 
-	else if(check==OPTION_H){
+	else if(check==10){
 		height=1;
 	} 
 	else if(check==OPTION_M){
 		moisture=1;
-	} 	
+	} 
+	else exit(4);
 
 	FILE* o=fopen(name_of_file_o, "w");
 	if(o==NULL){
