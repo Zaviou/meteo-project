@@ -613,7 +613,7 @@ then
 				# Pressure mode 2 fields : Time,pressure
 				cut --delimiter=";" --fields=2,7 ./C/data/file.txt >> ./C/data/temppressure.csv
 			else
-				echo "0013000" > ./C/data/temppressure.txt
+				echo "0013000" > ./C/data/temppressure.csv
 				# Pressure mode 3 fields : ID,time,pressure,
 				cut --delimiter=";" --fields=1,2,7 ./C/data/file.txt >> ./C/data/temppressure.csv
 			fi
