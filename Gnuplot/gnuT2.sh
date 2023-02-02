@@ -14,4 +14,4 @@ set xdata time
 set timefmt '"%Y-%m-%d %H:%M:%S"'
 set format x "day %d\n%Hh"
 
-plot 'data/temp_T2.csv' using 1:2 with linespoints title "Average temperature"
+plot 'Gnuplot/data/temp_T2.csv' using 1:2 with linespoints title "Average temperature"
