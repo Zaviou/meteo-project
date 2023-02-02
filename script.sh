@@ -983,5 +983,6 @@ if [ $moisture = "1" ];then
 fi
 
 # If no error occured, then the program comes to its end with a 0 exit.
+echo " "
 echo "The program executed successfully."
 exit 0
