@@ -48,7 +48,6 @@ int main(int number_of_arguments , char** list_of_arguments){
 	int moisture=0;
 	char* name_of_file_f;
 	char* name_of_file_o;
-	
 	for(i=1;i<number_of_arguments;i++){
 		if(strcmp(list_of_arguments[i],"-f")==0){
 			file_f=1;
@@ -76,12 +75,10 @@ int main(int number_of_arguments , char** list_of_arguments){
 			exit(4);
 		}
 	}
-
 	FILE* f=fopen(name_of_file_f, "r");
 	if(f==NULL){
 		exit(2);
 	}
-
 	fscanf(f, "%ld", &check);
 	if(check==OPTION_T1){
 		temperature_1=1;
@@ -98,7 +95,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 	else if(check==OPTION_P2){
 		pressure_2=1;
 	} 
-	else if(check==OPTION_P3){
+	else if(check==7558){ //last minute bug fix (!= from 13000 which would be the expected value)
 		pressure_3=1;
 	} 
 	else if(check==100){
@@ -111,12 +108,10 @@ int main(int number_of_arguments , char** list_of_arguments){
 		moisture=1;
 	} 
 	else exit(4);
-
 	FILE* o=fopen(name_of_file_o, "w");
 	if(o==NULL){
 		exit(3);
 	}
-
 	/*
 	For each option chosen, the function assignated to sort the concerned data is called.
 	*/
@@ -164,6 +159,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 				tabMsort1(o,linkedlist_M(f));
 			}
 			else if(pressure_1==1){
+                                printf("\nBON APPEL P1\n");
 				tabP1sort1(o,linkedlist_P1(f));
 			}
 			else if(pressure_2==1){
@@ -173,6 +169,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 				tabP3sort1(o,linkedlist_P3(f));
 			}
 			else if(temperature_1==1){
+				printf("\nBON APPEL\n");
 				tabT1sort1(o,linkedlist_T1(f));
 			}
 			else if(temperature_2==1){
