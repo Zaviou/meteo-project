@@ -9,4 +9,4 @@ set title "Interpolated and colored mp of moisture"
 set xlabel ' Longitude '
 set ylabel ' Latitude '
 
-plot 'data/temp_M.csv' using 1:2:3 with circles fillstyle solid lc palette title "Moisture"
+plot 'Gnuplot/data/temp_M.csv' using 1:2:3 with circles fillstyle solid lc palette title "Moisture"
