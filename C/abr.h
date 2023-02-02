@@ -230,7 +230,7 @@ A sorting function used to produce the output file when temperature with mode 1 
 It is used to sort a given temperature file.
 The produced temperature file contains stations sorted by their ID from lowest to highest number, and for each station, the maximal, minimal and average temperature values.
 */
-int sort_T1(FILE* f, FILE* o, int r) ;
+int ABR_sort_T1(FILE* f, FILE* o, int r) ;
 
 /*
 ------------------------------------------
@@ -289,7 +289,7 @@ A sorting function used to produce the output file when temperature with mode 2 
 It is used to sort a given temperature file.
 The produced temperature file contains, in chronological order, the average temperature values (average made on all the stations).
 */
-int sort_T2(FILE* f, FILE* o, int r) ;
+int ABR_sort_T2(FILE* f, FILE* o, int r) ;
 
 /*
 ------------------------------------------
@@ -382,7 +382,7 @@ A sorting function used to produce the output file when temperature with mode 3 
 It is used to sort a given temperature file.
 The produced temperature file contains the temperature values sorted in chronological order. For the same day and hour, station IDs are sorted from lowest to highest number.
 */
-int sort_T3(FILE* f, FILE* o, int r) ;
+int ABR_sort_T3(FILE* f, FILE* o, int r) ;
 
 
 /*
@@ -448,7 +448,7 @@ A sorting function used to produce the output file when pressure with mode 1 was
 It is used to sort a given pressure file.
 The produced pressure file contains stations sorted by their ID from highest to lowest number, and for each station, the maximal, minimal and average pressure values.
 */
-int sort_P1(FILE* f, FILE* o, int r) ;
+int ABR_sort_P1(FILE* f, FILE* o, int r) ;
 
 /*
 ------------------------------------------
@@ -507,7 +507,7 @@ A sorting function used to produce the output file when pressure with mode 2 was
 It is used to sort a given pressure file.
 The produced pressure file contains, in reverse-chronological order, the average pressure values (average made on all the stations).
 */
-int sort_P2(FILE* f, FILE* o, int r) ;
+int ABR_sort_P2(FILE* f, FILE* o, int r) ;
 
 /*
 ------------------------------------------
@@ -608,7 +608,7 @@ It is used to sort a given pressure file.
 The produced pressure file contains the pressure values sorted in reverse-chronological order. For the same day and hour, station IDs are sorted from lowest to highest number.
 */
 
-int sort_P3(FILE* f, FILE* o, int r) ;
+int ABR_sort_P3(FILE* f, FILE* o, int r) ;
 
 /*
 ------------------------------------------
@@ -667,7 +667,7 @@ A sorting function used to produce the output file when wind was chosen.
 It is used to sort a given wind file.
 The produced wind file contains the average orientation and average speed of the wind for each station. The stations' IDs are sorted from lowest to highest number. 
 */
-int sort_W(FILE* f, FILE* o, int r) ;
+int ABR_sort_W(FILE* f, FILE* o, int r) ;
 
 /*
 ------------------------------------------
@@ -726,7 +726,7 @@ A sorting function used to produce the output file when height was chosen.
 It is used to sort a given height file.
 The produced height file contains the stations' IDs and their height sorted from highest to lowest.
 */
-int sort_H(FILE* f, FILE* o, int r) ;
+int ABR_sort_H(FILE* f, FILE* o, int r) ;
 
 /*
 ------------------------------------------
@@ -785,7 +785,7 @@ A sorting function used to produce the output file when moisture was chosen.
 It is used to sort a given moisture file.
 The produced moisture file contains the stations' IDs and their maximal moisture value sorted from highest to lowest value.
 */
-int sort_M(FILE* f, FILE* o, int r) ;
+int ABR_sort_M(FILE* f, FILE* o, int r) ;
 
 
 

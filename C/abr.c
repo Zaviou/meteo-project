@@ -88,7 +88,7 @@ void writeinfileABR_NODE2_T1(FILE* o, ABR_NODE2_T1* t){
 	
 }
 
-int sort_T1(FILE* f, FILE* o, int r){
+int ABR_sort_T1(FILE* f, FILE* o, int r){
 	ABR_NODE2_T1* T_T1=NULL;
 	NODE_T1* l_T1=linkedlist_T1(f);
 
@@ -171,7 +171,7 @@ void writeinfileABR_NODE2_T2(FILE* o, ABR_NODE2_T2* t){
 	}
 }
 
-int sort_T2(FILE* f, FILE* o, int r){
+int ABR_sort_T2(FILE* f, FILE* o, int r){
 
 	ABR_NODE2_T2* T_T2=NULL;
 	NODE_T2* l_T2=linkedlist_T2(f);
@@ -267,7 +267,7 @@ void writeinfileABR_NODE2_T3(FILE* o, ABR_NODE2_T3* t, MEASURE_T3 old_m){
 	
 }
 
-int sort_T3(FILE* f, FILE* o, int r){
+int ABR_sort_T3(FILE* f, FILE* o, int r){
 
 	ABR_NODE2_T3* T_T3=NULL;
 	NODE_T3* l_T3=linkedlist_T3(f);
@@ -357,7 +357,7 @@ void writeinfileABR_NODE2_P1(FILE* o, ABR_NODE2_P1* t){
 	}
 }
 
-int sort_P1(FILE* f, FILE* o, int r){
+int ABR_sort_P1(FILE* f, FILE* o, int r){
 	ABR_NODE2_P1* T_P1=NULL;
 	NODE_P1* l_P1=linkedlist_P1(f);
 
@@ -441,7 +441,7 @@ void writeinfileABR_NODE2_P2(FILE* o, ABR_NODE2_P2* t){
 	}
 }
 
-int sort_P2(FILE* f, FILE* o, int r){
+int ABR_sort_P2(FILE* f, FILE* o, int r){
 	ABR_NODE2_P2* T_P2=NULL;
 	NODE_P2* l_P2=linkedlist_P2(f);
 
@@ -536,7 +536,7 @@ void writeinfileABR_NODE2_P3(FILE* o, ABR_NODE2_P3* t, MEASURE_P3 old_m){
 	
 }
 
-int sort_P3(FILE* f, FILE* o, int r){
+int ABR_sort_P3(FILE* f, FILE* o, int r){
 	ABR_NODE2_P3* T_P3=NULL;
 	NODE_P3* l_P3=linkedlist_P3(f);
 
@@ -624,7 +624,7 @@ void writeinfileABR_NODE2_W(FILE* o, ABR_NODE2_W* t){
 	
 }
 
-int sort_W(FILE* f, FILE* o, int r){
+int ABR_sort_W(FILE* f, FILE* o, int r){
 	ABR_NODE2_W* T_W=NULL;
 	NODE_W* l_W=linkedlist_W(f);
 
@@ -714,7 +714,7 @@ void writeinfileABR_NODE2_H(FILE* o, ABR_NODE2_H* t){
 	
 }
 
-int sort_H(FILE* f, FILE* o, int r){
+int ABR_sort_H(FILE* f, FILE* o, int r){
 	ABR_NODE2_H* T_H=NULL;
 	NODE_H* l_H=linkedlist_H(f);
 
@@ -802,7 +802,7 @@ void writeinfileABR_NODE2_M(FILE* o, ABR_NODE2_M* t){
 	
 }
 
-int sort_M(FILE* f, FILE* o, int r){
+int ABR_sort_M(FILE* f, FILE* o, int r){
 	ABR_NODE2_M* T_M=NULL;
 	NODE_M* l_M=linkedlist_M(f);
 

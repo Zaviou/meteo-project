@@ -7,12 +7,12 @@
 	#define TAB 1
 	#include "tab.c"
 #endif
-/*
+
 #ifndef ABR
 	#define ABR 1
 	#include "abr.c"
 #endif
-*/
+
 #ifndef AVL
 	#define AVL 1
 	#include "avl.c"
@@ -146,7 +146,33 @@ int main(int number_of_arguments , char** list_of_arguments){
 			}		
 		}
 		else if(sort==1){
-				
+			if(height==1){
+				ABR_sort_H(f, o, 1);
+			}
+			else if(wind==1){
+				ABR_sort_W(f, o, 1);
+			}
+			else if(moisture==1){
+				ABR_sort_W(f, o, 1);
+			}
+			else if(pressure_1==1){
+				ABR_sort_P1(f, o, 1);
+			}
+			else if(pressure_2==1){
+				ABR_sort_P2(f, o, 1);
+			}
+			else if(pressure_3==1){
+				ABR_sort_P3(f, o, 1);
+			}
+			else if(temperature_1==1){
+				ABR_sort_T1(f, o, 1);
+			}
+			else if(temperature_2==1){
+				ABR_sort_T2(f, o, 1);
+			}
+			else if(temperature_3==1){
+				ABR_sort_T3(f, o, 1);
+			}
 		}
 		else if(sort==2){
 			if(height==1){
@@ -211,7 +237,33 @@ int main(int number_of_arguments , char** list_of_arguments){
 			}		
 		}
 		else if(sort==1){
-				
+			if(height==1){
+				ABR_sort_H(f, o, -1);
+			}
+			else if(wind==1){
+				ABR_sort_W(f, o, -1);
+			}
+			else if(moisture==1){
+				ABR_sort_W(f, o, -1);
+			}
+			else if(pressure_1==1){
+				ABR_sort_P1(f, o, -1);
+			}
+			else if(pressure_2==1){
+				ABR_sort_P2(f, o, -1);
+			}
+			else if(pressure_3==1){
+				ABR_sort_P3(f, o, -1);
+			}
+			else if(temperature_1==1){
+				ABR_sort_T1(f, o, -1);
+			}
+			else if(temperature_2==1){
+				ABR_sort_T2(f, o, -1);
+			}
+			else if(temperature_3==1){
+				ABR_sort_T3(f, o, -1);
+			}
 		}
 		else if(sort==2){
 			if(height==1){
