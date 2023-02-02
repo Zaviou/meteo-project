@@ -52,8 +52,8 @@ int tabT1sort1(FILE* o,NODE_T1* l){
     STATION_T1* list=malloc(lenght*sizeof(STATION_T1));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          
-        l0=l0->next;
+        *(list+i)=l0->s;
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_T1(l);
     // STEP 2 : Sorting by station ID (ascending).
@@ -97,8 +97,8 @@ int tabT1sort2(FILE* o,NODE_T1* l){
     STATION_T1* list=malloc(lenght*sizeof(STATION_T1));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          
-        l0=l0->next;
+        *(list+i)=l0->s;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_T1(l);
 
@@ -165,8 +165,8 @@ int tabT2sort1(FILE* o,NODE_T2* l){
     TIME_T2* list=malloc(lenght*sizeof(TIME_T2));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->t;                                          
-        l0=l0->next;
+        *(list+i)=l0->t;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_T2(l);
     // STEP 2 : Sorting by chronological order (ascending).
@@ -211,8 +211,8 @@ int tabT2sort2(FILE* o,NODE_T2* l){
     TIME_T2* list=malloc(lenght*sizeof(TIME_T2));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->t;                                          
-        l0=l0->next;
+        *(list+i)=l0->t;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_T2(l);
 
@@ -279,8 +279,8 @@ int tabT3sort1(FILE* o,NODE_T3* l){
     MEASURE_T3* list=malloc(lenght*sizeof(MEASURE_T3));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->m;                                          
-        l0=l0->next;
+        *(list+i)=l0->m;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_T3(l);
     // STEP 2 : Sorting by 1) chronological order (ascending) and 2) station ID (ascending).
@@ -334,8 +334,8 @@ int tabT3sort2(FILE* o,NODE_T3* l){
     MEASURE_T3* list=malloc(lenght*sizeof(MEASURE_T3));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->m;                                          
-        l0=l0->next;
+        *(list+i)=l0->m;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_T3(l);
     // Sorting by 1) chronological order (descending) and 2) station ID (ascending).
@@ -417,8 +417,8 @@ int tabP1sort1(FILE* o,NODE_P1* l){
     STATION_P1* list=malloc(lenght*sizeof(STATION_P1));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                         
-        l0=l0->next;
+        *(list+i)=l0->s;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_P1(l);
     // STEP 2 : Sorting by station ID (ascending).
@@ -462,8 +462,8 @@ int tabP1sort2(FILE* o,NODE_P1* l){
     STATION_P1* list=malloc(lenght*sizeof(STATION_P1));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                         
-        l0=l0->next;
+        *(list+i)=l0->s;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_P1(l);
 
@@ -530,8 +530,8 @@ int tabP2sort1(FILE* o,NODE_P2* l){
     TIME_P2* list=malloc(lenght*sizeof(TIME_P2));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->t;                                          
-        l0=l0->next;
+        *(list+i)=l0->t;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_P2(l);
     // STEP 2 : Sorting by chronological order (ascending).
@@ -576,8 +576,8 @@ int tabP2sort2(FILE* o,NODE_P2* l){
     TIME_P2* list=malloc(lenght*sizeof(TIME_P2));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->t;                                          
-        l0=l0->next;
+        *(list+i)=l0->t;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_P2(l);
 
@@ -644,8 +644,8 @@ int tabP3sort1(FILE* o,NODE_P3* l){
     MEASURE_P3* list=malloc(lenght*sizeof(MEASURE_P3));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->m;                                          
-        l0=l0->next;
+        *(list+i)=l0->m;       
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_P3(l);
     // STEP 2 : Sorting by 1) chronological order (ascending) and 2) station ID (ascending).
@@ -699,8 +699,8 @@ int tabP3sort2(FILE* o,NODE_P3* l){
     MEASURE_P3* list=malloc(lenght*sizeof(MEASURE_P3));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->m;                                          
-        l0=l0->next;
+        *(list+i)=l0->m;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_P3(l);
     // Sorting by 1) chronological order (descending) and 2) station ID (ascending).
@@ -775,8 +775,8 @@ int tabWsort1(FILE* o, NODE_W* l){
     STATION_W* list=malloc(lenght*sizeof(STATION_W));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;
-        l0=l0->next;
+        *(list+i)=l0->s;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_W(l);
     // STEP 2 : Sorting by station ID (ascending).
@@ -823,8 +823,8 @@ int tabWsort2(FILE* o, NODE_W* l){
     STATION_W* list=malloc(lenght*sizeof(STATION_W));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;
-        l0=l0->next;
+        *(list+i)=l0->s;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_W(l);
     
@@ -894,8 +894,8 @@ int tabHsort1(FILE* o,NODE_H* l){
     STATION_H* list=malloc(lenght*sizeof(STATION_H));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;
-        l0=l0->next;
+        *(list+i)=l0->s;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_H(l);
     // STEP 2 : Sorting by station height (descending, using -r will make it ascending).
@@ -942,8 +942,8 @@ int tabHsort2(FILE* o,NODE_H* l){
     STATION_H* list=malloc(lenght*sizeof(STATION_H));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;
-        l0=l0->next;
+        *(list+i)=l0->s;     
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_H(l);
 
@@ -1013,8 +1013,8 @@ int tabMsort1(FILE* o,NODE_M* l){
     STATION_M* list=malloc(lenght*sizeof(STATION_M));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          
-        l0=l0->next;
+        *(list+i)=l0->s;      
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_M(l);
     // STEP 2 : Sorting by maximal moisture level (descending, using -r will make it ascending).
@@ -1061,8 +1061,8 @@ int tabMsort2(FILE* o,NODE_M* l){
     STATION_M* list=malloc(lenght*sizeof(STATION_M));
 
     for(i=0;i<lenght;i++){
-        *(list+i)=l0->s;                                          
-        l0=l0->next;
+        *(list+i)=l0->s;      
+        if(l0->next !=NULL) l0=l0->next;
     }
     freeNODE_M(l);
 
