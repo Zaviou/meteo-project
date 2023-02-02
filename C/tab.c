@@ -26,7 +26,7 @@ int getlenghtNODE_T1(NODE_T1* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
@@ -139,7 +139,7 @@ int getlenghtNODE_T2(NODE_T2* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
@@ -253,7 +253,7 @@ int getlenghtNODE_T3(NODE_T3* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
@@ -391,7 +391,7 @@ int getlenghtNODE_P1(NODE_P1* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
@@ -504,7 +504,7 @@ int getlenghtNODE_P2(NODE_P2* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
@@ -618,7 +618,7 @@ int getlenghtNODE_P3(NODE_P3* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
@@ -749,7 +749,7 @@ int getlenghtNODE_W(NODE_W* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
@@ -868,7 +868,7 @@ int getlenghtNODE_H(NODE_H* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
@@ -987,7 +987,7 @@ int getlenghtNODE_M(NODE_M* l){
     // If the list is empty, the function has to return 0.
     // Else, 1 is added to a count for every node encountered in the list.
     // The final count is returned.
-    int n;
+    int n=0;
     if(l==NULL){
         return 0;
     }
