@@ -7,15 +7,15 @@
 #define OPTION_T2 1200000 
 #define OPTION_T3 1300000
 
-#define OPTION_P1 0011000
-#define OPTION_P2 0012000
-#define OPTION_P3 0013000
+#define OPTION_P1 11000
+#define OPTION_P2 12000
+#define OPTION_P3 13000
 
-#define OPTION_W 0000100
+#define OPTION_W 100
 
-#define OPTION_H 0000010
+#define OPTION_H 10
 
-#define OPTION_M 0000001
+#define OPTION_M 1
 
 
 /*
