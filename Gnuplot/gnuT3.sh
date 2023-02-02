@@ -14,4 +14,4 @@ set xdata time
 set timefmt '"%Y-%m-%d"'
 set format x "%d/%m/%Y"
 
-plot 'Gnuplot/data/temp_T3.csv' using 1:3:4 with linespoints lc palette z title "Hours"
+plot 'Gnuplot/data/temp_T.csv' using 1:3:4 with linespoints lc palette z title "Hours"
