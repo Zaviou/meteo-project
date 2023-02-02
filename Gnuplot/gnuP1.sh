@@ -9,5 +9,5 @@ set title "Pressure error bars"
 set xlabel ' Id sation '
 set ylabel ' Pressure '
 
-plot 'data/temp_T1.csv' using 1:3:2 with filledcurve title "Max and min pressure" lc rgb "orange",\
-	'data/temp_T1.csv' using 1:4 with linespoints title "Average pressure" lc rgb "green"
+plot 'Gnuplot/data/temp_T1.csv' using 1:3:2 with filledcurve title "Max and min pressure" lc rgb "orange",\
+	'Gnuplot/data/temp_T1.csv' using 1:4 with linespoints title "Average pressure" lc rgb "green"
