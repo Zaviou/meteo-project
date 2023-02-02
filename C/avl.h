@@ -434,12 +434,19 @@ This function is called to add it as a node to t, together with pressure measure
 * r : (int).
 Specifically used when temprature with mode 3 was chosen.
 NODE2_T3* addNODE2_T3(NODE2_T3* t, MEASURE_T3  t2, int* h, int r);
+
 This function is called to fill a tree with the linked list created in the asked order.
 * t : given tree (NODE2_T3*).
 * l : given linked list (NODE_T3*).
 * r : integer representing the asked order (1 means the ascending order, -1 means the descending order) (int).
 Specifically used when temprature with mode 3 was chosen.
 NODE2_T3* fillNODE2_T3withNODE_T3(NODE2_T3* t, NODE_T3* l, int r);
+
+/*
+This function is called to get te greatest value of a tree.
+* t : given tree (NODE2_T3*).
+Specifically used when temprature with mode 3 was chosen.
+NODE2_T3* getthegreatestvalue(NODE2_T3* t);
 
 This function is called to add it as a node to t, together with pressure measures.
 * o : the way to the file to write the new data in (FILE*).

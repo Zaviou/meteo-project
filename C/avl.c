@@ -159,6 +159,8 @@ void writeinfileNODE2_T1(FILE* o, NODE2_T1* t){
 }
 
 int sort_T1(FILE* f, FILE* o, int r){
+	printf("\nSorting data...");
+
 	NODE2_T1* T_T1=NULL;
 	NODE_T1* l_T1=linkedlist_T1(f);
 
@@ -301,9 +303,12 @@ void writeinfileNODE2_T2(FILE* o, NODE2_T2* t){
 }
 
 int sort_T2(FILE* f, FILE* o, int r){
+	printf("\nSorting data...\n");
+	printf("sort_T2 : début !\n");
 
 	NODE2_T2* T_T2=NULL;
 	NODE_T2* l_T2=linkedlist_T2(f);
+	printf("sort_T2 : initialisation faite !\n");
 
 	T_T2 =fillNODE2_T2withNODE_T2(T_T2,l_T2, r);
 	fprintf(o,"# Date average_temperature\n");
@@ -311,6 +316,7 @@ int sort_T2(FILE* f, FILE* o, int r){
 	freetreeNODE2_T2(T_T2);
 	fclose(o);
 
+	printf("sort_T2 : fin !\n");
 	return 0;
 }
 
@@ -392,6 +398,8 @@ NODE2_T3* rebalanceNODE2_T3(NODE2_T3* t){
 }
 
 NODE2_T3* addNODE2_T3(NODE2_T3* t, MEASURE_T3 m3, int* h, int r){
+	//printf("m3.id : %d\n", m3.id);
+	//printf("addNODE2_T3 : début !\n");
 	//A new node is added to the tree, and sorted.
 	if(t==NULL){
 		*h=1;
@@ -425,7 +433,8 @@ NODE2_T3* addNODE2_T3(NODE2_T3* t, MEASURE_T3 m3, int* h, int r){
 		if (t->balance==0) *h=0;
 		else *h=1;
 	}
-	
+
+	//printf("addNODE2_T3 : fin !\n");
 	return t;
 }
 
@@ -441,31 +450,63 @@ NODE2_T3* fillNODE2_T3withNODE_T3(NODE2_T3* t, NODE_T3* l, int r){
 	return t;
 }
 
+NODE2_T3* getthegreatestvalue(NODE2_T3* t){
+	printf("getthegreatestvalue : début\n");
+	if (t!=0){
+		if(t->sr!=NULL){
+			return getthegreatestvalue(t->sr);
+		}
+		else {printf("getthegreatestvalue : fin1\n");return t;}
+	}
+	printf("getthegreatestvalue : fin2\n");
+	return createNODE2_T3(addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
+}
+
 void writeinfileNODE2_T3(FILE* o, NODE2_T3* t, MEASURE_T3 old_m){
+	printf("writeinfileNODE2_T3 : début\n");
 	// Each element of the tree is written in the output file.
 	// Format : "day ID temperature hours".
-	// The static list is freed at the end.
 	if(t!=NULL){
-		writeinfileNODE2_T3(o, t->sl, addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
-		if(t->sl ==NULL && old_m.id ==0 && old_m.year ==0 && old_m.month ==0 && old_m.day ==0 && old_m.hour ==0 && old_m.temperature ==0) producestring_T3(o, t->m, addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
-		else if (t->sl ==NULL) producestring_T3(o, t->m, t->sl->m);
+		printf("writeinfileNODE2_T3\n");
+		writeinfileNODE2_T3(o, t->sl, (getthegreatestvalue(t->sl))->m);
+		printf("writeinfileNODE2_T3 : if 1\n");
+		if(t->sl ==NULL) producestring_T3(o, t->m, getthegreatestvalue(t->sl)->m);
 		else producestring_T3(o, t->m, old_m);
-		writeinfileNODE2_T3(o, t->sr, t->m);
+		printf("writeinfileNODE2_T3 : if 1.1\n");
+		if(t->sr!=NULL){
+			printf("writeinfileNODE2_T3 : if 1.1.1\n");
+			if(t->sr->sl==NULL) writeinfileNODE2_T3(o, t->sr, t->m);
+			else {
+				printf("writeinfileNODE2_T3 : if 1.1.2\n");
+				writeinfileNODE2_T3(o, t->sr, getthegreatestvalue(t->sr->sl)->m);
+			}
+			printf("writeinfileNODE2_T3 : if 1.1.3\n");
+		}
+		printf("writeinfileNODE2_T3 : if 1.2\n");
 	}
-	
+	printf("writeinfileNODE2_T3 : fin\n");
 }
 
 int sort_T3(FILE* f, FILE* o, int r){
+	// The static list is freed at the end.
+	printf("\nSorting data...\n");
+	printf("sort_T3 : début !\n");
 
 	NODE2_T3* T_T3=NULL;
 	NODE_T3* l_T3=linkedlist_T3(f);
+	printf("sort_T3 : initialisation faite !\n");
 
 	T_T3 =fillNODE2_T3withNODE_T3(T_T3,l_T3, r);
+	printf("sort_T3 : fillNODE2_T3withNODE_T3 !\n");
 	fprintf(o,"# Day ID temperature hours\n");
+	printf("sort_T3 : fprintf !\n");
 	writeinfileNODE2_T3(o, T_T3, addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
+	printf("sort_T3 : writeinfileNODE2_T3 !\n");
 	freetreeNODE2_T3(T_T3);
+	printf("sort_T3 : freetreeNODE2_T3 !\n");
 	fclose(o);
 
+	printf("sort_T3 : fin !\n");
 	return 0;
 }
 
@@ -605,6 +646,8 @@ void writeinfileNODE2_P1(FILE* o, NODE2_P1* t){
 }
 
 int sort_P1(FILE* f, FILE* o, int r){
+	printf("\nSorting data...");
+
 	NODE2_P1* T_P1=NULL;
 	NODE_P1* l_P1=linkedlist_P1(f);
 
@@ -747,6 +790,8 @@ void writeinfileNODE2_P2(FILE* o, NODE2_P2* t){
 }
 
 int sort_P2(FILE* f, FILE* o, int r){
+	printf("\nSorting data...");
+
 	NODE2_P2* T_P2=NULL;
 	NODE_P2* l_P2=linkedlist_P2(f);
 
@@ -902,6 +947,8 @@ void writeinfileNODE2_P3(FILE* o, NODE2_P3* t, MEASURE_P3 old_m){
 }
 
 int sort_P3(FILE* f, FILE* o, int r){
+	printf("\nSorting data...");
+
 	NODE2_P3* T_P3=NULL;
 	NODE_P3* l_P3=linkedlist_P3(f);
 
@@ -1033,32 +1080,43 @@ NODE2_W* fillNODE2_WwithNODE_W(NODE2_W* t, NODE_W* l, int r){
 }
 
 void writeinfileNODE2_W(FILE* o, NODE2_W* t){
+	printf("writeinfileNODE2_W : début !\n");
 	// Each element of the tree is written in the output file.
 	// Format : "longitude latitude rayon degré".
 	// The static list is freed at the end.
 	float lat;
 	float lon;
 	coordonate(t->s.id, &lat, &lon);
-	if(t!=NULL){
+	printf("writeinfileNODE2_W : fin coordonate !\n");
+/*	if(t!=NULL){
 		writeinfileNODE2_W(o, t->sl);
 		fprintf(o,"%f %f %d %f\n",lon,lat,t->s.speed,t->s.orientation);
 		writeinfileNODE2_W(o, t->sr);
-	}
+	}*/
 	
+	printf("writeinfileNODE2_W : fin !\n");
 }
 
 int sort_W(FILE* f, FILE* o, int r){
+	printf("\nSorting data...\n");
+
 	NODE2_W* T_W=NULL;
 	NODE_W* l_W=linkedlist_W(f);
+	printf("sort_W : fin initialisaion !\n");
 
 	T_W =fillNODE2_WwithNODE_W(T_W,l_W, r);
+	printf("sort_W : fin fillNODE2_WwithNODE_W !\n");
 	fprintf(o,"# Longitude latitude rayon degré\n");
+	printf("sort_W : fin fprintf !\n");
 	writeinfileNODE2_W(o, T_W);
+	printf("sort_W : fin writeinfileNODE2_W !\n");
 	freetreeNODE2_W(T_W);
+	printf("sort_W : fin freetreeNODE2_W !\n");
 	fclose(o);
 
 	fclose(f);
 
+	printf("sort_W : sortie !\n");
 	return 0;
 }
 
@@ -1196,6 +1254,8 @@ void writeinfileNODE2_H(FILE* o, NODE2_H* t){
 }
 
 int sort_H(FILE* f, FILE* o, int r){
+	printf("\nSorting data...");
+
 	NODE2_H* T_H=NULL;
 	NODE_H* l_H=linkedlist_H(f);
 
@@ -1342,6 +1402,8 @@ void writeinfileNODE2_M(FILE* o, NODE2_M* t){
 }
 
 int sort_M(FILE* f, FILE* o, int r){
+	printf("\nSorting data...");
+
 	NODE2_M* T_M=NULL;
 	NODE_M* l_M=linkedlist_M(f);
 
