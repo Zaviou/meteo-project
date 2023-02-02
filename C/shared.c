@@ -331,6 +331,8 @@ NODE_T1* averagingNODE_T1(NODE_T1* l){
 
 
 NODE_T1* linkedlist_T1(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines (measures) are read from the input file until its end.
     // A linked list is built.
     // Format of the measure : "Station ID;temperature;minimal temperature over 24 hrs;maximal temperature over 24hrs"
@@ -345,10 +347,10 @@ NODE_T1* linkedlist_T1(FILE* f){
     float maximaltemperature;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
-        char* field;  
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -376,7 +378,6 @@ NODE_T1* linkedlist_T1(FILE* f){
         }
         ignore=0;
     }
-    free(buffer);
     l=averagingNODE_T1(l);
     return l;
 }
@@ -496,6 +497,8 @@ void producestring_T2(FILE* o,TIME_T2 date){
 }
 
 NODE_T2* linkedlist_T2(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines (measures) are read from the input file until its end.
     // A linked list is built.
     // Format of the measure : "datetime;temperature"
@@ -513,10 +516,10 @@ NODE_T2* linkedlist_T2(FILE* f){
     float temperature;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
-        char* line=buffer;
-        char* field;  
+        char* line=buffer; 
 
         field=personnalstrsep(&line,";");
         sscanf(field,"%d-%d-%dT%d:00:00+%d:00",&year,&month,&day,&hour,&timezone);
@@ -537,7 +540,6 @@ NODE_T2* linkedlist_T2(FILE* f){
         }
         ignore=0;
     }
-    free(buffer);
     l=averagingNODE_T2(l);
     return l;
 }
@@ -616,6 +618,8 @@ void producestring_T3(FILE* o,MEASURE_T3 measure, MEASURE_T3 old_measure){
 }
 
 NODE_T3* linkedlist_T3(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines (measures) are read from the input file until its end.
     // A linked list is built. A node is added for each measure.
     // Format of the measure : "Station ID;datetime;temperature"
@@ -631,10 +635,10 @@ NODE_T3* linkedlist_T3(FILE* f){
     float temperature;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
-        char* field;  
         
         field=personnalstrsep(&line,";");
         id=atoi(field);
@@ -653,7 +657,6 @@ NODE_T3* linkedlist_T3(FILE* f){
         }
         ignore=0;
     }
-    free(buffer);
     return l;
 }
 
@@ -751,6 +754,8 @@ NODE_P1* averagingNODE_P1(NODE_P1* l){
 
 
 NODE_P1* linkedlist_P1(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines (measures) are read from the input file until its end.
     // A linked list is built.
     // Format of the measure : "Station ID;pressure"
@@ -763,10 +768,10 @@ NODE_P1* linkedlist_P1(FILE* f){
     float pressure;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
-        char* field;  
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -784,7 +789,6 @@ NODE_P1* linkedlist_P1(FILE* f){
         }  
         ignore=0;              
     }
-    free(buffer);
     l=averagingNODE_P1(l);
     return l;
 }
@@ -903,6 +907,8 @@ void producestring_P2(FILE* o,TIME_P2 date){
 }
 
 NODE_P2* linkedlist_P2(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines (measures) are read from the input file until its end.
     // A linked list is built.
     // Format of the measure : "datetime;pressure"
@@ -920,10 +926,10 @@ NODE_P2* linkedlist_P2(FILE* f){
     float pressure;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
-        char* field;  
 
         field=personnalstrsep(&line,";");
         sscanf(field,"%d-%d-%dT%d:00:00+%d:00",&year,&month,&day,&hour,&timezone);
@@ -944,7 +950,6 @@ NODE_P2* linkedlist_P2(FILE* f){
         }
         ignore=0;
     }
-    free(buffer);
     l=averagingNODE_P2(l);
     return l;
 }
@@ -1023,6 +1028,8 @@ void producestring_P3(FILE* o,MEASURE_P3 measure, MEASURE_P3 old_measure){
 }
 
 NODE_P3* linkedlist_P3(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines (measures) are read from the input file until its end.
     // A linked list is built. A node is added for each measure.
     // Format of the measure : "Station ID;datetime;pressure"
@@ -1038,11 +1045,10 @@ NODE_P3* linkedlist_P3(FILE* f){
     float pressure;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
-        char* field;  
-        
         field=personnalstrsep(&line,";");
         id=atoi(field);
 
@@ -1061,7 +1067,6 @@ NODE_P3* linkedlist_P3(FILE* f){
         ignore=0;
         
     }
-    free(buffer);
     return l;
 }
 
@@ -1147,6 +1152,8 @@ NODE_W* averagingNODE_W(NODE_W* l){
 
 
 NODE_W* linkedlist_W(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines (measures) are read from the input file until its end.
     // A linked list is built.
     // Format of the measure : "Station ID;wind orientation over 10 min;wind speed over 10 min"
@@ -1160,10 +1167,10 @@ NODE_W* linkedlist_W(FILE* f){
     float speed;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
-        char* line=buffer;
-        char* field;  
+        char* line=buffer;  
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -1186,7 +1193,6 @@ NODE_W* linkedlist_W(FILE* f){
         }
         ignore=0; 
     }
-    free(buffer);
     l = averagingNODE_W(l);
     return l;
 }
@@ -1239,6 +1245,8 @@ NODE_H* addNODE_H(NODE_H* l,int id, int height){
 
 
 NODE_H* linkedlist_H(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines are read from the input file until its end.
     // A linked list is built.
     // Format of the measure : "Station ID;height of the station"
@@ -1250,10 +1258,11 @@ NODE_H* linkedlist_H(FILE* f){
     int height;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
+
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
         char* line=buffer;
-        char* field;  
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -1268,7 +1277,6 @@ NODE_H* linkedlist_H(FILE* f){
         }
         ignore=0;
     }
-    free(buffer);
     return l;
 }
 
@@ -1337,6 +1345,8 @@ NODE_M* searchandmaybereplaceNODE_M(NODE_M* l,int id,int moisture){
 
 
 NODE_M* linkedlist_M(FILE* f){
+    long first=0;
+    fscanf(f,"%ld\n",&first);
     // Lines (measures) are read from the input file until its end.
     // A linked list is built.
     // Format of the measure : "Station ID;moisture level"
@@ -1348,10 +1358,10 @@ NODE_M* linkedlist_M(FILE* f){
     int moisture;
     int buffersize=200;
     char* buffer=malloc(buffersize*sizeof(char));
+    char* field=malloc(50*sizeof(char));
     int ignore=0;
     while(fgets(buffer,buffersize-1,f)!=NULL){ 
-        char* line=buffer;
-        char* field;  
+        char* line=buffer; 
         field=personnalstrsep(&line,";");
         id=atoi(field);
         field=personnalstrsep(&line,";");
@@ -1369,7 +1379,6 @@ NODE_M* linkedlist_M(FILE* f){
         }
         ignore=0; 
     }
-    free(buffer);
     return l;
 }
 
