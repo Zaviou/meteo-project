@@ -95,7 +95,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 	else if(check==OPTION_P2){
 		pressure_2=1;
 	} 
-	else if(check==7558){ //last minute bug fix (!= from 13000 which would be the expected value)
+	else if(check==OPTION_P3){ 
 		pressure_3=1;
 	} 
 	else if(check==100){
@@ -185,7 +185,6 @@ int main(int number_of_arguments , char** list_of_arguments){
 				tabMsort1(o,linkedlist_M(f));
 			}
 			else if(pressure_1==1){
-                                printf("\nBON APPEL P1\n");
 				tabP1sort1(o,linkedlist_P1(f));
 			}
 			else if(pressure_2==1){
