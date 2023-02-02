@@ -488,10 +488,10 @@ int chronologicalorder_T2(TIME_T2 d1,TIME_T2 d2){
 
 void producestring_T2(FILE* o,TIME_T2 date){
 	// This function is used to always write the same format for a measure, inside the file o.
-	fprintf(o,"%d-",date.year);
+	fprintf(o,"\"%d-",date.year);
 	fprintf(o,"%d-",date.month);
 	fprintf(o,"%d ",date.day);
-	fprintf(o,"%d:00:00 ",date.hour);
+	fprintf(o,"%d:00:00\" ",date.hour);
 	fprintf(o,"%f\n",date.average);
 }
 
@@ -898,7 +898,7 @@ void producestring_P2(FILE* o,TIME_P2 date){
 	fprintf(o,"\"%d-",date.year);
         fprintf(o,"%d-",date.month);
         fprintf(o,"%d ",date.day);
-        fprintf(o,"%d:00:00 ",date.hour);
+        fprintf(o,"%d:00:00\" ",date.hour);
 	fprintf(o,"%f\n",date.average);
 }
 
