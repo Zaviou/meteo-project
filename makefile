@@ -17,3 +17,5 @@ clean:
 	rm -rf ./C/data/tempheight.csv
 	rm -rf ./C/data/tempmoisture.csv
 	rm -rf ./Gnuplot/data/*.csv
+	rm -rf load_*
+
