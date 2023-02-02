@@ -9,4 +9,4 @@ set title "Interpolated and colored map of altitudes"
 set xlabel ' Longitude '
 set ylabel ' Latitude '
 
-plot 'data/temp_H.csv' using 1:2:3 with circles fillstyle solid lc palette title "Height"
+plot 'Gnuplot/data/temp_H.csv' using 1:2:3 with circles fillstyle solid lc palette title "Height"
