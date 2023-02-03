@@ -12,7 +12,7 @@ The data can be filtered depending on time and regions, and the order of the sor
 
 1.  Download our files from this repository on your computer and put them in a directory of your choosing.
 2.  Inside your terminal, enter that directory.  
-3   Put your data file inside ./C/data/ (or use the one we furnish on this repository, meteo_short.csv).
+3.  Put your data file inside ./C/data/ (or use the one we furnish on this repository, meteo_short.csv).
 4.  Use the command "bash script.sh" with the options of your choice to start creating graphics ! 
     Warning : some options must be used.
     If you have any question about how to use CY-METEO, use the following command : "bash script.sh --help"
