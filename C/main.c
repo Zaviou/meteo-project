@@ -153,7 +153,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 				ABR_sort_W(f, o, 1);
 			}
 			else if(moisture==1){
-				ABR_sort_W(f, o, 1);
+				ABR_sort_M(f, o, 1);
 			}
 			else if(pressure_1==1){
 				ABR_sort_P1(f, o, 1);
@@ -194,7 +194,6 @@ int main(int number_of_arguments , char** list_of_arguments){
 				tabP3sort1(o,linkedlist_P3(f));
 			}
 			else if(temperature_1==1){
-				printf("\nBON APPEL\n");
 				tabT1sort1(o,linkedlist_T1(f));
 			}
 			else if(temperature_2==1){
@@ -214,7 +213,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 				sort_W(  f,   o, -1);
 			}
 			else if(moisture==1){
-				sort_W(  f,   o, -1);
+				sort_M(  f,   o, -1);
 			}
 			else if(pressure_1==1){
 				sort_P1(  f,   o, -1);
@@ -243,7 +242,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 				ABR_sort_W(f, o, -1);
 			}
 			else if(moisture==1){
-				ABR_sort_W(f, o, -1);
+				ABR_sort_M(f, o, -1);
 			}
 			else if(pressure_1==1){
 				ABR_sort_P1(f, o, -1);
@@ -266,31 +265,31 @@ int main(int number_of_arguments , char** list_of_arguments){
 		}
 		else if(sort==2){
 			if(height==1){
-				tabHsort2(  o,linkedlist_H(  f));
+				tabHsort2(o,linkedlist_H(  f));
 			}
 			else if(wind==1){
-				tabWsort2(  o, linkedlist_W(  f));
+				tabWsort2(o, linkedlist_W(  f));
 			}
 			else if(moisture==1){
-				tabMsort2(  o,linkedlist_M(  f));
+				tabMsort2(o,linkedlist_M(  f));
 			}
 			else if(pressure_1==1){
-				tabP1sort2(  o,linkedlist_P1(  f));
+				tabP1sort2(o,linkedlist_P1(  f));
 			}
 			else if(pressure_2==1){
-				tabP2sort2(  o,linkedlist_P2(  f));
+				tabP2sort2(o,linkedlist_P2(  f));
 			}
 			else if(pressure_3==1){
-				tabP3sort2(  o,linkedlist_P3(  f));
+				tabP3sort2(o,linkedlist_P3(  f));
 			}
 			else if(temperature_1==1){
-				tabT1sort2(  o,linkedlist_T1(  f));
+				tabT1sort2(o,linkedlist_T1(  f));
 			}
 			else if(temperature_2==1){
-				tabT2sort2(  o,linkedlist_T2(  f));
+				tabT2sort2(o,linkedlist_T2(  f));
 			}
 			else if(temperature_3==1){
-				tabT3sort2(  o,linkedlist_T3(  f));
+				tabT3sort2(o,linkedlist_T3(  f));
 			}
 		}		
 	}
