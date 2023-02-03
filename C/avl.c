@@ -47,7 +47,6 @@ NODE2_T1* createNODE2_T1(STATION_T1 t1){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_T1* t =malloc(sizeof(NODE2_T1));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->s=t1;
@@ -192,7 +191,6 @@ NODE2_T2* createNODE2_T2(TIME_T2 t2){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_T2* t =malloc(sizeof(NODE2_T2));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->t=t2;
@@ -304,11 +302,9 @@ void writeinfileNODE2_T2(FILE* o, NODE2_T2* t){
 
 int sort_T2(FILE* f, FILE* o, int r){
 	printf("\nSorting data...\n");
-	printf("sort_T2 : début !\n");
 
 	NODE2_T2* T_T2=NULL;
 	NODE_T2* l_T2=linkedlist_T2(f);
-	printf("sort_T2 : initialisation faite !\n");
 
 	T_T2 =fillNODE2_T2withNODE_T2(T_T2,l_T2, r);
 	fprintf(o,"# Date average_temperature\n");
@@ -316,7 +312,6 @@ int sort_T2(FILE* f, FILE* o, int r){
 	freetreeNODE2_T2(T_T2);
 	fclose(o);
 
-	printf("sort_T2 : fin !\n");
 	return 0;
 }
 
@@ -339,7 +334,6 @@ NODE2_T3* createNODE2_T3(MEASURE_T3 m3){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_T3* t =malloc(sizeof(NODE2_T3));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->m=m3;
@@ -398,8 +392,6 @@ NODE2_T3* rebalanceNODE2_T3(NODE2_T3* t){
 }
 
 NODE2_T3* addNODE2_T3(NODE2_T3* t, MEASURE_T3 m3, int* h, int r){
-	//printf("m3.id : %d\n", m3.id);
-	//printf("addNODE2_T3 : début !\n");
 	//A new node is added to the tree, and sorted.
 	if(t==NULL){
 		*h=1;
@@ -434,7 +426,6 @@ NODE2_T3* addNODE2_T3(NODE2_T3* t, MEASURE_T3 m3, int* h, int r){
 		else *h=1;
 	}
 
-	//printf("addNODE2_T3 : fin !\n");
 	return t;
 }
 
@@ -519,7 +510,6 @@ NODE2_P1* createNODE2_P1(STATION_P1 p1){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_P1* t =malloc(sizeof(NODE2_P1));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->s=p1;
@@ -663,7 +653,6 @@ NODE2_P2* createNODE2_P2(TIME_P2 p2){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_P2* t =malloc(sizeof(NODE2_P2));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->t=p2;
@@ -807,7 +796,6 @@ NODE2_P3* createNODE2_P3(MEASURE_P3 m3){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_P3* t =malloc(sizeof(NODE2_P3));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->m=m3;
@@ -978,7 +966,6 @@ NODE2_W* createNODE2_W(STATION_W w){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_W* t =malloc(sizeof(NODE2_W));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->s=w;
@@ -1078,21 +1065,18 @@ NODE2_W* fillNODE2_WwithNODE_W(NODE2_W* t, NODE_W* l, int r){
 }
 
 void writeinfileNODE2_W(FILE* o, NODE2_W* t){
-	printf("writeinfileNODE2_W : début !\n");
 	// Each element of the tree is written in the output file.
 	// Format : "longitude latitude rayon degré".
 	// The static list is freed at the end.
 	float lat;
 	float lon;
-	coordonate(t->s.id, &lat, &lon);
-	printf("writeinfileNODE2_W : fin coordonate !\n");
-/*	if(t!=NULL){
+	if(t!=NULL){
+		coordonate(t->s.id, &lat, &lon);
 		writeinfileNODE2_W(o, t->sl);
 		fprintf(o,"%f %f %d %f\n",lon,lat,t->s.speed,t->s.orientation);
 		writeinfileNODE2_W(o, t->sr);
-	}*/
+	}
 	
-	printf("writeinfileNODE2_W : fin !\n");
 }
 
 int sort_W(FILE* f, FILE* o, int r){
@@ -1100,21 +1084,14 @@ int sort_W(FILE* f, FILE* o, int r){
 
 	NODE2_W* T_W=NULL;
 	NODE_W* l_W=linkedlist_W(f);
-	printf("sort_W : fin initialisaion !\n");
 
 	T_W =fillNODE2_WwithNODE_W(T_W,l_W, r);
-	printf("sort_W : fin fillNODE2_WwithNODE_W !\n");
 	fprintf(o,"# Longitude latitude rayon degré\n");
-	printf("sort_W : fin fprintf !\n");
 	writeinfileNODE2_W(o, T_W);
-	printf("sort_W : fin writeinfileNODE2_W !\n");
 	freetreeNODE2_W(T_W);
-	printf("sort_W : fin freetreeNODE2_W !\n");
 	fclose(o);
 
 	fclose(f);
-
-	printf("sort_W : sortie !\n");
 	return 0;
 }
 
@@ -1137,7 +1114,6 @@ NODE2_H* createNODE2_H(STATION_H h){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_H* t =malloc(sizeof(NODE2_H));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->s=h;
@@ -1186,8 +1162,12 @@ NODE2_H* doublerotaterightNODE2_H(NODE2_H* t){
 NODE2_H* rebalanceNODE2_H(NODE2_H* t){
 	//Checking if the tree needs to be modified to be balanced and how.
 	if(t->balance >=2){
-		if(t->sr !=NULL && t->sr->balance>=0) return rotateleftNODE2_H(t);
-		else return doublerotateleftNODE2_H(t);
+		if(t->sr !=NULL && t->sr->balance>=0){
+			return rotateleftNODE2_H(t);
+		}
+		else{
+			return doublerotateleftNODE2_H(t);
+		}
 	} else if(t->balance <=-2){
 		if(t->sl !=NULL && t->sl->balance<=0) return rotaterightNODE2_H(t);
 		else return doublerotaterightNODE2_H(t);
@@ -1216,11 +1196,11 @@ NODE2_H* addNODE2_H(NODE2_H* t, STATION_H H, int* h, int r){
 	}
 	if(*h!=0){
 		t->balance=t->balance+*h;
-		if(t->balance <-1 || t->balance >1) rebalanceNODE2_H(t);
-		if (t->balance==0) *h=0;
+		if(t->balance <-1 || t->balance >1) t=rebalanceNODE2_H(t);
+		if(t->balance==0) *h=0;
 		else *h=1;
 	}
-	
+
 	return t;
 }
 
@@ -1242,8 +1222,8 @@ void writeinfileNODE2_H(FILE* o, NODE2_H* t){
 	// The static list is freed at the end.
 	float lat;
 	float lon;
-	coordonate(t->s.id, &lat, &lon);
 	if(t!=NULL){
+		coordonate(t->s.id, &lat, &lon);
 		writeinfileNODE2_H(o, t->sl);
 		fprintf(o,"%f %f %d\n",lon,lat,t->s.height);
 		writeinfileNODE2_H(o, t->sr);
@@ -1252,7 +1232,7 @@ void writeinfileNODE2_H(FILE* o, NODE2_H* t){
 }
 
 int sort_H(FILE* f, FILE* o, int r){
-	printf("\nSorting data...");
+	printf("Sorting data...\n");
 
 	NODE2_H* T_H=NULL;
 	NODE_H* l_H=linkedlist_H(f);
@@ -1285,7 +1265,6 @@ NODE2_M* createNODE2_M(STATION_M m){
 	//A new node is created using malloc (we use the freeding function later to not waste memory).
 	NODE2_M* t =malloc(sizeof(NODE2_M));
 	if(t ==NULL){
-		printf("erreur de malloc\n");
 		exit(4);
 	}
 	t->s=m;
@@ -1390,13 +1369,12 @@ void writeinfileNODE2_M(FILE* o, NODE2_M* t){
 	// The static list is freed at the end.
 	float lat;
 	float lon;
-	coordonate(t->s.id, &lat, &lon);
 	if(t!=NULL){
+		coordonate(t->s.id, &lat, &lon);
 		writeinfileNODE2_M(o, t->sl); 
 		fprintf(o,"%f %f %d\n",lon,lat,t->s.maximal);
 		writeinfileNODE2_M(o, t->sr);
 	}
-	
 }
 
 int sort_M(FILE* f, FILE* o, int r){
