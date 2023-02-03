@@ -1,4 +1,4 @@
-#ifndef SHARED
+ #ifndef SHARED
 	#define SHARED 1
 	#include "shared.c"
 #endif
@@ -615,8 +615,8 @@ void writeinfileABR_NODE2_W(FILE* o, ABR_NODE2_W* t){
 	// The static list is freed at the end.
 	float lat;
 	float lon;
-	coordonate(t->s.id, &lat, &lon);
 	if(t!=NULL){
+		coordonate(t->s.id, &lat, &lon);
 		writeinfileABR_NODE2_W(o, t->sl);
 		fprintf(o,"%f %f %d %f\n",lon,lat,t->s.speed,t->s.orientation);
 		writeinfileABR_NODE2_W(o, t->sr);
@@ -705,8 +705,8 @@ void writeinfileABR_NODE2_H(FILE* o, ABR_NODE2_H* t){
 	// The static list is freed at the end.
 	float lat;
 	float lon;
-	coordonate(t->s.id, &lat, &lon);
 	if(t!=NULL){
+		coordonate(t->s.id, &lat, &lon);
 		writeinfileABR_NODE2_H(o, t->sl);
 		fprintf(o,"%f %f %d\n",lon,lat,t->s.height);
 		writeinfileABR_NODE2_H(o, t->sr);
@@ -793,13 +793,12 @@ void writeinfileABR_NODE2_M(FILE* o, ABR_NODE2_M* t){
 	// The static list is freed at the end.
 	float lat;
 	float lon;
-	coordonate(t->s.id, &lat, &lon);
 	if(t!=NULL){
+		coordonate(t->s.id, &lat, &lon);
 		writeinfileABR_NODE2_M(o, t->sl); 
 		fprintf(o,"%f %f %d\n",lon,lat,t->s.maximal);
 		writeinfileABR_NODE2_M(o, t->sr);
 	}
-	
 }
 
 int ABR_sort_M(FILE* f, FILE* o, int r){
