@@ -451,6 +451,8 @@ NODE2_T3* fillNODE2_T3withNODE_T3(NODE2_T3* t, NODE_T3* l, int r){
 }
 
 NODE2_T3* getthegreatestvalueT(NODE2_T3* t){
+	// Return the greatest value of the tree.
+	// If there is no value, an empty one is return (should never occur).
 	if (t!=0){
 		if(t->sr!=NULL){
 			return getthegreatestvalueT(t->sr);
@@ -915,6 +917,8 @@ NODE2_P3* fillNODE2_P3withNODE_P3(NODE2_P3* t, NODE_P3* l, int r){
 }
 
 NODE2_P3* getthegreatestvalueP(NODE2_P3* t){
+	// Return the greatest value of the tree.
+	// If there is no value, an empty one is return (should never occur).
 	if (t!=0){
 		if(t->sr!=NULL){
 			return getthegreatestvalueP(t->sr);
