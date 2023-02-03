@@ -464,7 +464,7 @@ This function is called to get te greatest value of a tree.
 * t : given tree (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
 */
-NODE2_T3* getthegreatestvalue(NODE2_T3* t);
+NODE2_T3* getthegreatestvalueT(NODE2_T3* t);
 
 /*
 This function is called to add it as a node to t, together with pressure measures.
@@ -760,7 +760,7 @@ This function is called to get te greatest value of a tree.
 * t : given tree (NODE2_T3*).
 Specifically used when temprature with mode 3 was chosen.
 */
-NODE2_P3* getthegreatestvalue(NODE2_P3* t);
+NODE2_P3* getthegreatestvalueP(NODE2_P3* t);
 
 /*
 This function is called to add it as a node to t, together with pressure measures.

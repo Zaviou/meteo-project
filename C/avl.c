@@ -450,63 +450,45 @@ NODE2_T3* fillNODE2_T3withNODE_T3(NODE2_T3* t, NODE_T3* l, int r){
 	return t;
 }
 
-NODE2_T3* getthegreatestvalue(NODE2_T3* t){
-	printf("getthegreatestvalue : début\n");
+NODE2_T3* getthegreatestvalueT(NODE2_T3* t){
 	if (t!=0){
 		if(t->sr!=NULL){
-			return getthegreatestvalue(t->sr);
+			return getthegreatestvalueT(t->sr);
 		}
-		else {printf("getthegreatestvalue : fin1\n");return t;}
+		else return t;
 	}
-	printf("getthegreatestvalue : fin2\n");
 	return createNODE2_T3(addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
 }
 
 void writeinfileNODE2_T3(FILE* o, NODE2_T3* t, MEASURE_T3 old_m){
-	printf("writeinfileNODE2_T3 : début\n");
 	// Each element of the tree is written in the output file.
 	// Format : "day ID temperature hours".
 	if(t!=NULL){
-		printf("writeinfileNODE2_T3\n");
-		writeinfileNODE2_T3(o, t->sl, (getthegreatestvalue(t->sl))->m);
-		printf("writeinfileNODE2_T3 : if 1\n");
-		if(t->sl ==NULL) producestring_T3(o, t->m, getthegreatestvalue(t->sl)->m);
+		writeinfileNODE2_T3(o, t->sl, (getthegreatestvalueT(t->sl))->m);
+		if(t->sl ==NULL) producestring_T3(o, t->m, getthegreatestvalueT(t->sl)->m);
 		else producestring_T3(o, t->m, old_m);
-		printf("writeinfileNODE2_T3 : if 1.1\n");
 		if(t->sr!=NULL){
-			printf("writeinfileNODE2_T3 : if 1.1.1\n");
 			if(t->sr->sl==NULL) writeinfileNODE2_T3(o, t->sr, t->m);
 			else {
-				printf("writeinfileNODE2_T3 : if 1.1.2\n");
-				writeinfileNODE2_T3(o, t->sr, getthegreatestvalue(t->sr->sl)->m);
+				writeinfileNODE2_T3(o, t->sr, getthegreatestvalueT(t->sr->sl)->m);
 			}
-			printf("writeinfileNODE2_T3 : if 1.1.3\n");
 		}
-		printf("writeinfileNODE2_T3 : if 1.2\n");
 	}
-	printf("writeinfileNODE2_T3 : fin\n");
 }
 
 int sort_T3(FILE* f, FILE* o, int r){
 	// The static list is freed at the end.
 	printf("\nSorting data...\n");
-	printf("sort_T3 : début !\n");
 
 	NODE2_T3* T_T3=NULL;
 	NODE_T3* l_T3=linkedlist_T3(f);
-	printf("sort_T3 : initialisation faite !\n");
 
 	T_T3 =fillNODE2_T3withNODE_T3(T_T3,l_T3, r);
-	printf("sort_T3 : fillNODE2_T3withNODE_T3 !\n");
 	fprintf(o,"# Day ID temperature hours\n");
-	printf("sort_T3 : fprintf !\n");
 	writeinfileNODE2_T3(o, T_T3, addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
-	printf("sort_T3 : writeinfileNODE2_T3 !\n");
 	freetreeNODE2_T3(T_T3);
-	printf("sort_T3 : freetreeNODE2_T3 !\n");
 	fclose(o);
 
-	printf("sort_T3 : fin !\n");
 	return 0;
 }
 
@@ -932,10 +914,10 @@ NODE2_P3* fillNODE2_P3withNODE_P3(NODE2_P3* t, NODE_P3* l, int r){
 	return t;
 }
 
-NODE2_P3* getthegreatestvalue(NODE2_P3* t){
+NODE2_P3* getthegreatestvalueP(NODE2_P3* t){
 	if (t!=0){
 		if(t->sr!=NULL){
-			return getthegreatestvalue(t->sr);
+			return getthegreatestvalueP(t->sr);
 		}
 		else return t;
 	}
@@ -944,16 +926,18 @@ NODE2_P3* getthegreatestvalue(NODE2_P3* t){
 
 void writeinfileNODE2_P3(FILE* o, NODE2_P3* t, MEASURE_P3 old_m){
 	// Each element of the tree is written in the output file.
-	// Format : "day ID pressure hours".
-	// The static list is freed at the end.
+	// Format : "day ID temperature hours".
 	if(t!=NULL){
-		writeinfileNODE2_P3(o, t->sl, addNODE_P3(NULL, 0, 0, 0, 0, 0, 0)->m);
-		if(t->sl ==NULL && old_m.id ==0 && old_m.year ==0 && old_m.month ==0 && old_m.day ==0 && old_m.hour ==0 && old_m.pressure ==0) producestring_P3(o, t->m, addNODE_P3(NULL, 0, 0, 0, 0, 0, 0)->m);
-		else if (t->sl ==NULL) producestring_P3(o, t->m, t->sl->m);
+		writeinfileNODE2_P3(o, t->sl, (getthegreatestvalueT(t->sl))->m);
+		if(t->sl ==NULL) producestring_P3(o, t->m, getthegreatestvalueT(t->sl)->m);
 		else producestring_P3(o, t->m, old_m);
-		writeinfileNODE2_P3(o, t->sr, t->m);
+		if(t->sr!=NULL){
+			if(t->sr->sl==NULL) writeinfileNODE2_P3(o, t->sr, t->m);
+			else {
+				writeinfileNODE2_P3(o, t->sr, getthegreatestvalueT(t->sr->sl)->m);
+			}
+		}
 	}
-	
 }
 
 int sort_P3(FILE* f, FILE* o, int r){
@@ -1425,67 +1409,3 @@ int sort_M(FILE* f, FILE* o, int r){
 
 	return 0;
 }
-
-/*
-------------------------------------------
-POUR XAVIER
-------------------------------------------
-*/
-
-/*
-NODE2_T3* addNODE2_T3(NODE2_T3* t, MEASURE_T3 m3, int r){
-	//A new node is added to the tree, and sorted.
-	if(t==NULL){
-		return createNODE2_T3(m3);
-	}else{
-		if((chronologicalorder_T3(m3, t->m) ==1 && r==1) || (chronologicalorder_T3(m3, t->t) ==0 && r==-1)){
-			if (t->sl !=NULL) t->sl =addNODE2_T3(t->sl, m3, r);
-			else t->sl =createNODE2_T3(m3);
-		} else if((chronologicalorder_T3(t->m, m3) ==1 && r==1) || (chronologicalorder_T3(t->m, m3) ==0 && r==-1)){
-			if (t->sr !=NULL) t->sr =addNODE2_T3(t->sr, m3, r);
-			else t->sr =createNODE2_T3(m3);
-		} else {
-			if(r* (t->s.id) > r*(m3.id)){
-				if (t->sl !=NULL) t->sl =addNODE2_T3(t->sl, m3, r);
-				else t->sl =createNODE2_T3(m3);
-			} else if(r* (t->m.id) < r*(m3.id)) {
-				if (t->sr !=NULL) t->sr =addNODE2_T3(t->sr, m3, r);
-				else t->sr =createNODE2_T3(m3);
-			} else {
-				return t;
-			}
-		}
-	}
-	
-	return t;
-}
-*/
-
-/*
-NODE2_P3* addNODE2_P3(NODE2_P3* t, MEASURE_P3 m3, int r){
-	//A new node is added to the tree, and sorted.
-	if(t==NULL){
-		return createNODE2_P3(m3);
-	}else{
-		if((chronologicalorder_P3(m3, t->m) ==1 && r==1) || (chronologicalorder_P3(m3, t->m) ==0 && r==-1)){
-			if (t->sl !=NULL) t->sl =addNODE2_P3(t->sl, m3, r);
-			else t->sl =createNODE2_P3(m3);
-		} else if((chronologicalorder_P3(t->m, m3) ==1 && r==1) || (chronologicalorder_P3(t->m, m3) ==0 && r==-1)){
-			if (t->sr !=NULL) t->sr =addNODE2_P3(t->sr, m3, r);
-			else t->sr =createNODE2_P3(m3);
-		} else {
-			if(r* (t->m.id) > r*(m3.id)){
-				if (t->sl !=NULL) t->sl =addNODE2_P3(t->sl, m3, r);
-				else t->sl =createNODE2_P3(m3);
-			} else if(r* (t->m.id) < r*(m3.id)) {
-				if (t->sr !=NULL) t->sr =addNODE2_P3(t->sr, m3, r);
-				else t->sr =createNODE2_P3(m3);
-			} else {
-				return t;
-			}
-		}
-	}
-	
-	return t;
-}
-*/
