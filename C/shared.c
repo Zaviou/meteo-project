@@ -59,7 +59,7 @@ void coordonate(int id, float* lat, float* lon){
 		*lat=47.15;
 		*lon=-1.609;
 	} else if (id ==7630) {
-		*lat=48.717;
+		*lat=43.621;
 		*lon=1.379;
 	} else if (id ==7149) {
 		*lat=48.717;
@@ -106,7 +106,7 @@ void coordonate(int id, float* lat, float* lon){
 	} else if (id ==7130) {
 		*lat=48.069;
 		*lon=-1.734;
-	} else if (id ==07240) {
+	} else if (id ==7240) {
 		*lat=47.445;
 		*lon=0.727;
 	} else if (id ==7110) {
@@ -140,7 +140,7 @@ void coordonate(int id, float* lat, float* lon){
 		*lat=43.188;
 		*lon=0;
 	} else if (id ==7027) {
-		*lat=49.787;
+		*lat=49.18;
 		*lon=-0.456;
 	} else if (id ==7460) {
 		*lat=45.787;
@@ -195,7 +195,7 @@ void coordonate(int id, float* lat, float* lon){
 		*lon=77.569;
 	} else if (id ==81401) {
 		*lat=5.486;
-		*lon=-5.032;
+		*lon=-54.032;
 	} else if (id ==89642) {
 		*lat=-66.663;
 		*lon=140.001;
@@ -215,7 +215,7 @@ void coordonate(int id, float* lat, float* lon){
 		*lat=49.21;
 		*lon=4.155;
 	} else if (id ==78922) {
-		*lat=14.225;
+		*lat=14.775;
 		*lon=-60.875;
 	} else if (id ==61972) {
 		*lat=-22.344;
@@ -229,8 +229,11 @@ void coordonate(int id, float* lat, float* lon){
 	} else if (id ==78890) {
 		*lat=16.335;
 		*lon=-61.004;
-	} else if (id ==6970) {
-		*lat=-17055;
+	} else if (id ==78894) {
+		*lat=17.902;
+		*lon=-62.852;
+	} else if (id ==61970) {
+		*lat=-17.055;
 		*lon=42.712;
 	} else {
 		*lat=0;
