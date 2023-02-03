@@ -148,13 +148,28 @@ do
 			esac
 			;;	
 		f)  # The -f option handles access to the data file. The user specifies the path to the file in its argument.
+			if [ $file -eq 1 ]
+			then
+				echo "You selected the same option twice !"
+				exit 1
+			fi
 			filename=$OPTARG
 			file=1
 			;;
 		r)  # If a descending sort is selected with -r, the associated variable goes from 0 to 1.
+			if [ $descendingsort -eq 1 ]
+			then
+				echo "You selected the same option twice !"
+				exit 1
+			fi
 			descendingsort=1
 			;;
 		t)  # The temperature option. Again, we use cases because it needs a mode that is specified by the user in its argument.
+			if [ $temperature -eq 1 ]
+			then
+				echo "You selected the same option twice !"
+				exit 1
+			fi
 			temperature=1
 			case "$OPTARG" in
 				1)
@@ -173,6 +188,11 @@ do
 			esac
 			;;
 		p) # The pressure option. Same structure as the -t option.
+			if [ $pressure -eq 1 ]
+			then
+				echo "You selected the same option twice !"
+				exit 1
+			fi
 			pressure=1
 			case "$OPTARG" in
 				1)
@@ -191,15 +211,36 @@ do
 			esac
 			;;
 		w) # The wind option.
+			if [ $wind -eq 1 ]
+			then
+				echo "You selected the same option twice !"
+				exit 1
+			fi
 			wind=1
 			;;
 		h) # The height option.
+			if [ $height -eq 1 ]
+			then
+				echo "You selected the same option twice !"
+				exit 1
+			fi
 			height=1
 			;;
 		m) # The moisture option.
+			if [ $moisture -eq 1 ]
+			then
+				echo "You selected the same option twice !"
+				exit 1
+			fi
 			moisture=1
 			;;
 		d)                            # The time option.Two dates are to be given by the user in this format : YYYY-MM-DDYYYY-MM-DD.
+			if [ $dates -eq 1 ]
+			then
+				echo "You selected the same option twice !"
+				exit 1
+			fi
+		                              # The time option.Two dates are to be given by the user in this format : YYYY-MM-DDYYYY-MM-DD.
 			lenght=${#OPTARG}     # It is a time interval, the first date needs to come before the second.
 			if [ $lenght -ne 20 ] # If the format is incorrect or if the first date comes after the second, an error occurs.
 			then
@@ -392,10 +433,15 @@ timeinterval()
 # If a place or a time interval was specified, the script activates the tempfile variable which means filtering is to be done.
 if [ $place -gt 0 ] || [ $dates -eq 1 ]
 then
-	tempfile=1
-	# Previous files are removed as a security measure.
-	rm ./C/data/tempplace.txt
-	rm ./C/data/temptimeandplace.txt
+	tempfile=1	# Previous files are removed as a security measure.
+	if [ -e ./C/data/tempplace.txt ]
+	then
+		rm ./C/data/tempplace.txt
+	fi
+	if [ -e ./C/data/temptimeandplace.txt ]
+	then
+		rm ./C/data/temptimeandplace.txt
+	fi
 	# The script creates files which serve to filter separately the places and the dates.
 	touch ./C/data/tempplace.txt
 	touch ./C/data/temptimeandplace.txt
@@ -979,5 +1025,6 @@ if [ $moisture = "1" ];then
 fi
 
 # If no error occured, then the program comes to its end with a 0 exit.
+echo " "
 echo "The program executed successfully."
 exit 0
