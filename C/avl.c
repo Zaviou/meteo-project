@@ -928,13 +928,13 @@ void writeinfileNODE2_P3(FILE* o, NODE2_P3* t, MEASURE_P3 old_m){
 	// Each element of the tree is written in the output file.
 	// Format : "day ID temperature hours".
 	if(t!=NULL){
-		writeinfileNODE2_P3(o, t->sl, (getthegreatestvalueT(t->sl))->m);
-		if(t->sl ==NULL) producestring_P3(o, t->m, getthegreatestvalueT(t->sl)->m);
+		writeinfileNODE2_P3(o, t->sl, (getthegreatestvalueP(t->sl))->m);
+		if(t->sl ==NULL) producestring_P3(o, t->m, getthegreatestvalueP(t->sl)->m);
 		else producestring_P3(o, t->m, old_m);
 		if(t->sr!=NULL){
 			if(t->sr->sl==NULL) writeinfileNODE2_P3(o, t->sr, t->m);
 			else {
-				writeinfileNODE2_P3(o, t->sr, getthegreatestvalueT(t->sr->sl)->m);
+				writeinfileNODE2_P3(o, t->sr, getthegreatestvalueP(t->sr->sl)->m);
 			}
 		}
 	}
