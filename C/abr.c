@@ -253,18 +253,31 @@ ABR_NODE2_T3* fillABR_NODE2_T3withNODE_T3(ABR_NODE2_T3* t, NODE_T3* l, int r){
 	return t;
 }
 
+
+ABR_NODE2_T3* ABR_getthegreatestvalueT(ABR_NODE2_T3* t){
+	if (t!=0){
+		if(t->sr!=NULL){
+			return ABR_getthegreatestvalueT(t->sr);
+		}
+		else return t;
+	}
+	return createABR_NODE2_T3(addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
+}
+
 void writeinfileABR_NODE2_T3(FILE* o, ABR_NODE2_T3* t, MEASURE_T3 old_m){
 	// Each element of the tree is written in the output file.
 	// Format : "day ID temperature hours".
-	// The static list is freed at the end.
 	if(t!=NULL){
-		writeinfileABR_NODE2_T3(o, t->sl, addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
-		if(t->sl ==NULL && old_m.id ==0 && old_m.year ==0 && old_m.month ==0 && old_m.day ==0 && old_m.hour ==0 && old_m.temperature ==0) producestring_T3(o, t->m, addNODE_T3(NULL, 0, 0, 0, 0, 0, 0)->m);
-		else if (t->sl ==NULL) producestring_T3(o, t->m, t->sl->m);
+		writeinfileABR_NODE2_T3(o, t->sl, (ABR_getthegreatestvalueT(t->sl))->m);
+		if(t->sl ==NULL) producestring_T3(o, t->m, ABR_getthegreatestvalueT(t->sl)->m);
 		else producestring_T3(o, t->m, old_m);
-		writeinfileABR_NODE2_T3(o, t->sr, t->m);
+		if(t->sr!=NULL){
+			if(t->sr->sl==NULL) writeinfileABR_NODE2_T3(o, t->sr, t->m);
+			else {
+				writeinfileABR_NODE2_T3(o, t->sr, ABR_getthegreatestvalueT(t->sr->sl)->m);
+			}
+		}
 	}
-	
 }
 
 int ABR_sort_T3(FILE* f, FILE* o, int r){
@@ -486,6 +499,7 @@ ABR_NODE2_P3* createABR_NODE2_P3(MEASURE_P3 m3){
 
 ABR_NODE2_P3* addABR_NODE2_P3(ABR_NODE2_P3* t, MEASURE_P3 p3,  int r){
 	//A new node is added to the tree, and sorted.
+	//printf("SIUUUUUUU\n");
 	if(t==NULL){
 		return createABR_NODE2_P3(p3);
 	}else{
@@ -522,18 +536,30 @@ ABR_NODE2_P3* fillABR_NODE2_P3withNODE_P3(ABR_NODE2_P3* t, NODE_P3* l, int r){
 	return t;
 }
 
+ABR_NODE2_P3* ABR_getthegreatestvalueP(ABR_NODE2_P3* t){
+	if (t!=0){
+		if(t->sr!=NULL){
+			return ABR_getthegreatestvalueP(t->sr);
+		}
+		else return t;
+	}
+	return createABR_NODE2_P3(addNODE_P3(NULL, 0, 0, 0, 0, 0, 0)->m);
+}
+
 void writeinfileABR_NODE2_P3(FILE* o, ABR_NODE2_P3* t, MEASURE_P3 old_m){
 	// Each element of the tree is written in the output file.
-	// Format : "day ID pressure hours".
-	// The static list is freed at the end.
+	// Format : "day ID temperature hours".
 	if(t!=NULL){
-		writeinfileABR_NODE2_P3(o, t->sl, addNODE_P3(NULL, 0, 0, 0, 0, 0, 0)->m);
-		if(t->sl ==NULL && old_m.id ==0 && old_m.year ==0 && old_m.month ==0 && old_m.day ==0 && old_m.hour ==0 && old_m.pressure ==0) producestring_P3(o, t->m, addNODE_P3(NULL, 0, 0, 0, 0, 0, 0)->m);
-		else if (t->sl ==NULL) producestring_P3(o, t->m, t->sl->m);
+		writeinfileABR_NODE2_P3(o, t->sl, (ABR_getthegreatestvalueP(t->sl))->m);
+		if(t->sl ==NULL) producestring_P3(o, t->m, ABR_getthegreatestvalueP(t->sl)->m);
 		else producestring_P3(o, t->m, old_m);
-		writeinfileABR_NODE2_P3(o, t->sr, t->m);
+		if(t->sr!=NULL){
+			if(t->sr->sl==NULL) writeinfileABR_NODE2_P3(o, t->sr, t->m);
+			else {
+				writeinfileABR_NODE2_P3(o, t->sr, ABR_getthegreatestvalueP(t->sr->sl)->m);
+			}
+		}
 	}
-	
 }
 
 int ABR_sort_P3(FILE* f, FILE* o, int r){

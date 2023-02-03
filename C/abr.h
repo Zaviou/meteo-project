@@ -313,40 +313,6 @@ Specifically used when temprature with mode 3 was chosen.
 ABR_NODE2_T3* createABR_NODE2_T3(MEASURE_T3  t3) ;
 
 /*
-This function is called to modificate the order of nodes in the tree to make it balanced.
-* t : given tree (ABR_NODE2_T3*).
-Specifically used when temprature with mode 3 was chosen.
-*/
-ABR_NODE2_T3* rotateleftABR_NODE2_T3(ABR_NODE2_T3* t);
-
-/*
-This function is called to modificate the place of nodes in the tree to make it balanced.
-* t : given tree (ABR_NODE2_T3*).
-Specifically used when temprature with mode 3 was chosen.
-*/
-ABR_NODE2_T3* rotaterightABR_NODE2_T3(ABR_NODE2_T2* t);
-
-/*
-This function is called to modificate the order of nodes in the tree to make it balanced.
-* t : given tree (ABR_NODE2_T3*).
-Specifically used when temprature with mode 3 was chosen.
-*/
-ABR_NODE2_T3 doublerotateleftABR_NODE2_T3(ABR_NODE2_T3* t);
-
-/*
-This function is called to modificate the order of nodes in the tree to make it balanced.
-* t : given tree (ABR_NODE2_T3*).
-Specifically used when temprature with mode 3 was chosen.*/
-ABR_NODE2_T3* doublerotaterightABR_NODE2_T3(ABR_NODE2_T3* t);
-
-/*
-This function is called to chose which modification of a tree to do to make it balanced.
-* t : given tree (ABR_NODE2_T3*).
-Specifically used when temprature with mode 3 was chosen.
-*/
-ABR_NODE2_T3* rebalanceABR_NODE2_T3 (ABR_NODE2_T3* t);
-
-/*
 This function is called to add it as a node to t, together with pressure measures.
 * t : given tree (ABR_NODE2_T3*).
 * t3 : (MEASURE_T3 ).
@@ -372,6 +338,14 @@ This function is called to add it as a node to t, together with pressure measure
 Specifically used when temprature with mode 3 was chosen.
 */
 void writeinfileABR_NODE2_T3(FILE* o, ABR_NODE2_T3* t, MEASURE_T3 old_m) ;
+
+/*
+This function is called to get te greatest value of a tree.
+* t : given tree (NODE2_T3*).
+Specifically used when temprature with mode 3 was chosen.
+*/
+ABR_NODE2_T3* ABR_getthegreatestvalueT(ABR_NODE2_T3* t);
+
 
 /*
 A sorting function used to produce the output file when temperature with mode 3 was chosen.
@@ -528,45 +502,6 @@ Specifically used when pressure with mode 3 was chosen.
 */
 ABR_NODE2_P3* createABR_NODE2_P3(MEASURE_P3  p3) ;
 
-/*
-This function is called to modificate the order of nodes in the tree to make it balanced.
-* t : given tree (ABR_NODE2_P3*).
-Specifically used when pressure with mode 3 was chosen.
-*/
-
-ABR_NODE2_P3* rotateleftABR_NODE2_P3(ABR_NODE2_P3* t);
-
-/*
-This function is called to modificate the place of nodes in the tree to make it balanced.
-* t : given tree (ABR_NODE2_P3*).
-Specifically used when pressure with mode 3 was chosen.
-*/
-
-ABR_NODE2_P3* rotaterightABR_NODE2_P3(ABR_NODE2_P3* t);
-
-/*
-This function is called to modificate the order of nodes in the tree to make it balanced.
-* t : given tree (ABR_NODE2_P3*).
-Specifically used when pressure with mode 3 was chosen.
-*/
-
-ABR_NODE2_P3* doublerotateleftABR_NODE2_P3(ABR_NODE2_P3* t);
-
-/*
-This function is called to modificate the order of nodes in the tree to make it balanced.
-* t : given tree (ABR_NODE2_P3*).
-Specifically used when pressure with mode 3 was chosen.
-*/
-
-ABR_NODE2_P3* doublerotaterightABR_NODE2_P3(ABR_NODE2_P3* t);
-
-/*
-This function is called to chose which modification of a tree to do to make it balanced.
-* t : given tree (ABR_NODE2_P3*).
-Specifically used when pressure with mode 3 was chosen.
-*/
-
-ABR_NODE2_P3* rebalanceABR_NODE2_P3(ABR_NODE2_P3* t);
 
 /*
 This function is called to add it as a node to t, together with pressure measures.
@@ -597,6 +532,13 @@ Specifically used when pressure with mode 3 was chosen.
 */
 
 void writeinfileABR_NODE2_P3(FILE* o, ABR_NODE2_P3* t, MEASURE_P3 old_m) ;
+
+/*
+This function is called to get te greatest value of a tree.
+* t : given tree (NODE2_P3*).
+Specifically used when temprature with mode 3 was chosen.
+*/
+ABR_NODE2_P3* ABR_getthegreatestvalueP(ABR_NODE2_P3* t);
 
 /*
 A sorting function used to produce the output file when pressure with mode 3 was chosen.
