@@ -924,7 +924,6 @@ else
 		fi
 	fi
 fi
-echo "C is done"
 
 # 5) USING GNUPLOT
 
@@ -953,7 +952,6 @@ if [ -e "./C/data/temp_M.csv" ]
 then
 	mv ./C/data/temp_M.csv ./Gnuplot/data/temp_M.csv
 fi
-echo "mv is done"
 
 # Gnuplot is then used on the sorted files to produce graphics
 if [ $temperature = "1" ];then
