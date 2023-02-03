@@ -148,28 +148,13 @@ do
 			esac
 			;;	
 		f)  # The -f option handles access to the data file. The user specifies the path to the file in its argument.
-			if [ $file -eq 1 ]
-			then
-				echo "You selected the same option twice !"
-				exit 1
-			fi
 			filename=$OPTARG
 			file=1
 			;;
 		r)  # If a descending sort is selected with -r, the associated variable goes from 0 to 1.
-			if [ $descendingsort -eq 1 ]
-			then
-				echo "You selected the same option twice !"
-				exit 1
-			fi
 			descendingsort=1
 			;;
 		t)  # The temperature option. Again, we use cases because it needs a mode that is specified by the user in its argument.
-			if [ $temperature -eq 1 ]
-			then
-				echo "You selected the same option twice !"
-				exit 1
-			fi
 			temperature=1
 			case "$OPTARG" in
 				1)
@@ -188,11 +173,6 @@ do
 			esac
 			;;
 		p) # The pressure option. Same structure as the -t option.
-			if [ $pressure -eq 1 ]
-			then
-				echo "You selected the same option twice !"
-				exit 1
-			fi
 			pressure=1
 			case "$OPTARG" in
 				1)
@@ -211,36 +191,15 @@ do
 			esac
 			;;
 		w) # The wind option.
-			if [ $wind -eq 1 ]
-			then
-				echo "You selected the same option twice !"
-				exit 1
-			fi
 			wind=1
 			;;
 		h) # The height option.
-			if [ $height -eq 1 ]
-			then
-				echo "You selected the same option twice !"
-				exit 1
-			fi
 			height=1
 			;;
 		m) # The moisture option.
-			if [ $moisture -eq 1 ]
-			then
-				echo "You selected the same option twice !"
-				exit 1
-			fi
 			moisture=1
 			;;
-		d)                    
-			if [ $dates -eq 1 ]
-			then
-				echo "You selected the same option twice !"
-				exit 1
-			fi
-		                              # The time option.Two dates are to be given by the user in this format : YYYY-MM-DDYYYY-MM-DD.
+		d)                            # The time option.Two dates are to be given by the user in this format : YYYY-MM-DDYYYY-MM-DD.
 			lenght=${#OPTARG}     # It is a time interval, the first date needs to come before the second.
 			if [ $lenght -ne 20 ] # If the format is incorrect or if the first date comes after the second, an error occurs.
 			then
@@ -435,14 +394,8 @@ if [ $place -gt 0 ] || [ $dates -eq 1 ]
 then
 	tempfile=1
 	# Previous files are removed as a security measure.
-	if [ -e ./C/data/tempplace.txt ]
-	then
-		rm ./C/data/tempplace.txt
-	fi
-	if [ -e ./C/data/temptimeandplace.txt ]
-	then
-		rm ./C/data/temptimeandplace.txt
-	fi
+	rm ./C/data/tempplace.txt
+	rm ./C/data/temptimeandplace.txt
 	# The script creates files which serve to filter separately the places and the dates.
 	touch ./C/data/tempplace.txt
 	touch ./C/data/temptimeandplace.txt
@@ -613,7 +566,7 @@ then
 				# Pressure mode 2 fields : Time,pressure
 				cut --delimiter=";" --fields=2,7 ./C/data/file.txt >> ./C/data/temppressure.csv
 			else
-				echo "0013000" > ./C/data/temppressure.csv
+				echo "0013000" > ./C/data/temppressure.txt
 				# Pressure mode 3 fields : ID,time,pressure,
 				cut --delimiter=";" --fields=1,2,7 ./C/data/file.txt >> ./C/data/temppressure.csv
 			fi
@@ -660,10 +613,10 @@ else
 		else
 			if [ $temperaturemode -eq 2 ]
 			then
-				echo "1200000" > ./C/data/temptemperature.csv
+				echo "1200000" > ./C/data/temptemperature.txt
 				cut --delimiter=";" --fields=2,11 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 			else
-				echo "1300000" > ./C/data/temptemperature.csv
+				echo "1300000" > ./C/data/temptemperature.txt
 				cut --delimiter=";" --fields=1,2,11 ./C/data/temptimeandplace.txt >> ./C/data/temptemperature.csv
 			fi
 		fi
@@ -680,10 +633,10 @@ else
 		else
 			if [ $pressuremode -eq 2 ]
 			then
-				echo "0012000" > ./C/data/temppressure.csv
+				echo "0012000" > ./C/data/temppressure.txt
 				cut --delimiter=";" --fields=2,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 			else
-				echo "0013000" > ./C/data/temppressure.csv
+				echo "0013000" > ./C/data/temppressure.txt
 				cut --delimiter=";" --fields=1,2,7 ./C/data/temptimeandplace.txt >> ./C/data/temppressure.csv
 			fi
 		fi
@@ -925,7 +878,7 @@ else
 		fi
 	fi
 fi
-
+echo "C is done"
 
 # 5) USING GNUPLOT
 
@@ -954,6 +907,7 @@ if [ -e "./C/data/temp_M.csv" ]
 then
 	mv ./C/data/temp_M.csv ./Gnuplot/data/temp_M.csv
 fi
+echo "mv is done"
 
 # Gnuplot is then used on the sorted files to produce graphics
 if [ $temperature = "1" ];then
@@ -977,6 +931,7 @@ if [ $temperature = "1" ];then
 					eog 'load_T2'
 				fi
 	elif [ $temperaturemode = "3" ];then
+				echo "temperaturemode"
 				gnuplot "./Gnuplot/gnuT3.sh"
 				eog 'load_T3'
 	fi
@@ -1024,6 +979,5 @@ if [ $moisture = "1" ];then
 fi
 
 # If no error occured, then the program comes to its end with a 0 exit.
-echo " "
 echo "The program executed successfully."
 exit 0
