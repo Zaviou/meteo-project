@@ -142,6 +142,9 @@ Note : In some cases, data is missing on a line and nothing is written in certai
   + Specifications (PDF)  
   + General informations (PDF)  
 
++ **Examples directory :**  
+  + [Examples]  (pnj)
+
 
 **Libraries used** : stdio.h ; stdlib.h ; string.h
 
