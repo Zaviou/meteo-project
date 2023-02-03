@@ -124,7 +124,7 @@ int main(int number_of_arguments , char** list_of_arguments){
 				sort_W(f, o, 1);
 			}
 			else if(moisture==1){
-				sort_W(f, o, 1);
+				sort_M(f, o, 1);
 			}
 			else if(pressure_1==1){
 				sort_P1(f, o, 1);
